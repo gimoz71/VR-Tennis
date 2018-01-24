@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -277,8 +277,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.19230178, y: 0.26093727, z: 0.021490356}
-  m_Center: {x: 0.000015199184, y: 0.27432293, z: -0.0028019645}
+  m_Size: {x: 0.19230178, y: 0.26093727, z: 0.15945826}
+  m_Center: {x: 0.000015199184, y: 0.27432293, z: -0.010089938}
 --- !u!54 &658499100
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -825,7 +825,7 @@ TrailRenderer:
   m_Time: 0.1
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 1
+    widthMultiplier: 0.79
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -836,14 +836,14 @@ TrailRenderer:
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
-        time: 1
-        value: 0.1
+        time: 0.997345
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
+      m_RotationOrder: 0
     colorGradient:
       serializedVersion: 2
       key0: {r: 0, g: 1, b: 0.25490198, a: 1}
