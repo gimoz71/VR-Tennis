@@ -38,15 +38,15 @@ namespace SparkVR
         void Update()
         {
 #if STEAM_VR
-            if(InputComp.TriggerDown)
-            {
-                SpawnBall();
-            }
-
-            if(InputComp.PadPressDown)
-            {
-                gameMode.ResetPos();
-            }
+//            if(InputComp.TriggerDown)
+//            {
+//                SpawnBall();
+//            }
+//
+//            if(InputComp.PadPressDown)
+//            {
+//                gameMode.ResetPos();
+//            }
 #endif
             if (Input.GetKeyDown(KeyCode.Space))
             {
