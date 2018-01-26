@@ -2,23 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallSpawn : MonoBehaviour {
-	
-	public GameObject Prefab;
-	public Transform playerTransform;
+namespace Valve.VR.InteractionSystem {
 
+	[RequireComponent( typeof( Interactable ) )]
 
-	// Use this for initialization
-	void Start () {
+	public class BallSpawn : MonoBehaviour {
 		
-	}
+		public GameObject Prefab;
+		public Transform playerTransform;
 
-	// Update is called once per frame
-	void Update () {
 
-	}
-	void onMouseDown () {
-		Debug.Log("CLICK!");
-		GameObject obj=Instantiate(Prefab,playerTransform.position, Quaternion.identity) as GameObject;
+		// Use this for initialization
+		void Start () {
+			//Prefab = GameObject.Find("ThrowableBall");
+			//playerTransform = GameObject.Find("BallSpawnPoint").transform;
+
+		}
+
+		// Update is called once per frame
+		void Update () {
+			
+		}
+
+		private void HandHoverUpdate( Hand hand )
+		{
+			if ( hand.GetStandardInteractionButtonDown() || ( ( hand.controller != null ) && hand.controller.GetPressDown( Valve.VR.EVRButtonId.k_EButton_Grip ) ) )
+			{
+				Debug.Log("Pressed left click.");
+				Debug.Log("CLICK!");
+				GameObject obj=Instantiate(Prefab,playerTransform.position, Quaternion.identity) as GameObject;
+			}
+		}
 	}
 }
+
+
