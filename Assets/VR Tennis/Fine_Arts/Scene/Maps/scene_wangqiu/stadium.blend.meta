@@ -1,0 +1,179 @@
+fileFormatVersion: 2
+guid: 8cfdbf51768037d46bc588e6597a5ac9
+timeCreated: 1517322089
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Cube
+    100002: Cube_001
+    100004: desie
+    100006: desie_001
+    100008: Empty
+    100010: Plane
+    100012: //RootNode
+    100014: Cylinder_000
+    100016: Cylinder_001
+    100018: Cylinder_002
+    100020: Sphere
+    100022: Sphere_001
+    100024: sedie
+    100026: sedie_2
+    100028: Cylinder_003
+    100030: Cylinder_004
+    100032: Sphere_002
+    100034: Sphere_003
+    100036: Cube_002
+    400000: Cube
+    400002: Cube_001
+    400004: desie
+    400006: desie_001
+    400008: Empty
+    400010: Plane
+    400012: //RootNode
+    400014: Cylinder_000
+    400016: Cylinder_001
+    400018: Cylinder_002
+    400020: Sphere
+    400022: Sphere_001
+    400024: sedie
+    400026: sedie_2
+    400028: Cylinder_003
+    400030: Cylinder_004
+    400032: Sphere_002
+    400034: Sphere_003
+    400036: Cube_002
+    2100000: unnamed
+    2300000: Cube
+    2300002: Cube_001
+    2300004: desie
+    2300006: desie_001
+    2300008: Plane
+    2300010: Cylinder_000
+    2300012: Cylinder_001
+    2300014: Cylinder_002
+    2300016: Sphere
+    2300018: Sphere_001
+    2300020: sedie
+    2300022: sedie_2
+    2300024: Cylinder_003
+    2300026: Cylinder_004
+    2300028: Sphere_002
+    2300030: Sphere_003
+    2300032: Cube_002
+    3300000: Cube
+    3300002: Cube_001
+    3300004: desie
+    3300006: desie_001
+    3300008: Plane
+    3300010: Cylinder_000
+    3300012: Cylinder_001
+    3300014: Cylinder_002
+    3300016: Sphere
+    3300018: Sphere_001
+    3300020: sedie
+    3300022: sedie_2
+    3300024: Cylinder_003
+    3300026: Cylinder_004
+    3300028: Sphere_002
+    3300030: Sphere_003
+    3300032: Cube_002
+    4300000: desie_001
+    4300002: Cube_001
+    4300004: desie
+    4300006: Cube
+    4300008: Plane
+    4300010: Cylinder_000
+    4300012: Sphere_001
+    4300014: Cylinder_002
+    4300016: Sphere
+    4300018: Cylinder_001
+    4300020: sedie_2
+    4300022: sedie
+    4300024: Cylinder_004
+    4300026: Sphere_003
+    4300028: Cylinder_003
+    4300030: Sphere_002
+    4300032: Cube_002
+    7400000: Default Take
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

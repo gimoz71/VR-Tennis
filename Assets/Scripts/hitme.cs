@@ -17,8 +17,7 @@ namespace Valve.VR.InteractionSystem {
 
 		void OnTriggerEnter(Collider other)
 		{
-				Debug.Log("triggerenter");
-				Pulse();
+			Pulse();
 		}
 
 		private void Pulse()
