@@ -24,6 +24,9 @@ ModelImporter:
     100032: Sphere_002
     100034: Sphere_003
     100036: Cube_002
+    100038: Plane001
+    100040: Plane001_001
+    100042: Plane001_002
     400000: Cube
     400002: Cube_001
     400004: desie
@@ -43,7 +46,14 @@ ModelImporter:
     400032: Sphere_002
     400034: Sphere_003
     400036: Cube_002
+    400038: Plane001
+    400040: Plane001_001
+    400042: Plane001_002
     2100000: unnamed
+    2100002: 01_-_Default
+    2100004: Material__25
+    2100006: 01_-_Default__Map__2
+    2100008: Material__25__Map__2
     2300000: Cube
     2300002: Cube_001
     2300004: desie
@@ -61,6 +71,9 @@ ModelImporter:
     2300028: Sphere_002
     2300030: Sphere_003
     2300032: Cube_002
+    2300034: Plane001
+    2300036: Plane001_001
+    2300038: Plane001_002
     3300000: Cube
     3300002: Cube_001
     3300004: desie
@@ -78,6 +91,9 @@ ModelImporter:
     3300028: Sphere_002
     3300030: Sphere_003
     3300032: Cube_002
+    3300034: Plane001
+    3300036: Plane001_001
+    3300038: Plane001_002
     4300000: desie_001
     4300002: Cube_001
     4300004: desie
@@ -95,6 +111,9 @@ ModelImporter:
     4300028: Cylinder_003
     4300030: Sphere_002
     4300032: Cube_002
+    4300034: Plane001
+    4300036: Plane001_001
+    4300038: Plane001_002
     7400000: Default Take
     9500000: //RootNode
   externalObjects: {}
@@ -149,7 +168,7 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 0
+    normalImportMode: 1
     tangentImportMode: 3
     normalCalculationMode: 4
   importAnimation: 1

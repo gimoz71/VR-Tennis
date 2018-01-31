@@ -8,6 +8,7 @@ public class BatCapsule : MonoBehaviour
     {
         var follower = Instantiate(_batCapsuleFollowerPrefab);
         follower.transform.position = transform.position;
+		follower.transform.localScale = transform.localScale;
         follower.SetFollowTarget(this);
     }
 

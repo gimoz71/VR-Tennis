@@ -24,7 +24,6 @@ namespace Valve.VR.InteractionSystem {
 			if ( hand.GetStandardInteractionButtonDown() || ( ( hand.controller != null ) && hand.controller.GetPressDown( Valve.VR.EVRButtonId.k_EButton_Grip ) ) )
 			{
 				GameObject obj=Instantiate(Prefab,playerTransform.position, Quaternion.identity) as GameObject;
-				hand.controller.TriggerHapticPulse(2500);
 			}
 		}
 	}
