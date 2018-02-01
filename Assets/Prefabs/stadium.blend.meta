@@ -27,6 +27,25 @@ ModelImporter:
     100038: Plane001
     100040: Plane001_001
     100042: Plane001_002
+    100044: area_di_gioco
+    100046: area_esterna_campo
+    100048: desie_curva
+    100050: landscape
+    100052: mirror_fulcro
+    100054: pilone2
+    100056: pilone_1
+    100058: pilone_3
+    100060: pilone_4
+    100062: recinto
+    100064: rete
+    100066: sedie_lati
+    100068: tribuna_curva
+    100070: tribuna_lati
+    100072: area_di_gioco_001
+    100074: area_di_gioco_002
+    100076: area_di_gioco_003
+    100078: area_di_gioco_004
+    100080: area_di_gioco_005
     400000: Cube
     400002: Cube_001
     400004: desie
@@ -49,11 +68,32 @@ ModelImporter:
     400038: Plane001
     400040: Plane001_001
     400042: Plane001_002
+    400044: area_di_gioco
+    400046: area_esterna_campo
+    400048: desie_curva
+    400050: landscape
+    400052: mirror_fulcro
+    400054: pilone2
+    400056: pilone_1
+    400058: pilone_3
+    400060: pilone_4
+    400062: recinto
+    400064: rete
+    400066: sedie_lati
+    400068: tribuna_curva
+    400070: tribuna_lati
+    400072: area_di_gioco_001
+    400074: area_di_gioco_002
+    400076: area_di_gioco_003
+    400078: area_di_gioco_004
+    400080: area_di_gioco_005
     2100000: unnamed
     2100002: 01_-_Default
     2100004: Material__25
     2100006: 01_-_Default__Map__2
     2100008: Material__25__Map__2
+    2100010: None__green_jpg
+    2100012: None__sponsors_png
     2300000: Cube
     2300002: Cube_001
     2300004: desie
@@ -74,6 +114,24 @@ ModelImporter:
     2300034: Plane001
     2300036: Plane001_001
     2300038: Plane001_002
+    2300040: area_di_gioco
+    2300042: area_esterna_campo
+    2300044: desie_curva
+    2300046: landscape
+    2300048: pilone2
+    2300050: pilone_1
+    2300052: pilone_3
+    2300054: pilone_4
+    2300056: recinto
+    2300058: rete
+    2300060: sedie_lati
+    2300062: tribuna_curva
+    2300064: tribuna_lati
+    2300066: area_di_gioco_001
+    2300068: area_di_gioco_002
+    2300070: area_di_gioco_003
+    2300072: area_di_gioco_004
+    2300074: area_di_gioco_005
     3300000: Cube
     3300002: Cube_001
     3300004: desie
@@ -94,6 +152,24 @@ ModelImporter:
     3300034: Plane001
     3300036: Plane001_001
     3300038: Plane001_002
+    3300040: area_di_gioco
+    3300042: area_esterna_campo
+    3300044: desie_curva
+    3300046: landscape
+    3300048: pilone2
+    3300050: pilone_1
+    3300052: pilone_3
+    3300054: pilone_4
+    3300056: recinto
+    3300058: rete
+    3300060: sedie_lati
+    3300062: tribuna_curva
+    3300064: tribuna_lati
+    3300066: area_di_gioco_001
+    3300068: area_di_gioco_002
+    3300070: area_di_gioco_003
+    3300072: area_di_gioco_004
+    3300074: area_di_gioco_005
     4300000: desie_001
     4300002: Cube_001
     4300004: desie
@@ -114,6 +190,24 @@ ModelImporter:
     4300034: Plane001
     4300036: Plane001_001
     4300038: Plane001_002
+    4300040: rete
+    4300042: area_esterna_campo
+    4300044: area_di_gioco
+    4300046: recinto
+    4300048: pilone_1
+    4300050: pilone2
+    4300052: pilone_4
+    4300054: pilone_3
+    4300056: desie_curva
+    4300058: tribuna_curva
+    4300060: sedie_lati
+    4300062: tribuna_lati
+    4300064: landscape
+    4300066: area_di_gioco_004
+    4300068: area_di_gioco_003
+    4300070: area_di_gioco_002
+    4300072: area_di_gioco_001
+    4300074: area_di_gioco_005
     7400000: Default Take
     9500000: //RootNode
   externalObjects: {}
