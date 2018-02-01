@@ -46,6 +46,12 @@ ModelImporter:
     100076: area_di_gioco_003
     100078: area_di_gioco_004
     100080: area_di_gioco_005
+    100082: area_verde
+    100084: cordone_rete
+    100086: guardiano_linea
+    100088: linee_bianche
+    100090: piloncini_rete
+    100092: recinto_campo
     400000: Cube
     400002: Cube_001
     400004: desie
@@ -87,6 +93,12 @@ ModelImporter:
     400076: area_di_gioco_003
     400078: area_di_gioco_004
     400080: area_di_gioco_005
+    400082: area_verde
+    400084: cordone_rete
+    400086: guardiano_linea
+    400088: linee_bianche
+    400090: piloncini_rete
+    400092: recinto_campo
     2100000: unnamed
     2100002: 01_-_Default
     2100004: Material__25
@@ -132,6 +144,12 @@ ModelImporter:
     2300070: area_di_gioco_003
     2300072: area_di_gioco_004
     2300074: area_di_gioco_005
+    2300076: area_verde
+    2300078: cordone_rete
+    2300080: guardiano_linea
+    2300082: linee_bianche
+    2300084: piloncini_rete
+    2300086: recinto_campo
     3300000: Cube
     3300002: Cube_001
     3300004: desie
@@ -170,6 +188,12 @@ ModelImporter:
     3300070: area_di_gioco_003
     3300072: area_di_gioco_004
     3300074: area_di_gioco_005
+    3300076: area_verde
+    3300078: cordone_rete
+    3300080: guardiano_linea
+    3300082: linee_bianche
+    3300084: piloncini_rete
+    3300086: recinto_campo
     4300000: desie_001
     4300002: Cube_001
     4300004: desie
@@ -208,11 +232,17 @@ ModelImporter:
     4300070: area_di_gioco_002
     4300072: area_di_gioco_001
     4300074: area_di_gioco_005
+    4300076: piloncini_rete
+    4300078: cordone_rete
+    4300080: linee_bianche
+    4300082: guardiano_linea
+    4300084: area_verde
+    4300086: recinto_campo
     7400000: Default Take
     9500000: //RootNode
   externalObjects: {}
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 1
