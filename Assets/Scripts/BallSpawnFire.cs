@@ -28,10 +28,10 @@ namespace Valve.VR.InteractionSystem {
 		// Update is called once per frame
 		void Update () {
 			
-			if ( Input.GetMouseButtonDown(0) )
+			/*if ( Input.GetMouseButtonDown(0) )
 			{
 				fire();
-			}
+			}*/
 
 			/*x = Random.Range(-1, 1);
 			y = 1;
