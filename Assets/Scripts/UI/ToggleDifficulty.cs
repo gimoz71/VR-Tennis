@@ -32,27 +32,35 @@ public class ToggleDifficulty : MonoBehaviour {
         targetRotation = Quaternion.Euler(0, Random.Range(_min, _max), 0);
         targetParent.transform.localRotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 15.0f);
 
-        if (livello1.isOn) {
-			_target.transform.position = targetLivello1.transform.position;
+		if (livello1.isOn) {
 			Debug.Log("Livello1");
+
+			// Difficoltà palla
+			_target.transform.position = targetLivello1.transform.position;
             _min = -4;
             _max = 4;
 
 		} else if (livello2.isOn) {
-			_target.transform.position = targetLivello2.transform.position;
 			Debug.Log("Livello2");
+
+			// Difficoltà palla
+			_target.transform.position = targetLivello2.transform.position;
             _min = -8;
             _max = 8;
 
-        } else if (livello3.isOn) {
-			_target.transform.position = targetLivello3.transform.position;
+		} else if (livello3.isOn) {
 			Debug.Log("Livello3");
+
+			// Difficoltà palla
+			_target.transform.position = targetLivello3.transform.position;
             _min = -12;
             _max = 12;
 
-        } else if (livello4.isOn) {
+		} else if (livello4.isOn) {
+			Debug.Log("Livello4");
+
+			// Difficoltà palla
             _target.transform.position = targetLivello4.transform.position;
-            Debug.Log("Livello4");
             _min = -16;
             _max = 16;
 

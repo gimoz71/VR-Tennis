@@ -13,33 +13,25 @@ namespace Valve.VR.InteractionSystem {
 		public Transform target;
 		public Transform source;
 		public int pulseForce;
+		public GameObject GetActiveToggle;
 
-		/*float x;
-		float y;
-		float z;
-		Vector3 pos;*/
+		public int delay = 1;
+		public int times = 5;
 
-		Vector3 pulse = new Vector3 (3,1,0);
+		public ToggleDifficulty _ToggleDifficulty;
 
-		// Use this for initialization
 		void Start () {
 		}
 
 		// Update is called once per frame
 		void Update () {
 			
-			/*if ( Input.GetMouseButtonDown(0) )
-			{
-				fire();
-			}*/
-
-			/*x = Random.Range(-1, 1);
-			y = 1;
-			z = Random.Range(-1, 1);
-			pos = new Vector3(x, y, z);
-			target.position = pos;*/
 		}
 
+		public void SerialFire() {
+			StartCoroutine (MyCounter(delay, times));
+		}
+		// spara palline con il controller del Vive
 		private void HandHoverUpdate( Hand hand )
 		{
 			if ( hand.GetStandardInteractionButtonDown() || ( ( hand.controller != null ) && hand.controller.GetPressDown( Valve.VR.EVRButtonId.k_EButton_Grip ) ) )
@@ -48,12 +40,21 @@ namespace Valve.VR.InteractionSystem {
 			}
 		}
 
-		private void fire()
-		{
-			GameObject obj=Instantiate(Prefab,playerTransform.position, Quaternion.identity) as GameObject;
-			//obj.GetComponent<Rigidbody>().AddForce(pulse * pulseForce);
-			obj.GetComponent<Rigidbody>().AddForce((target.position - source.position) * pulseForce);
 
+		// spara palline
+		public void fire()
+		{
+			GameObject tennisBall=Instantiate(Prefab,playerTransform.position, Quaternion.identity) as GameObject;
+			tennisBall.GetComponent<Rigidbody>().AddForce((target.position - source.position) * pulseForce);
+			Destroy (tennisBall, 10);
+		}
+
+		public IEnumerator MyCounter(float interval, int count) {
+			for (int i = 0; i < count; i++) {
+				yield return new WaitForSeconds (1);
+				_ToggleDifficulty.ActiveToggle ();
+				fire();
+			}
 		}
 	}
 }
