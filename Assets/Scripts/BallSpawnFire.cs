@@ -15,10 +15,11 @@ namespace Valve.VR.InteractionSystem {
 		public int pulseForce;
 		public GameObject GetActiveToggle;
 
+		public int interval = 1;
+		public int quantity = 5;
 		public int delay = 1;
-		public int times = 5;
 
-		public ToggleDifficulty _ToggleDifficulty;
+		public ToggleDifficulty _ToggleDifficultyScript;
 
 		void Start () {
 		}
@@ -29,13 +30,14 @@ namespace Valve.VR.InteractionSystem {
 		}
 
 		public void SerialFire() {
-			StartCoroutine (MyCounter(delay, times));
+			StartCoroutine (sequenzaLancio(interval, quantity, delay));
 		}
 		// spara palline con il controller del Vive
 		private void HandHoverUpdate( Hand hand )
 		{
 			if ( hand.GetStandardInteractionButtonDown() || ( ( hand.controller != null ) && hand.controller.GetPressDown( Valve.VR.EVRButtonId.k_EButton_Grip ) ) )
 			{
+				_ToggleDifficultyScript.ActiveToggle ();
 				fire();
 			}
 		}
@@ -46,13 +48,16 @@ namespace Valve.VR.InteractionSystem {
 		{
 			GameObject tennisBall=Instantiate(Prefab,playerTransform.position, Quaternion.identity) as GameObject;
 			tennisBall.GetComponent<Rigidbody>().AddForce((target.position - source.position) * pulseForce);
-			Destroy (tennisBall, 10);
+			Destroy (tennisBall, 15);
 		}
 
-		public IEnumerator MyCounter(float interval, int count) {
+
+		// loop
+		public IEnumerator sequenzaLancio(float interval, int count, int delay) {
 			for (int i = 0; i < count; i++) {
-				yield return new WaitForSeconds (1);
-				_ToggleDifficulty.ActiveToggle ();
+
+				_ToggleDifficultyScript.ActiveToggle ();
+				yield return new WaitForSeconds (delay);
 				fire();
 			}
 		}

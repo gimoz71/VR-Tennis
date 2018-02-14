@@ -4,8 +4,11 @@ using UnityEngine;
 
 namespace Valve.VR.InteractionSystem {
 
+
+
 	public class hitme : MonoBehaviour {
 
+		public GameObject physParent;
 		// Use this for initialization
 		void Start () {
 			
@@ -20,9 +23,15 @@ namespace Valve.VR.InteractionSystem {
 			Pulse();
 		}
 
-		private void Pulse()
+		private void Pulse( )
 		{
-			Debug.Log("PUM!!!!!!!");
+			Hand hand = physParent.GetComponentInParent<Hand>();
+			if ( hand != null )
+			{
+				hand.controller.TriggerHapticPulse( 500 );
+				Debug.Log("PUM!!!!!!!");
+			}
+
 		}
 	}
 }

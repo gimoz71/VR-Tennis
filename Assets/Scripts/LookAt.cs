@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LookAtCamera : MonoBehaviour {
+public class LookAt : MonoBehaviour {
 
 	public Transform target;
 
@@ -14,6 +14,7 @@ public class LookAtCamera : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.LookAt(target);
+		transform.right = (target.position - transform.position);
+		//transform.LookAt(target);
 	}
 }
