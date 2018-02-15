@@ -8,10 +8,12 @@ namespace Valve.VR.InteractionSystem {
 
 	public class hitme : MonoBehaviour {
 
-		public GameObject physParent;
+		private GameObject physParent;
+
+        
 		// Use this for initialization
 		void Start () {
-			
+            physParent = GameObject.Find("racket");
 		}
 
 		// Update is called once per frame
@@ -20,15 +22,20 @@ namespace Valve.VR.InteractionSystem {
 
 		void OnTriggerEnter(Collider other)
 		{
-			Pulse();
+            if(other.name == "racket")
+            {
+
+                Pulse();
+            }
 		}
 
 		private void Pulse( )
 		{
 			Hand hand = physParent.GetComponentInParent<Hand>();
+
 			if ( hand != null )
 			{
-				hand.controller.TriggerHapticPulse( 500 );
+				hand.controller.TriggerHapticPulse(1500);
 				Debug.Log("PUM!!!!!!!");
 			}
 

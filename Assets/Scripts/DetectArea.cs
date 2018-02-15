@@ -10,8 +10,8 @@ public class DetectArea : MonoBehaviour {
     
 	// Use this for initialization
 	void Start () {
-        
-	}
+        myText = GameObject.Find("Score").GetComponent<Text>();
+    }
 	
 	// Update is called once per frame
 	void Update () {

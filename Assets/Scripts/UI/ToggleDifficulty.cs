@@ -26,8 +26,8 @@ public class ToggleDifficulty : MonoBehaviour {
 
     void Start() {
 		_target.transform.position = targetLivello1.transform.position;
-		_min = 0;
-		_max = 0;
+		_min = -2;
+		_max = 2;
 	}
 
 	// Update is called once per frame
@@ -44,8 +44,8 @@ public class ToggleDifficulty : MonoBehaviour {
 
 			// Difficoltà palla
 			_target.transform.position = targetLivello1.transform.position;
-            _min = 0;
-            _max = 0;
+            _min = -2;
+            _max = 2;
 
 		} else if (livello2.isOn) {
 			Debug.Log("Livello2");
