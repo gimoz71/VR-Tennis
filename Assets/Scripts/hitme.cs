@@ -35,8 +35,8 @@ namespace Valve.VR.InteractionSystem {
 
 			if ( hand != null )
 			{
-				hand.controller.TriggerHapticPulse(1500);
-				Debug.Log("PUM!!!!!!!");
+				hand.controller.TriggerHapticPulse(3000);
+				//Debug.Log("PUM!!!!!!!");
 			}
 
 		}
