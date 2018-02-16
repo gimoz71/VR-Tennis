@@ -5,6 +5,7 @@ public class BatCapsuleFollower : MonoBehaviour
     private BatCapsule _batFollower;
     private Rigidbody _rigidbody;
     private Vector3 _velocity;
+    public float _speed;
 
     [SerializeField]
     private float _sensitivity = 100f;
@@ -23,6 +24,14 @@ public class BatCapsuleFollower : MonoBehaviour
 
         _rigidbody.velocity = _velocity;
 
+        _speed = _velocity.magnitude;
+
+        Debug.Log(_speed);
+
+    }
+
+    public void printSpeed() {
+        Debug.Log(_speed);
     }
 
     public void SetFollowTarget(BatCapsule batFollower)

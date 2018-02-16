@@ -9,11 +9,13 @@ namespace Valve.VR.InteractionSystem {
 	public class hitme : MonoBehaviour {
 
 		private GameObject physParent;
+        //public GameObject impactForce;
 
-        
-		// Use this for initialization
-		void Start () {
+
+        // Use this for initialization
+        void Start () {
             physParent = GameObject.Find("racket");
+            //impactForce = GameObject.Find("Racket Follower");
 		}
 
 		// Update is called once per frame
@@ -24,8 +26,9 @@ namespace Valve.VR.InteractionSystem {
 		{
             if(other.name == "racket")
             {
-
-                Pulse();
+             
+                //impactForce.GetComponent<BatCapsuleFollower>
+                //Pulse();
             }
 		}
 
