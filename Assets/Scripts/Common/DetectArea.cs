@@ -8,9 +8,14 @@ public class DetectArea : MonoBehaviour {
 
     private AreasManager areasManager;
 
-    public Text myText;
+	// Aggiorna il punteggio e collisioni d'errore nel tabellone in campo
+    public Text myError;
     public Text myCounter;
     public Text myTotalCounter;
+
+	// Aggiorna il punteggio Ne Menu Istruttore
+	public Text myCounterPanel;
+	public Text myTotalCounterPanel;
 
 
     //private int counter;
@@ -19,9 +24,14 @@ public class DetectArea : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        myText = GameObject.Find("Score").GetComponent<Text>();
-        myCounter = GameObject.Find("Counter").GetComponent<Text>();
-        myTotalCounter = GameObject.Find("TotalCounter").GetComponent<Text>();
+
+        myError = GameObject.Find("Errore").GetComponent<Text>();
+		myCounter = GameObject.Find("CorrettiTabellone").GetComponent<Text>();
+		myTotalCounter = GameObject.Find("TotaliTabellone").GetComponent<Text>();
+
+
+		myCounterPanel = GameObject.Find("Corretti").GetComponent<Text>();
+		myTotalCounterPanel = GameObject.Find("Totali").GetComponent<Text>();
 
     }
 	
@@ -40,17 +50,19 @@ public class DetectArea : MonoBehaviour {
             AreasManager.Instance.totalcounter += 1;
 
             myTotalCounter.text = "Totali: " + AreasManager.Instance.totalcounter;
+			myTotalCounterPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
 
             if (areasManager.MappAree[other.gameObject.name] == 1)
             {
                 Debug.Log("ERRORE: doppio colpo su " + other.gameObject.name);
-                myText.text = "ERRORE " + other.gameObject.name;
+                myError.text = "ERRORE " + other.gameObject.name;
             }
             else
             {
                 AreasManager.Instance.counter += 1;
-                myCounter.text = "Corretti: " + AreasManager.Instance.counter;
-                myText.text = other.gameObject.name;
+				myCounter.text = "Corretti: " + AreasManager.Instance.counter;
+				myCounterPanel.text = "Corretti: " + AreasManager.Instance.counter;
+                myError.text = other.gameObject.name;
             }
 
             Debug.Log("------------------------------------------");
@@ -74,8 +86,9 @@ public class DetectArea : MonoBehaviour {
         } else if (other.gameObject.name == "recinto_campo" || other.gameObject.name == "CollisioneRete")
         {
             AreasManager.Instance.totalcounter += 1;
-            myTotalCounter.text = "Totali: " + AreasManager.Instance.totalcounter;
-            myText.text = "ERRORE: colpito " + other.gameObject.name;
+			myTotalCounter.text = "Totali: " + AreasManager.Instance.totalcounter;
+			myTotalCounterPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
+            myError.text = "ERRORE: colpito " + other.gameObject.name;
             (gameObject.GetComponent(typeof(SphereCollider)) as Collider).enabled = false;
         }
     }
