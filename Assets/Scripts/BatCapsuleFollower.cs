@@ -23,15 +23,28 @@ public class BatCapsuleFollower : MonoBehaviour
         _velocity = (destination - _rigidbody.transform.position) * _sensitivity;
 
         _rigidbody.velocity = _velocity;
-
-        _speed = _velocity.magnitude;
-
-        Debug.Log(_speed);
+        _speed = _velocity.magnitude * 10;
 
     }
 
-    public void printSpeed() {
-        Debug.Log(_speed);
+   
+
+    public static string GetSpeedKey(float speed)
+    {
+        if (speed < 80f)
+        {
+            return "Lento";
+        }
+        if (speed > 80f && speed < 160f)
+        {
+            return "Medio";
+        }
+        if (speed > 160f)
+        {
+            return "Veloce";
+        }
+
+        return "";
     }
 
     public void SetFollowTarget(BatCapsule batFollower)

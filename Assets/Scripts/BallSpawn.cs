@@ -7,9 +7,12 @@ namespace Valve.VR.InteractionSystem {
 	[RequireComponent( typeof( Interactable ) )]
 
 	public class BallSpawn : MonoBehaviour {
-		
-		public GameObject Prefab;
-		public Transform playerTransform;
+
+        [Header("Palla (Prefab)")]
+        public GameObject Prefab;
+
+        [Header("Punto di creazione palla")]
+        public Transform ballSpawnPoint;
 
 		// Use this for initialization
 		void Start () {
@@ -23,7 +26,7 @@ namespace Valve.VR.InteractionSystem {
 		{
 			if ( hand.GetStandardInteractionButtonDown() || ( ( hand.controller != null ) && hand.controller.GetPressDown( Valve.VR.EVRButtonId.k_EButton_Grip ) ) )
 			{
-				GameObject tennisBall=Instantiate(Prefab,playerTransform.position, Quaternion.identity) as GameObject;
+				GameObject tennisBall=Instantiate(Prefab, ballSpawnPoint.position, Quaternion.identity) as GameObject;
 				Destroy (tennisBall, 15);
 			}
 		}

@@ -8,31 +8,34 @@ public class DetectArea : MonoBehaviour {
 
     private AreasManager areasManager;
 
-	// Aggiorna il punteggio e collisioni d'errore nel tabellone in campo
-    public Text myError;
-    public Text myCounter;
-    public Text myTotalCounter;
+    // Aggiorna il punteggio e collisioni d'errore nel tabellone in campo (DEBUG, da tenere?)
+    [Header("Informazioni di errore")]
+    public Text errori;
 
-	// Aggiorna il punteggio Ne Menu Istruttore
-	public Text myCounterPanel;
-	public Text myTotalCounterPanel;
+    [Header("Conteggi")]
+    public Text corretti;
+    public Text totali;
 
+    // Aggiorna il punteggio nel cruscotto dell'istruttore
+    [Header("Conteggi (UI)")]
+    public Text correttiPanel;
+	public Text totaliPanel;
 
-    //private int counter;
-    //private int totalcounter;
+    public AudioSource ErrorAreaClip;
+    //public AudioSource CorrectAreaClip;
 
     // Use this for initialization
     void Start () {
 
+        // Assegno in Runtime i gameobject relativi
+        errori = GameObject.Find("Errore").GetComponent<Text>();
+		corretti = GameObject.Find("CorrettiTabellone").GetComponent<Text>();
+		totali = GameObject.Find("TotaliTabellone").GetComponent<Text>();
 
-        myError = GameObject.Find("Errore").GetComponent<Text>();
-		myCounter = GameObject.Find("CorrettiTabellone").GetComponent<Text>();
-		myTotalCounter = GameObject.Find("TotaliTabellone").GetComponent<Text>();
+		correttiPanel = GameObject.Find("Corretti").GetComponent<Text>();
+		totaliPanel = GameObject.Find("Totali").GetComponent<Text>();
 
-
-		myCounterPanel = GameObject.Find("Corretti").GetComponent<Text>();
-		myTotalCounterPanel = GameObject.Find("Totali").GetComponent<Text>();
-
+        AudioSource ErrorAreaClip = GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
@@ -45,50 +48,67 @@ public class DetectArea : MonoBehaviour {
        
         areasManager = AreasManager.Instance;
 
-        if (areasManager.CheckHit(other.gameObject.name))
+        if (areasManager.CheckHitCorrect(other.gameObject.name))
         {
+
+            // Aggiorno il conteggio dei colpi totali
             AreasManager.Instance.totalcounter += 1;
+            totali.text = "Totali: " + AreasManager.Instance.totalcounter;
+			totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
 
-            myTotalCounter.text = "Totali: " + AreasManager.Instance.totalcounter;
-			myTotalCounterPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
-
-            if (areasManager.MappAree[other.gameObject.name] == 1)
+            if (areasManager.MappAreeCorrette[other.gameObject.name] == 1) // se colpisco due volte di seguito lo stesso settore riporto l'errore
             {
-                Debug.Log("ERRORE: doppio colpo su " + other.gameObject.name);
-                myError.text = "ERRORE " + other.gameObject.name;
+                Debug.Log("ERRORE: Colpito due volte " + other.gameObject.name);
+                errori.text = "ERRORE Colpito due volte " + other.gameObject.name;
+
+                ErrorAreaClip.Play();
             }
             else
             {
+                // Aggiorno il conteggio dei colpi corretti
                 AreasManager.Instance.counter += 1;
-				myCounter.text = "Corretti: " + AreasManager.Instance.counter;
-				myCounterPanel.text = "Corretti: " + AreasManager.Instance.counter;
-                myError.text = other.gameObject.name;
+				corretti.text = "Corretti: " + AreasManager.Instance.counter;
+				correttiPanel.text = "Corretti: " + AreasManager.Instance.counter;
+                errori.text = other.gameObject.name;
             }
 
-            Debug.Log("------------------------------------------");
-            Debug.Log("Quante Mappe? " + areasManager.MappAree.Count);
-            Debug.Log("------------------------------------------");
-            // Stampo la mappa per debug
-            areasManager.stampaMappa();
+            // conteggio di debug delle mappe
+
+            //Debug.Log("------------------------------------------");
+            //Debug.Log("Quante Mappe? " + areasManager.MappAreeCorrette.Count);
+            //Debug.Log("------------------------------------------");
+
+            // (DEBUG) Stampo lo stato delle aree prima dell'aggiornamento del colpo
+            //areasManager.stampaMappa();
 
             // pulisco la hashMap (reinizializzo)
-            areasManager.ResetTrigger();
+            areasManager.ResetCorrectTrigger();
 
             // assegno valore 1 a quello colpito
-            areasManager.MappAree[other.gameObject.name] = 1;
+            areasManager.MappAreeCorrette[other.gameObject.name] = 1;
 
+            // (DEBUG) Stampo lo stato delle aree dopo dell'aggiornamento del colpo
+            //areasManager.stampaMappa();
 
-            //Debug.Log(other.gameObject.name);
-            areasManager.stampaMappa();
-
+            // Disabilito il collisore dell'instanza della palla dopo la prima collisione
             (gameObject.GetComponent(typeof(SphereCollider)) as Collider).enabled = false;
 
-        } else if (other.gameObject.name == "recinto_campo" || other.gameObject.name == "CollisioneRete")
-        {
+        } else if (areasManager.CheckHitError(other.gameObject.name)) // se colpisco aree differenti da quelle della hashtable corretta
+            {
+            // aggiorno conteggi totali
             AreasManager.Instance.totalcounter += 1;
-			myTotalCounter.text = "Totali: " + AreasManager.Instance.totalcounter;
-			myTotalCounterPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
-            myError.text = "ERRORE: colpito " + other.gameObject.name;
+			totali.text = "Totali: " + AreasManager.Instance.totalcounter;
+			totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
+
+            // Riporto l'errore
+            errori.text = "ERRORE: colpito " + other.gameObject.name;
+
+            // pulisco la hashMap (reinizializzo)
+            areasManager.ResetCorrectTrigger();
+
+            ErrorAreaClip.Play();
+
+            // Disabilito il collisore dell'instanza della palla dopo la prima collisione
             (gameObject.GetComponent(typeof(SphereCollider)) as Collider).enabled = false;
         }
     }
