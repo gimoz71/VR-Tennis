@@ -11,6 +11,7 @@ ModelImporter:
     2100002: unnamed
     2100004: green
     2100006: white
+    2100008: green__Untitled
     2300000: //RootNode
     3300000: //RootNode
     4300000: wangiu_02
@@ -22,6 +23,11 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: green
+    second: {fileID: 2100000, guid: cef1b72f3de01f943beb3117b511b30e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: green__Untitled
     second: {fileID: 2100000, guid: cef1b72f3de01f943beb3117b511b30e, type: 2}
   - first:
       type: UnityEngine:Material

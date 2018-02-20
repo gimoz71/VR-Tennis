@@ -36,7 +36,7 @@ namespace Valve.VR.InteractionSystem {
                 string key = BatCapsuleFollower.GetSpeedKey(speed);
 
                 speedManager = SpeedManager.Instance;
-                speedManager.stampaMappa();
+                //speedManager.stampaMappa();
 
                 velocita.text = "velocità momentanea: " + speed;
                 if (speedManager.MappVelocita[key] == 1)
@@ -52,7 +52,7 @@ namespace Valve.VR.InteractionSystem {
                 speedManager.ResetCorrectTrigger();
                 speedManager.MappVelocita[key] = 1;
 
-                speedManager.stampaMappa();
+                //speedManager.stampaMappa();
                 Pulse();
             }
 		}

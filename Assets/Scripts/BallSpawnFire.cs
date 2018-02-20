@@ -9,6 +9,23 @@ namespace Valve.VR.InteractionSystem {
 
 	public class BallSpawnFire : MonoBehaviour {
 
+        private ColorManager colorManager;
+        private SymbolManager symbolManager;
+
+        [Header("Colore Palla (Prefab)")]
+        public Texture BaseTexture;
+        public Texture BlueTexture;
+        public Texture FucsiaTexture;
+        public Texture OrangeTexture;
+        public Texture RedTexture;
+
+        [Header("Simbolo Palla (Prefab)")]
+        public Texture ATexture;
+        public Texture BTexture;
+        public Texture CTexture;
+        public Texture DTexture;
+        public Texture ETexture;
+
         [Header("Palla (Prefab)")]
         public GameObject Prefab;
 
@@ -39,6 +56,24 @@ namespace Valve.VR.InteractionSystem {
         private float quantity;
         private float delay;
 
+
+        private void Start()
+        {
+            colorManager = ColorManager.Instance;
+            symbolManager = SymbolManager.Instance;
+
+            colorManager.MappColorePalla.Add(ColorManager.COLORE_PALLA_BASE, BaseTexture);
+            colorManager.MappColorePalla.Add(ColorManager.COLORE_PALLA_BLUE, BlueTexture);
+            colorManager.MappColorePalla.Add(ColorManager.COLORE_PALLA_FUCSIA, FucsiaTexture);
+            colorManager.MappColorePalla.Add(ColorManager.COLORE_PALLA_ORANGE, OrangeTexture);
+            colorManager.MappColorePalla.Add(ColorManager.COLORE_PALLA_RED, RedTexture);
+
+            symbolManager.MappSimboloPalla.Add(SymbolManager.SIMBOLO_PALLA_A, ATexture);
+            symbolManager.MappSimboloPalla.Add(SymbolManager.SIMBOLO_PALLA_B, BTexture);
+            symbolManager.MappSimboloPalla.Add(SymbolManager.SIMBOLO_PALLA_C, CTexture);
+            symbolManager.MappSimboloPalla.Add(SymbolManager.SIMBOLO_PALLA_D, DTexture);
+            symbolManager.MappSimboloPalla.Add(SymbolManager.SIMBOLO_PALLA_E, ETexture);
+        }
        
 
         // Avvio la funzone SerialFire dalla scena (temporaneo?)
@@ -47,11 +82,6 @@ namespace Valve.VR.InteractionSystem {
 			if ( hand.GetStandardInteractionButtonDown() || ( ( hand.controller != null ) && hand.controller.GetPressDown( Valve.VR.EVRButtonId.k_EButton_Grip ) ) )
 			{
                 SerialFire();
-                /*float interval = IntervalSlider.GetComponent<Slider>().value;
-                float quantity = QuantitySlider.GetComponent<Slider>().value;
-                float delay = DelaySlider.GetComponent<Slider>().value;
-
-                StartCoroutine(ritardoLancio(delay, quantity, interval));*/
             }
 		}
 
@@ -62,6 +92,7 @@ namespace Valve.VR.InteractionSystem {
             float quantity = QuantitySlider.GetComponent<Slider>().value;
             float delay = DelaySlider.GetComponent<Slider>().value;
 
+            // avvio la routine di ritardo (che lancia la sequenza lancio)
             StartCoroutine(ritardoLancio(delay, quantity, interval));
         }
 
@@ -88,8 +119,19 @@ namespace Valve.VR.InteractionSystem {
         public void fire()
         {
 
+            // Creo L'istanza del prefab "ThrowableBall" (pallina)
             GameObject tennisBall = Instantiate(Prefab, playerTransform.position, Quaternion.identity) as GameObject;
+           
+            // Lancio l'istanza nella scena in base ai parametri di forza
             tennisBall.GetComponent<Rigidbody>().AddForce((target.position - source.position) * pulseForce);
+
+            // trovo la mesh della pallina (child di ThrowableBall)) e gli assegno una texture random tra quelle definite in ColoManager.cs
+
+            GameObject palla = tennisBall.transform.Find("TennisBall/ball").gameObject;
+            Renderer pallaPrefab = palla.GetComponent<Renderer>();
+            pallaPrefab.material.mainTexture = colorManager.RandomColor();
+
+            // Distruggo la pallina dopo N secondi
             Destroy(tennisBall, 15);
         }
     }

@@ -156,7 +156,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: cef1b72f3de01f943beb3117b511b30e, type: 2}
-  - {fileID: 2100000, guid: f30fd1d3e2cdb22479497ae79cdd414c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -532,6 +531,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RacketHit: {fileID: 82464792226385680}
+  bcf: {fileID: 0}
+  velocita: {fileID: 0}
 --- !u!114 &114457184731541396
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -598,8 +599,7 @@ MonoBehaviour:
         m_MethodName: set_material
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 2100000, guid: e86d38f2d5eaa3145914c399dd67fe14,
-            type: 2}
+          m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0

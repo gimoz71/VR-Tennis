@@ -29,7 +29,12 @@ public class ToggleDifficulty : MonoBehaviour {
     public Toggle TogglePartenzaLivello3;
     public Toggle TogglePartenzaLivello4;
 
-
+    [Header("Toggle Livelli Colore Palla (UI)")]
+    public Toggle ToggleColoriLivello1;
+    public Toggle ToggleColoriLivello2;
+    public Toggle ToggleColoriLivello3;
+    public Toggle ToggleColoriLivello4;
+    
 
     // Punto di origine del lancio
 
@@ -154,6 +159,28 @@ public class ToggleDifficulty : MonoBehaviour {
 
         }
 
+
+        ColorManager cm = ColorManager.Instance;
+
+        // Variazione Colori palle
+        if (ToggleColoriLivello1.isOn)
+        {
+            cm.setMaxColorIndex(3);
+        }
+        else if (ToggleColoriLivello2.isOn)
+        {
+            cm.setMaxColorIndex(4);
+        }
+        else if (ToggleColoriLivello3.isOn)
+        {
+            cm.setMaxColorIndex(5);
+        }
+        else if (ToggleColoriLivello4.isOn)
+        {
+            cm.setMaxColorIndex(6);
+        }
+        
+
         relocateTarget();
     }
 
@@ -162,7 +189,6 @@ public class ToggleDifficulty : MonoBehaviour {
 	public void relocateTarget() {
 		targetRotation = Quaternion.Euler(0, Random.Range(_minAngTarget, _maxAngTarget), 0);
         origineLancio.transform.localRotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 15.0f);
-
         pos = new Vector3(x, y, z);
         avversario.transform.localPosition = pos;
 
