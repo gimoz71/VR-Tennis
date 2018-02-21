@@ -21,7 +21,7 @@ public class ToggleProtocols : MonoBehaviour
     void Start()
     {
 
-        //Toggle pb = ProtocolloBase.GetComponent<Toggle>();
+
         ProtocolloBase.onValueChanged.AddListener((bool on) => {
             if (on) {
                 m_Text.text = "Protocollo Base";
