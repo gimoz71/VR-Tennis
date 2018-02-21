@@ -52,9 +52,9 @@ namespace Valve.VR.InteractionSystem {
         [Header("Aggancio difficoltà (trigger ActiveToggle)")]
         public ToggleDifficulty _ToggleDifficultyScript;
 
-        private float interval;
-        private float quantity;
-        private float delay;
+        private float interval = 4;
+        private float quantity = 10;
+        private float delay = 4;
 
 
         private void Start()
@@ -99,6 +99,7 @@ namespace Valve.VR.InteractionSystem {
         // Funzione parametro di ritardo per il loop base del lancio
         public IEnumerator ritardoLancio(float myDelay, float myQuantity, float myInterval)
         {
+            yield return new WaitForSeconds(3);
             yield return new WaitForSeconds(myDelay);
             Debug.Log(myInterval);
             Debug.Log(myQuantity);
@@ -110,6 +111,7 @@ namespace Valve.VR.InteractionSystem {
 		public IEnumerator sequenzaLancio(float count, float separation) {
 			for (int i = 0; i < count; i++) {
 				_ToggleDifficultyScript.ActiveToggle ();
+                yield return new WaitForSeconds(3);
                 fire();
                 yield return new WaitForSeconds (separation);
 			}
@@ -125,8 +127,7 @@ namespace Valve.VR.InteractionSystem {
             // Lancio l'istanza nella scena in base ai parametri di forza
             tennisBall.GetComponent<Rigidbody>().AddForce((target.position - source.position) * pulseForce);
 
-            // trovo la mesh della pallina (child di ThrowableBall)) e gli assegno una texture random tra quelle definite in ColoManager.cs
-
+            // trovo la mesh della pallina (child di ThrowableBall)) e gli assegno una texture random tra quelle definite in ColorManager.cs
             GameObject palla = tennisBall.transform.Find("TennisBall/ball").gameObject;
             Renderer pallaPrefab = palla.GetComponent<Renderer>();
             pallaPrefab.material.mainTexture = colorManager.RandomColor();

@@ -77,6 +77,7 @@ public class ToggleDifficulty : MonoBehaviour {
         _minAngTarget = -2;
         _maxAngTarget = 2;
 
+        // setto all'avvio la posizione dell'avatar
         x = 0;
         y = 0f;
         z = Random.Range(-0.5f, 0.5f);
