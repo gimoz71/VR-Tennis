@@ -74,16 +74,6 @@ using UnityEngine.UI;
             symbolManager.MappSimboloPalla.Add(SymbolManager.SIMBOLO_PALLA_D, DTexture);
             symbolManager.MappSimboloPalla.Add(SymbolManager.SIMBOLO_PALLA_E, ETexture);
         }
-       
-
-        // Avvio la funzone SerialFire dalla scena (temporaneo?)
-        /*private void HandHoverUpdate( Hand hand )
-		{
-			if ( hand.GetStandardInteractionButtonDown() || ( ( hand.controller != null ) && hand.controller.GetPressDown( Valve.VR.EVRButtonId.k_EButton_Grip ) ) )
-			{
-                SerialFire();
-            }
-		}*/
 
         // Lancio palle come da parametri settati negli sliders
         public void SerialFire()
@@ -121,13 +111,13 @@ using UnityEngine.UI;
         public void fire()
         {
 
-            // Creo L'istanza del prefab "ThrowableBall" (pallina)
+            // Creo L'istanza del prefab della pallina
             GameObject tennisBall = Instantiate(Prefab, playerTransform.position, Quaternion.identity) as GameObject;
            
             // Lancio l'istanza nella scena in base ai parametri di forza
             tennisBall.GetComponent<Rigidbody>().AddForce((target.position - source.position) * pulseForce);
 
-            // trovo la mesh della pallina (child di ThrowableBall)) e gli assegno una texture random tra quelle definite in ColorManager.cs
+            // trovo la mesh della pallina (child della pallina)) e gli assegno una texture random tra quelle definite in ColorManager.cs
             GameObject palla = tennisBall.transform.Find("TennisBall/ball").gameObject;
             Renderer pallaPrefab = palla.GetComponent<Renderer>();
             pallaPrefab.material.mainTexture = colorManager.RandomColor();

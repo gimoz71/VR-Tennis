@@ -11,11 +11,12 @@ namespace Valve.VR.InteractionSystem {
         [Header("Palla (Prefab)")]
         public GameObject Prefab;
 
-        [Header("Punto di creazione palla")]
-        public Transform ballSpawnPoint;
+        /*[Header("Punto di creazione palla")]*/
+        private Transform ballSpawnPoint;
 
 		// Use this for initialization
 		void Start () {
+			ballSpawnPoint = GameObject.Find ("BallSpawnPoint").GetComponent<Transform>();
 		}
 
 		// Update is called once per frame
