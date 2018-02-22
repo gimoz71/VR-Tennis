@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: a8d1e85be2cec5044a61164e30d07f57
+timeCreated: 1519334488
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: 'COCOGOOSE '
+  fontNames:
+  - 'COCOGOOSE '
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
