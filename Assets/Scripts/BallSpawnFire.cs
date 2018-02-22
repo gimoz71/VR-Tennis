@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Valve.VR.InteractionSystem {
+/*namespace Valve.VR.InteractionSystem {
 
-	[RequireComponent( typeof( Interactable ) )]
+	[RequireComponent( typeof( Interactable ) )]*/
 
 	public class BallSpawnFire : MonoBehaviour {
 
@@ -77,13 +77,13 @@ namespace Valve.VR.InteractionSystem {
        
 
         // Avvio la funzone SerialFire dalla scena (temporaneo?)
-        private void HandHoverUpdate( Hand hand )
+        /*private void HandHoverUpdate( Hand hand )
 		{
 			if ( hand.GetStandardInteractionButtonDown() || ( ( hand.controller != null ) && hand.controller.GetPressDown( Valve.VR.EVRButtonId.k_EButton_Grip ) ) )
 			{
                 SerialFire();
             }
-		}
+		}*/
 
         // Lancio palle come da parametri settati negli sliders
         public void SerialFire()
@@ -111,7 +111,7 @@ namespace Valve.VR.InteractionSystem {
 		public IEnumerator sequenzaLancio(float count, float separation) {
 			for (int i = 0; i < count; i++) {
 				_ToggleDifficultyScript.ActiveToggle ();
-                yield return new WaitForSeconds(3);
+                yield return new WaitForSeconds(0);
                 fire();
                 yield return new WaitForSeconds (separation);
 			}
@@ -136,5 +136,5 @@ namespace Valve.VR.InteractionSystem {
             Destroy(tennisBall, 15);
         }
     }
-}
+//}
 
