@@ -11,16 +11,20 @@ namespace Valve.VR.InteractionSystem {
 
         private GameObject physParent;
         public AudioSource RacketHit;
-        public BatCapsuleFollower bcf;
+        private BatCapsuleFollower bcf;
 
         public Text velocita;
 
         // Use this for initialization
         void Start () {
-            physParent = GameObject.Find("racket");
+            
             AudioSource source = GetComponent<AudioSource>();
-            bcf = GameObject.Find("Racket Follower(Clone)").GetComponent<BatCapsuleFollower>();
-            velocita = GameObject.Find("Velocita").GetComponent<Text>();
+			if (GameObject.Find ("racket") != null) {
+				physParent = GameObject.Find("racket");
+				bcf = GameObject.Find ("Racket Follower(Clone)").GetComponent<BatCapsuleFollower> ();
+				velocita = GameObject.Find("Velocita").GetComponent<Text>();
+			}
+            
         }
 
 		// Update is called once per frame
