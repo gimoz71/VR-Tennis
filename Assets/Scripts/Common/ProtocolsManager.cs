@@ -25,7 +25,7 @@ public class ProtocolsManager : MonoBehaviour
     public GameObject visioniconBG;
     public GameObject servizioiconBG;
 
-    [Header("Lista Opzioni")]
+    [Header("Lista Pannelli Opzioni")]
     public GameObject multiColore;
     public GameObject multiSimbolo;
     public GameObject decisionMaking;
