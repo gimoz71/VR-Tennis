@@ -34,6 +34,12 @@ public class ToggleDifficulty : MonoBehaviour {
     public Toggle ToggleColoriLivello2;
     public Toggle ToggleColoriLivello3;
     public Toggle ToggleColoriLivello4;
+
+    [Header("Toggle Livelli Colore Palla (UI)")]
+    public Toggle ToggleSimboliLivello1;
+    public Toggle ToggleSimboliLivello2;
+    public Toggle ToggleSimboliLivello3;
+    public Toggle ToggleSimboliLivello4;
     
 
     // Punto di origine del lancio
@@ -66,6 +72,9 @@ public class ToggleDifficulty : MonoBehaviour {
     private float z;
     private Vector3 pos;
 
+    public GameObject MCPanel;
+    public GameObject MSPanel;
+
 
     // Use this for initialization
 
@@ -83,6 +92,7 @@ public class ToggleDifficulty : MonoBehaviour {
         z = Random.Range(-0.5f, 0.5f);
 
         pos = new Vector3(x, y, z);
+        
     }
 
 	// Update is called once per frame
@@ -163,24 +173,58 @@ public class ToggleDifficulty : MonoBehaviour {
 
         ColorManager cm = ColorManager.Instance;
 
-        // Variazione Colori palle
-        if (ToggleColoriLivello1.isOn)
+        if(MCPanel.active) { 
+
+            // Variazione Colori palle
+            if (ToggleColoriLivello1.isOn)
+            {
+                cm.setMaxColorIndex(3);
+            }
+            else if (ToggleColoriLivello2.isOn)
+            {
+                cm.setMaxColorIndex(4);
+            }
+            else if (ToggleColoriLivello3.isOn)
+            {
+                cm.setMaxColorIndex(5);
+            }
+            else if (ToggleColoriLivello4.isOn)
+            {
+                cm.setMaxColorIndex(6);
+            }
+        } else
         {
-            cm.setMaxColorIndex(3);
+            cm.setMaxColorIndex(2);
         }
-        else if (ToggleColoriLivello2.isOn)
+
+        SymbolManager sm = SymbolManager.Instance;
+
+        if (MSPanel.active)
         {
-            cm.setMaxColorIndex(4);
+
+            // Variazione Colori palle
+            if (ToggleSimboliLivello1.isOn)
+            {
+                sm.setMaxSymbolIndex(3);
+            }
+            else if (ToggleSimboliLivello2.isOn)
+            {
+                sm.setMaxSymbolIndex(4);
+            }
+            else if (ToggleSimboliLivello3.isOn)
+            {
+                sm.setMaxSymbolIndex(5);
+            }
+            else if (ToggleSimboliLivello4.isOn)
+            {
+                sm.setMaxSymbolIndex(6);
+            }
         }
-        else if (ToggleColoriLivello3.isOn)
+        else
         {
-            cm.setMaxColorIndex(5);
+            sm.setMaxSymbolIndex(2);
         }
-        else if (ToggleColoriLivello4.isOn)
-        {
-            cm.setMaxColorIndex(6);
-        }
-        
+
 
         relocateTarget();
     }

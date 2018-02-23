@@ -62,6 +62,15 @@ public class SymbolManager {
         return maxSymbolIndex;
     }
 
+    public void setShutdownSymbolIndex()
+    {
+        maxSymbolIndex = 2;
+    }
+    public void setDefaultSymbolIndex()
+    {
+        maxSymbolIndex = 3;
+    }
+
     //// Resetto i valori delle aree corrette
     //public void ResetCorrectTrigger()
     //{

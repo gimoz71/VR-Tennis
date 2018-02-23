@@ -62,23 +62,16 @@ public class ColorManager {
         return maxColorIndex;
     }
 
-    //// Resetto i valori delle aree corrette
-    //public void ResetCorrectTrigger()
-    //{
-    //    List<string> keys = new List<string>(MappColore.Keys);
-    //    foreach (string key in keys)
-    //    {
-    //        MappColore[key] = 0;
-    //    }
-    //}
+    
+    
 
     // (DEBUG) estraggo e visualizzo la lista dei valori
     //public void stampaMappa()
     //{
-    //    List<string> keys = new List<string>(MappColore.Keys);
-    //    foreach (string key in keys)
+    //    List<int> keys = new List<int>(MappColorePalla.Keys);
+    //    foreach (int key in keys)
     //    {
-    //        Debug.Log("Chiave: " + key + " | Valore: " + MappColore[key]);
+    //        Debug.Log("MAXOLORINDEX: " + maxColorIndex);
     //    }
     //    Debug.Log("------------------------------------------");
     //}

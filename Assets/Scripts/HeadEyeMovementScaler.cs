@@ -12,12 +12,13 @@ public class HeadEyeMovementScaler : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
         originalScale = transform.localScale;
-	}
+        Debug.Log(originalScale);
+    }
 	
 	// Update is called once per frame
 	void Update () {
         transform.localScale = originalScale - new Vector3(SliderScaler.value, SliderScaler.value, SliderScaler.value)/300;
     }
+
 }
