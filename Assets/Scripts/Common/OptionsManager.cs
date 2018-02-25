@@ -28,10 +28,8 @@ public class OptionsManager : MonoBehaviour
     [Header("Lista Pannelli Opzioni")]
     public GameObject multiColore;
     public GameObject multiSimbolo;
-    public GameObject decisionMaking;
     public GameObject differenziazione;
-
-
+    public GameObject decisionMaking;
 
     // Genero L'hashtable dei pulsanti
     public Dictionary<Button, Text> MapOpzioni = new Dictionary<Button, Text>();
@@ -52,10 +50,16 @@ public class OptionsManager : MonoBehaviour
         MSText.GetComponent<Text>().text = "OFF";
         DIFFText.GetComponent<Text>().text = "OFF";
         DMText.GetComponent<Text>().text = "OFF";
+
+        multiColore.gameObject.SetActive(true);
+        multiSimbolo.gameObject.SetActive(false);
+        decisionMaking.gameObject.SetActive(false);
+        differenziazione.gameObject.SetActive(false);
+
     }
 
     // Use this for initialization
-    void buttonCallBack(Button buttonClicked)
+        void buttonCallBack(Button buttonClicked)
     {
 
         for (int i = 0; i < MapOpzioni.Count; i++)
@@ -75,19 +79,31 @@ public class OptionsManager : MonoBehaviour
         }
         if (buttonClicked == MCButton)
         {
-
+            multiColore.gameObject.SetActive(true);
+            multiSimbolo.gameObject.SetActive(false);
+            decisionMaking.gameObject.SetActive(false);
+            differenziazione.gameObject.SetActive(false);
         }
         if (buttonClicked == MSButton)
         {
-            
+            multiColore.gameObject.SetActive(false);
+            multiSimbolo.gameObject.SetActive(true);
+            decisionMaking.gameObject.SetActive(false);
+            differenziazione.gameObject.SetActive(false);
         }
         if (buttonClicked == DIFFButton)
         {
-           
+            multiColore.gameObject.SetActive(false);
+            multiSimbolo.gameObject.SetActive(false);
+            decisionMaking.gameObject.SetActive(true);
+            differenziazione.gameObject.SetActive(false);
         }
         if (buttonClicked == DMButton)
         {
-          
+            multiColore.gameObject.SetActive(false);
+            multiSimbolo.gameObject.SetActive(false);
+            decisionMaking.gameObject.SetActive(false);
+            differenziazione.gameObject.SetActive(true);
         }
     }
 
