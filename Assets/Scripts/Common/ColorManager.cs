@@ -56,14 +56,22 @@ public class ColorManager {
     {
         maxColorIndex = index;
     }
+    
 
     public int getMaxColorIndex()
     {
         return maxColorIndex;
     }
 
-    
-    
+    public void setShutdownColorIndex()
+    {
+        maxColorIndex = 2;
+    }
+
+    public void setDefaultColorIndex()
+    {
+        maxColorIndex = 3;
+    }
 
     // (DEBUG) estraggo e visualizzo la lista dei valori
     //public void stampaMappa()

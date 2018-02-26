@@ -10,7 +10,7 @@ public class SliderWithValue : MonoBehaviour
     public Text text;
     public string feature;
     public string unit;
-    public byte decimals = 2;
+    public float decimals = 0;
 
 
     void OnEnable()

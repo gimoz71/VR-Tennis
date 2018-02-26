@@ -35,7 +35,7 @@ public class ToggleDifficulty : MonoBehaviour {
     public Toggle ToggleColoriLivello3;
     public Toggle ToggleColoriLivello4;
 
-    [Header("Toggle Livelli Colore Palla (UI)")]
+    [Header("Toggle Livelli Simboli Palla (UI)")]
     public Toggle ToggleSimboliLivello1;
     public Toggle ToggleSimboliLivello2;
     public Toggle ToggleSimboliLivello3;
@@ -171,58 +171,60 @@ public class ToggleDifficulty : MonoBehaviour {
         }
 
 
-        ColorManager cm = ColorManager.Instance;
+        BallTextureManager tm = BallTextureManager.Instance;
 
-        if(MCPanel.active) { 
-
+        if(MCPanel.active)
+        { 
             // Variazione Colori palle
             if (ToggleColoriLivello1.isOn)
             {
-                cm.setMaxColorIndex(3);
+                tm.setMaxTextureIndex(3);
+                Debug.Log("Numero COlori: 2");
             }
             else if (ToggleColoriLivello2.isOn)
             {
-                cm.setMaxColorIndex(4);
+                tm.setMaxTextureIndex(4);
+                Debug.Log("Numero COlori: 3");
             }
             else if (ToggleColoriLivello3.isOn)
             {
-                cm.setMaxColorIndex(5);
+                tm.setMaxTextureIndex(5);
+                Debug.Log("Numero COlori: 4");
             }
             else if (ToggleColoriLivello4.isOn)
             {
-                cm.setMaxColorIndex(6);
+                tm.setMaxTextureIndex(6);
+                Debug.Log("Numero COlori: 5");
             }
-        } else
-        {
-            cm.setMaxColorIndex(2);
-        }
-
-        SymbolManager sm = SymbolManager.Instance;
-
-        if (MSPanel.active)
+        } else if (MSPanel.active)
         {
 
             // Variazione Colori palle
             if (ToggleSimboliLivello1.isOn)
             {
-                sm.setMaxSymbolIndex(3);
+                tm.setMaxTextureIndex(3);
+                Debug.Log("Numero Simboli: 2");
             }
             else if (ToggleSimboliLivello2.isOn)
             {
-                sm.setMaxSymbolIndex(4);
+                tm.setMaxTextureIndex(4);
+                Debug.Log("Numero Simboli: 3");
             }
             else if (ToggleSimboliLivello3.isOn)
             {
-                sm.setMaxSymbolIndex(5);
+                tm.setMaxTextureIndex(5);
+                Debug.Log("Numero Simboli: 4");
             }
             else if (ToggleSimboliLivello4.isOn)
             {
-                sm.setMaxSymbolIndex(6);
+                tm.setMaxTextureIndex(6);
+                Debug.Log("Numero Simboli: 5");
             }
         }
         else
         {
-            sm.setMaxSymbolIndex(2);
+            tm.setMaxTextureIndex(2);
+            Debug.Log("Numero Simboli: 1");
         }
 
 

@@ -25,11 +25,16 @@ public class OptionsManager : MonoBehaviour
     public Text DIFFText;
     public Text DMText;
 
-    [Header("Lista Pannelli Opzioni")]
-    public GameObject multiColore;
-    public GameObject multiSimbolo;
-    public GameObject differenziazione;
-    public GameObject decisionMaking;
+    [Header("Lista Pannelli Toggle Group Opzioni")]
+    public GameObject multiColoreToggleGroup;
+    public GameObject multiSimboloToggleGroup;
+    public GameObject differenziazioneToggleGroup;
+    public GameObject decisionMakingToggleGroup;
+
+
+    // inizializzo le variabili dei manager 
+    private BallTextureManager balltextureManager;
+    private AreasManager areasManager;
 
     // Genero L'hashtable dei pulsanti
     public Dictionary<Button, Text> MapOpzioni = new Dictionary<Button, Text>();
@@ -45,21 +50,24 @@ public class OptionsManager : MonoBehaviour
 
     void Start()
     {
+        balltextureManager = BallTextureManager.Instance;
+        areasManager = AreasManager.Instance;
+
         pairButtonIcon();
         MCtext.GetComponent<Text>().text = "ON";
         MSText.GetComponent<Text>().text = "OFF";
         DIFFText.GetComponent<Text>().text = "OFF";
         DMText.GetComponent<Text>().text = "OFF";
 
-        multiColore.gameObject.SetActive(true);
-        multiSimbolo.gameObject.SetActive(false);
-        decisionMaking.gameObject.SetActive(false);
-        differenziazione.gameObject.SetActive(false);
+        multiColoreToggleGroup.gameObject.SetActive(true);
+        multiSimboloToggleGroup.gameObject.SetActive(false);
+        decisionMakingToggleGroup.gameObject.SetActive(false);
+        differenziazioneToggleGroup.gameObject.SetActive(false);
 
     }
 
     // Use this for initialization
-        void buttonCallBack(Button buttonClicked)
+    void buttonCallBack(Button buttonClicked)
     {
 
         for (int i = 0; i < MapOpzioni.Count; i++)
@@ -79,31 +87,40 @@ public class OptionsManager : MonoBehaviour
         }
         if (buttonClicked == MCButton)
         {
-            multiColore.gameObject.SetActive(true);
-            multiSimbolo.gameObject.SetActive(false);
-            decisionMaking.gameObject.SetActive(false);
-            differenziazione.gameObject.SetActive(false);
+            multiColoreToggleGroup.gameObject.SetActive(true);
+            multiSimboloToggleGroup.gameObject.SetActive(false);
+            differenziazioneToggleGroup.gameObject.SetActive(false);
+            decisionMakingToggleGroup.gameObject.SetActive(false);
+            balltextureManager.setDefaultTextureIndex(); // DEFAULT
+            balltextureManager.setMapIndex(BallTextureManager.MAP_INDEX_COLORI);
+
         }
         if (buttonClicked == MSButton)
         {
-            multiColore.gameObject.SetActive(false);
-            multiSimbolo.gameObject.SetActive(true);
-            decisionMaking.gameObject.SetActive(false);
-            differenziazione.gameObject.SetActive(false);
+            multiColoreToggleGroup.gameObject.SetActive(false);
+            multiSimboloToggleGroup.gameObject.SetActive(true);
+            differenziazioneToggleGroup.gameObject.SetActive(false);
+            decisionMakingToggleGroup.gameObject.SetActive(false);
+            balltextureManager.setDefaultTextureIndex(); // DEFAULT
+            balltextureManager.setMapIndex(BallTextureManager.MAP_INDEX_SIMBOLI);
         }
         if (buttonClicked == DIFFButton)
         {
-            multiColore.gameObject.SetActive(false);
-            multiSimbolo.gameObject.SetActive(false);
-            decisionMaking.gameObject.SetActive(true);
-            differenziazione.gameObject.SetActive(false);
+            multiColoreToggleGroup.gameObject.SetActive(false);
+            multiSimboloToggleGroup.gameObject.SetActive(false);
+            differenziazioneToggleGroup.gameObject.SetActive(true);
+            decisionMakingToggleGroup.gameObject.SetActive(false);
+            balltextureManager.setShutdownTextureIndex(); // SHUTDOWN
+            balltextureManager.setMapIndex(BallTextureManager.MAP_INDEX_COLORI);
         }
         if (buttonClicked == DMButton)
         {
-            multiColore.gameObject.SetActive(false);
-            multiSimbolo.gameObject.SetActive(false);
-            decisionMaking.gameObject.SetActive(false);
-            differenziazione.gameObject.SetActive(true);
+            multiColoreToggleGroup.gameObject.SetActive(false);
+            multiSimboloToggleGroup.gameObject.SetActive(false);
+            differenziazioneToggleGroup.gameObject.SetActive(false);
+            decisionMakingToggleGroup.gameObject.SetActive(true);
+            balltextureManager.setShutdownTextureIndex(); // SHUTDOWN
+            balltextureManager.setMapIndex(BallTextureManager.MAP_INDEX_COLORI);
         }
     }
 

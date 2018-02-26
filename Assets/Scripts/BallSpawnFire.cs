@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class BallSpawnFire : MonoBehaviour {
 
-    private ColorManager colorManager;
-    private SymbolManager symbolManager;
+    private BallTextureManager balltextureManager;
 
     public Animator AvatarAnim;
 
@@ -57,22 +56,21 @@ public class BallSpawnFire : MonoBehaviour {
 
     private void Start()
     {
-        colorManager = ColorManager.Instance;
-        symbolManager = SymbolManager.Instance;
+        balltextureManager = BallTextureManager.Instance;
 
         AvatarAnim = GameObject.Find("AvatarAvversario").GetComponent<Animator>();
 
-        colorManager.MappColorePalla.Add(ColorManager.COLORE_PALLA_BASE, BaseTexture);
-        colorManager.MappColorePalla.Add(ColorManager.COLORE_PALLA_BLUE, BlueTexture);
-        colorManager.MappColorePalla.Add(ColorManager.COLORE_PALLA_FUCSIA, FucsiaTexture);
-        colorManager.MappColorePalla.Add(ColorManager.COLORE_PALLA_ORANGE, OrangeTexture);
-        colorManager.MappColorePalla.Add(ColorManager.COLORE_PALLA_RED, RedTexture);
+        balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_A, BaseTexture);
+        balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_B, BlueTexture);
+        balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_C, FucsiaTexture);
+        balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_D, OrangeTexture);
+        balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_E, RedTexture);
 
-        symbolManager.MappSimboloPalla.Add(SymbolManager.SIMBOLO_PALLA_A, ATexture);
-        symbolManager.MappSimboloPalla.Add(SymbolManager.SIMBOLO_PALLA_B, BTexture);
-        symbolManager.MappSimboloPalla.Add(SymbolManager.SIMBOLO_PALLA_C, CTexture);
-        symbolManager.MappSimboloPalla.Add(SymbolManager.SIMBOLO_PALLA_D, DTexture);
-        symbolManager.MappSimboloPalla.Add(SymbolManager.SIMBOLO_PALLA_E, ETexture);
+        balltextureManager.MappSimboloPalla.Add(BallTextureManager.TEXTURE_A, ATexture);
+        balltextureManager.MappSimboloPalla.Add(BallTextureManager.TEXTURE_B, BTexture);
+        balltextureManager.MappSimboloPalla.Add(BallTextureManager.TEXTURE_C, CTexture);
+        balltextureManager.MappSimboloPalla.Add(BallTextureManager.TEXTURE_D, DTexture);
+        balltextureManager.MappSimboloPalla.Add(BallTextureManager.TEXTURE_E, ETexture);
     }
 
     // Lancio palle come da parametri settati negli sliders
@@ -89,7 +87,7 @@ public class BallSpawnFire : MonoBehaviour {
     // Funzione parametro di ritardo per il loop base del lancio
     public IEnumerator ritardoLancio(float myDelay, float myQuantity, float myInterval)
     {
-        yield return new WaitForSeconds(3);
+        //yield return new WaitForSeconds(3);
         yield return new WaitForSeconds(myDelay);
         Debug.Log(myInterval);
         Debug.Log(myQuantity);
@@ -122,13 +120,14 @@ public class BallSpawnFire : MonoBehaviour {
         // Lancio l'istanza nella scena in base ai parametri di forza
         tennisBall.GetComponent<Rigidbody>().AddForce((target.position - source.position) * pulseForce);
 
-        // trovo la mesh della pallina (child della pallina)) e gli assegno una texture random tra quelle definite in ColorManager.cs
+        // trovo la mesh della pallina (child della pallina)) e gli assegno una texture random tra quelle definite in textureManager.cs
         GameObject palla = tennisBall.transform.Find("TennisBall/ball").gameObject;
         Renderer pallaPrefab = palla.GetComponent<Renderer>();
-        pallaPrefab.material.mainTexture = colorManager.RandomColor();
-
+        //balltextureManager.stampaMappa();
+        pallaPrefab.material.mainTexture = balltextureManager.RandomTexture();
+        
         // Distruggo la pallina dopo N secondi
-        Destroy(tennisBall, 15);
+        //Destroy(tennisBall, 15);
     }
 }
 

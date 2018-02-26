@@ -33,15 +33,23 @@ public class ProtocolsManager : MonoBehaviour
     public GameObject headEyeMovement;
     public GameObject differenziazione;
 
+    [Header("Lista Toggle Group nei Pannelli  Opzioni")]
+    public GameObject multiColoreToggleGroup;
+    public GameObject multiSimboloToggleGroup;
+    public GameObject differenziazioneToggleGroup;
+    public GameObject decisionMakingToggleGroup;
+
     [Header("Slider HEM")]
     public Slider EyeSlider;
 
     // inizializzo le variabili dei manager 
-    private ColorManager colorManager;
-    private SymbolManager symbolManager;
+    private BallTextureManager balltextureManager;
     private AreasManager areasManager;
 
 
+    private StroboManager stroboManager;
+
+   
     // Genero L'hashtable dei pulsanti
     public Dictionary<Button, GameObject> buttonIconPair = new Dictionary<Button, GameObject>();
 
@@ -57,20 +65,30 @@ public class ProtocolsManager : MonoBehaviour
     void Start()
     {
 
-        colorManager = ColorManager.Instance;
-        symbolManager = SymbolManager.Instance;
+        balltextureManager = BallTextureManager.Instance;
         areasManager = AreasManager.Instance;
 
+        //stroboManager = new StroboManager();
+
+        StroboManager[] components = Resources.FindObjectsOfTypeAll<StroboManager>();
+
+        if (components.Length > 0)
+        {
+            stroboManager = components[0];
+        }
+        Debug.Log("ARRAY: " + components.Length);
 
         m_Text.text = "Protocollo Base";
         multiColore.gameObject.SetActive(false);
+        balltextureManager.setShutdownTextureIndex();
 
         multiSimbolo.gameObject.SetActive(false);
-        symbolManager.setShutdownSymbolIndex(); // SPENTO
 
         decisionMaking.gameObject.SetActive(false);
+        // decisionmakingManager.setShutdownDecisionManagerIndex(False);
 
         strobo.gameObject.SetActive(false);
+        // set to default script (TODO)
 
         headEyeMovement.gameObject.SetActive(false);
         ResetHEM();
@@ -80,6 +98,8 @@ public class ProtocolsManager : MonoBehaviour
         pairButtonIcon();
         //inactiveColor = iconBG.GetComponent<Image>().color;
 
+
+        // Setto i pulsanti nelo stato (visivo) di default
         baseiconBG.GetComponent<Image>().color = activeColor;
         cognitivoiconBG.GetComponent<Image>().color = inactiveColor;
         visioniconBG.GetComponent<Image>().color = inactiveColor;
@@ -90,7 +110,7 @@ public class ProtocolsManager : MonoBehaviour
     // Use this for initialization
     void buttonCallBack(Button buttonClicked)
     {
-
+       
         for (int i = 0; i < buttonIconPair.Count; i++)
         {
             var item = buttonIconPair.ElementAt(i);
@@ -111,17 +131,17 @@ public class ProtocolsManager : MonoBehaviour
             Debug.Log("BASE");
             m_Text.text = "Protocollo Base";
 
+            balltextureManager.setShutdownTextureIndex(); // SPENTO
+
             multiColore.gameObject.SetActive(false);
-            
 
             multiSimbolo.gameObject.SetActive(false);
-            symbolManager.setShutdownSymbolIndex(); // SPENTO
 
             decisionMaking.gameObject.SetActive(false);
-            // SPENTO
+            // decisionmakingManager.setShutdownDecisionManagerIndex(False);
 
             strobo.gameObject.SetActive(false);
-            // SPENTO
+            stroboManager.StopStrobo();
 
             headEyeMovement.gameObject.SetActive(false);
             ResetHEM();
@@ -133,40 +153,45 @@ public class ProtocolsManager : MonoBehaviour
         {
             Debug.Log("COGNITIVO");
             m_Text.text = "Protocollo Cognitivo";
+            
+            balltextureManager.setDefaultTextureIndex(); // DEFAULT
 
             multiColore.gameObject.SetActive(true);
-           
 
             multiSimbolo.gameObject.SetActive(true);
-            symbolManager.setDefaultSymbolIndex(); // DEFAULT
 
             decisionMaking.gameObject.SetActive(true);
             // 
 
             strobo.gameObject.SetActive(false);
-            // 
+            stroboManager.StopStrobo();
 
             headEyeMovement.gameObject.SetActive(true);
             ResetHEM();
 
             differenziazione.gameObject.SetActive(true);
-            // 
+
+            multiColoreToggleGroup.gameObject.SetActive(true);
+            multiSimboloToggleGroup.gameObject.SetActive(false);
+            decisionMakingToggleGroup.gameObject.SetActive(false);
+            differenziazioneToggleGroup.gameObject.SetActive(false);
+
         }
         if (buttonClicked == visionButton)
         {
             Debug.Log("VISION");
             m_Text.text = "Vision Training";
 
+            balltextureManager.setShutdownTextureIndex(); // SHUTDOWN
+
             multiColore.gameObject.SetActive(true);
 
             multiSimbolo.gameObject.SetActive(false);
-            symbolManager.setDefaultSymbolIndex(); //  DEFAULT
 
             decisionMaking.gameObject.SetActive(false);
-            // 
 
             strobo.gameObject.SetActive(true);
-            //
+            stroboManager.StartStrobo();
 
             headEyeMovement.gameObject.SetActive(true);
             ResetHEM();
@@ -174,24 +199,38 @@ public class ProtocolsManager : MonoBehaviour
             differenziazione.gameObject.SetActive(true);
             //
 
+
+            multiColoreToggleGroup.gameObject.SetActive(true);
+            multiSimboloToggleGroup.gameObject.SetActive(false);
+            decisionMakingToggleGroup.gameObject.SetActive(false);
+            differenziazioneToggleGroup.gameObject.SetActive(false);
         }
         if (buttonClicked == servizioButton)
         {
             Debug.Log("SERVIZIO");
             m_Text.text = "Risposta al Servizio";
 
-            multiColore.gameObject.SetActive(false);
+            balltextureManager.setShutdownTextureIndex(); // SHUTDOWN
+
+            multiColore.gameObject.SetActive(true);
 
             multiSimbolo.gameObject.SetActive(false);
 
             decisionMaking.gameObject.SetActive(true);
 
             strobo.gameObject.SetActive(true);
+            //stroboManager.StartStrobo();
 
             headEyeMovement.gameObject.SetActive(true);
             ResetHEM();
 
             differenziazione.gameObject.SetActive(false);
+
+
+            multiColoreToggleGroup.gameObject.SetActive(true);
+            multiSimboloToggleGroup.gameObject.SetActive(false);
+            decisionMakingToggleGroup.gameObject.SetActive(false);
+            differenziazioneToggleGroup.gameObject.SetActive(false);
 
         }
     }
