@@ -191,7 +191,7 @@ public class ProtocolsManager : MonoBehaviour
             decisionMaking.gameObject.SetActive(false);
 
             strobo.gameObject.SetActive(true);
-            stroboManager.StartStrobo();
+            //stroboManager.StartStrobo();
 
             headEyeMovement.gameObject.SetActive(true);
             ResetHEM();

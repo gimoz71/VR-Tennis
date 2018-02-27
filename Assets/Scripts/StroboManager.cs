@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class StroboManager : MonoBehaviour {
 
+    public Button ButtonAcceso;
+    public Text ButtonAccessoText;
     public Toggle ToggleLenteSX;
     public Toggle ToggleLenteDX;
     public Toggle ToggleAlternanzaLenti;
@@ -14,25 +16,48 @@ public class StroboManager : MonoBehaviour {
     public GameObject LenteSX;
     public GameObject LenteDX;
 
-    public Color lenteSXMeshRenderer;
-    public Color lenteDXMeshRenderer;
 
-    private int counter = 1;
-    
+    private Material lenteSXMeshRendererAlpha;
+    private Material lenteDXMeshRendererAlpha;
+
+    private bool switchButton = false;
 
     void Start()
     {
-        Color lenteSXMeshRenderer = LenteSX.GetComponent<Renderer>().material.color;
-        Color lenteDXMeshRenderer = LenteDX.GetComponent<Renderer>().material.color;
+        ButtonAccessoText.text = "OFF";
+        lenteSXMeshRendererAlpha = LenteSX.GetComponent<MeshRenderer>().material;
+        lenteDXMeshRendererAlpha = LenteDX.GetComponent<MeshRenderer>().material;
 
+        lenteSXMeshRendererAlpha.color = new Color(0,0,0, (SliderTrasparenza.value / 100));
+        lenteDXMeshRendererAlpha.color = new Color(0, 0, 0, (SliderTrasparenza.value / 100));
+  
     }
 
     void Update() {
+        //lenteSXMeshRendererAlpha.GetColor("_Color");
+        //lenteDXMeshRendererAlpha.GetColor("_color");
+        //Debug.Log("TRASPARENZA: " + SliderTrasparenza.value);
+        //Debug.Log("OGGETTO TRASPARENZA" + LenteSX + " | " + lenteSXMeshRendererAlpha);
+        lenteSXMeshRendererAlpha.color = new Color(0, 0, 0, (SliderTrasparenza.value / 100));
+        lenteDXMeshRendererAlpha.color = new Color(0, 0, 0, (SliderTrasparenza.value / 100));
+    }
 
-        Debug.Log("TRASPARENZA: " + SliderTrasparenza.value);
-        Debug.Log("TRASPARENZA TEXTURE: " + lenteSXMeshRenderer.a);
-        lenteSXMeshRenderer.a = SliderTrasparenza.value;
-        lenteDXMeshRenderer.a = SliderTrasparenza.value;
+    public void ButtonSwitch()
+    {
+        if (!switchButton)
+        {
+            StartStrobo();
+            ButtonAccessoText.text = "ON";
+            switchButton = true;
+            Debug.Log("ON");
+        }
+        else
+        {
+            StopStrobo();
+            ButtonAccessoText.text = "OFF";
+            switchButton = false;
+            Debug.Log("OFF");
+        }
     }
 
     public void StartStrobo()
@@ -42,32 +67,33 @@ public class StroboManager : MonoBehaviour {
 
     public void StopStrobo()
     {
-        StopCoroutine(Strobe());
+        StopAllCoroutines();
         LenteSX.SetActive(false);
         LenteDX.SetActive(false);
     }
 
     public IEnumerator Strobe()
-
     {
-        while(true) {
-
+        while (true) {
             yield return new WaitForSeconds(SliderFrequenza.value);
-            if (ToggleLenteSX.isOn) { 
+            if (ToggleLenteSX.isOn)
+            {  
                 if (LenteSX.activeSelf)
                 {
                     LenteSX.SetActive(false);
-
                 }
                 else
                 {
                     LenteSX.SetActive(true);
                 }
-            } else
+            }
+            else
             {
                 LenteSX.SetActive(true);
             }
-            if (ToggleLenteDX.isOn) {
+
+            if (ToggleLenteDX.isOn)
+            {
 
                 if (LenteDX.activeSelf)
                 {
@@ -76,18 +102,34 @@ public class StroboManager : MonoBehaviour {
                 else
                 {
                     LenteDX.SetActive(true);
-            
+
                 }
-            } else
+            }
+            else
             {
                 LenteDX.SetActive(true);
             }
         }
-
     }
-    void DisappearanceLogic()
+
+    public void AltLenti()
     {
-        
-    }
+        if (ToggleAlternanzaLenti.isOn)
+        {
+            if (LenteSX.activeSelf)
+            {
+                LenteSX.SetActive(false);
 
+            }
+            else
+            {
+                LenteSX.SetActive(true);
+            }
+        } else
+        {
+            LenteSX.SetActive(true);
+            LenteDX.SetActive(true);
+        }
+    }
+        
 }

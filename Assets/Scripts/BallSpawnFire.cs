@@ -120,6 +120,8 @@ public class BallSpawnFire : MonoBehaviour {
         // Lancio l'istanza nella scena in base ai parametri di forza
         tennisBall.GetComponent<Rigidbody>().AddForce((target.position - source.position) * pulseForce);
 
+        tennisBall.GetComponent<Rigidbody>().AddTorque(0,0,-0.2f);
+
         // trovo la mesh della pallina (child della pallina)) e gli assegno una texture random tra quelle definite in textureManager.cs
         GameObject palla = tennisBall.transform.Find("TennisBall/ball").gameObject;
         Renderer pallaPrefab = palla.GetComponent<Renderer>();
@@ -127,7 +129,7 @@ public class BallSpawnFire : MonoBehaviour {
         pallaPrefab.material.mainTexture = balltextureManager.RandomTexture();
         
         // Distruggo la pallina dopo N secondi
-        //Destroy(tennisBall, 15);
+        Destroy(tennisBall, 15);
     }
 }
 
