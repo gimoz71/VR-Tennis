@@ -26,10 +26,10 @@ public class OptionsManager : MonoBehaviour
     public Text DMText;
 
     [Header("Lista Pannelli Toggle Group Opzioni")]
-    public GameObject multiColoreToggleGroup;
-    public GameObject multiSimboloToggleGroup;
-    public GameObject differenziazioneToggleGroup;
-    public GameObject decisionMakingToggleGroup;
+    public CanvasGroup multiColoreToggleGroup;
+    public CanvasGroup multiSimboloToggleGroup;
+    public CanvasGroup differenziazioneToggleGroup;
+    public CanvasGroup decisionMakingToggleGroup;
 
 
     // inizializzo le variabili dei manager 
@@ -59,10 +59,10 @@ public class OptionsManager : MonoBehaviour
         DIFFText.GetComponent<Text>().text = "OFF";
         DMText.GetComponent<Text>().text = "OFF";
 
-        multiColoreToggleGroup.gameObject.SetActive(true);
-        multiSimboloToggleGroup.gameObject.SetActive(false);
-        decisionMakingToggleGroup.gameObject.SetActive(false);
-        differenziazioneToggleGroup.gameObject.SetActive(false);
+        multiColoreToggleGroup.interactable = true;
+        multiSimboloToggleGroup.interactable = false;
+        decisionMakingToggleGroup.interactable = false;
+        differenziazioneToggleGroup.interactable = false;
 
     }
 
@@ -87,38 +87,38 @@ public class OptionsManager : MonoBehaviour
         }
         if (buttonClicked == MCButton)
         {
-            multiColoreToggleGroup.gameObject.SetActive(true);
-            multiSimboloToggleGroup.gameObject.SetActive(false);
-            differenziazioneToggleGroup.gameObject.SetActive(false);
-            decisionMakingToggleGroup.gameObject.SetActive(false);
+            multiColoreToggleGroup.interactable = true;
+            multiSimboloToggleGroup.interactable = false;
+            decisionMakingToggleGroup.interactable = false;
+            differenziazioneToggleGroup.interactable = false;
             balltextureManager.setDefaultTextureIndex(); // DEFAULT
             balltextureManager.setMapIndex(BallTextureManager.MAP_INDEX_COLORI);
 
         }
         if (buttonClicked == MSButton)
         {
-            multiColoreToggleGroup.gameObject.SetActive(false);
-            multiSimboloToggleGroup.gameObject.SetActive(true);
-            differenziazioneToggleGroup.gameObject.SetActive(false);
-            decisionMakingToggleGroup.gameObject.SetActive(false);
+            multiColoreToggleGroup.interactable = false;
+            multiSimboloToggleGroup.interactable = true;
+            decisionMakingToggleGroup.interactable = false;
+            differenziazioneToggleGroup.interactable = false;
             balltextureManager.setDefaultTextureIndex(); // DEFAULT
             balltextureManager.setMapIndex(BallTextureManager.MAP_INDEX_SIMBOLI);
         }
         if (buttonClicked == DIFFButton)
         {
-            multiColoreToggleGroup.gameObject.SetActive(false);
-            multiSimboloToggleGroup.gameObject.SetActive(false);
-            differenziazioneToggleGroup.gameObject.SetActive(true);
-            decisionMakingToggleGroup.gameObject.SetActive(false);
+            multiColoreToggleGroup.interactable = false;
+            multiSimboloToggleGroup.interactable = false;
+            decisionMakingToggleGroup.interactable = false;
+            differenziazioneToggleGroup.interactable = true;
             balltextureManager.setShutdownTextureIndex(); // SHUTDOWN
             balltextureManager.setMapIndex(BallTextureManager.MAP_INDEX_COLORI);
         }
         if (buttonClicked == DMButton)
         {
-            multiColoreToggleGroup.gameObject.SetActive(false);
-            multiSimboloToggleGroup.gameObject.SetActive(false);
-            differenziazioneToggleGroup.gameObject.SetActive(false);
-            decisionMakingToggleGroup.gameObject.SetActive(true);
+            multiColoreToggleGroup.interactable = false;
+            multiSimboloToggleGroup.interactable = false;
+            decisionMakingToggleGroup.interactable = true;
+            differenziazioneToggleGroup.interactable = false;
             balltextureManager.setShutdownTextureIndex(); // SHUTDOWN
             balltextureManager.setMapIndex(BallTextureManager.MAP_INDEX_COLORI);
         }

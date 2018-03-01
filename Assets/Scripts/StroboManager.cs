@@ -16,11 +16,14 @@ public class StroboManager : MonoBehaviour {
     public GameObject LenteSX;
     public GameObject LenteDX;
 
+    public CanvasGroup CanvasSwitch;
+
 
     private Material lenteSXMeshRendererAlpha;
     private Material lenteDXMeshRendererAlpha;
 
     private bool switchButton = false;
+
 
     void Start()
     {
@@ -30,7 +33,8 @@ public class StroboManager : MonoBehaviour {
 
         lenteSXMeshRendererAlpha.color = new Color(0,0,0, (SliderTrasparenza.value / 100));
         lenteDXMeshRendererAlpha.color = new Color(0, 0, 0, (SliderTrasparenza.value / 100));
-  
+        CanvasSwitch.interactable = false;
+
     }
 
     void Update() {
@@ -47,22 +51,23 @@ public class StroboManager : MonoBehaviour {
         if (!switchButton)
         {
             StartStrobo();
-            ButtonAccessoText.text = "ON";
-            switchButton = true;
-            Debug.Log("ON");
+            //Debug.Log("ON");
+            GlobalScore.StroboStatus = "Strobo: attivo";
         }
         else
         {
             StopStrobo();
-            ButtonAccessoText.text = "OFF";
-            switchButton = false;
-            Debug.Log("OFF");
+            //Debug.Log("OFF");
+            GlobalScore.StroboStatus = "";
         }
     }
 
     public void StartStrobo()
     {
         StartCoroutine(Strobe());
+        CanvasSwitch.interactable = true;
+        ButtonAccessoText.text = "ON";
+        switchButton = true;
     }
 
     public void StopStrobo()
@@ -70,6 +75,9 @@ public class StroboManager : MonoBehaviour {
         StopAllCoroutines();
         LenteSX.SetActive(false);
         LenteDX.SetActive(false);
+        CanvasSwitch.interactable = false;
+        ButtonAccessoText.text = "OFF";
+        switchButton = false;
     }
 
     public IEnumerator Strobe()

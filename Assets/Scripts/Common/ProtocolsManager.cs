@@ -34,10 +34,10 @@ public class ProtocolsManager : MonoBehaviour
     public GameObject differenziazione;
 
     [Header("Lista Toggle Group nei Pannelli  Opzioni")]
-    public GameObject multiColoreToggleGroup;
-    public GameObject multiSimboloToggleGroup;
-    public GameObject differenziazioneToggleGroup;
-    public GameObject decisionMakingToggleGroup;
+    public CanvasGroup multiColoreToggleGroup;
+    public CanvasGroup multiSimboloToggleGroup;
+    public CanvasGroup differenziazioneToggleGroup;
+    public CanvasGroup decisionMakingToggleGroup;
 
     [Header("Slider HEM")]
     public Slider EyeSlider;
@@ -138,7 +138,6 @@ public class ProtocolsManager : MonoBehaviour
             multiSimbolo.gameObject.SetActive(false);
 
             decisionMaking.gameObject.SetActive(false);
-            // decisionmakingManager.setShutdownDecisionManagerIndex(False);
 
             strobo.gameObject.SetActive(false);
             stroboManager.StopStrobo();
@@ -161,7 +160,6 @@ public class ProtocolsManager : MonoBehaviour
             multiSimbolo.gameObject.SetActive(true);
 
             decisionMaking.gameObject.SetActive(true);
-            // 
 
             strobo.gameObject.SetActive(false);
             stroboManager.StopStrobo();
@@ -171,10 +169,10 @@ public class ProtocolsManager : MonoBehaviour
 
             differenziazione.gameObject.SetActive(true);
 
-            multiColoreToggleGroup.gameObject.SetActive(true);
-            multiSimboloToggleGroup.gameObject.SetActive(false);
-            decisionMakingToggleGroup.gameObject.SetActive(false);
-            differenziazioneToggleGroup.gameObject.SetActive(false);
+            multiColoreToggleGroup.interactable = true;
+            multiSimboloToggleGroup.interactable = false;
+            decisionMakingToggleGroup.interactable = false;
+            differenziazioneToggleGroup.interactable = false;
 
         }
         if (buttonClicked == visionButton)
@@ -191,7 +189,6 @@ public class ProtocolsManager : MonoBehaviour
             decisionMaking.gameObject.SetActive(false);
 
             strobo.gameObject.SetActive(true);
-            //stroboManager.StartStrobo();
 
             headEyeMovement.gameObject.SetActive(true);
             ResetHEM();
@@ -200,10 +197,10 @@ public class ProtocolsManager : MonoBehaviour
             //
 
 
-            multiColoreToggleGroup.gameObject.SetActive(true);
-            multiSimboloToggleGroup.gameObject.SetActive(false);
-            decisionMakingToggleGroup.gameObject.SetActive(false);
-            differenziazioneToggleGroup.gameObject.SetActive(false);
+            multiColoreToggleGroup.interactable = true;
+            multiSimboloToggleGroup.interactable = false;
+            decisionMakingToggleGroup.interactable = false;
+            differenziazioneToggleGroup.interactable = false;
         }
         if (buttonClicked == servizioButton)
         {
@@ -219,7 +216,6 @@ public class ProtocolsManager : MonoBehaviour
             decisionMaking.gameObject.SetActive(true);
 
             strobo.gameObject.SetActive(true);
-            //stroboManager.StartStrobo();
 
             headEyeMovement.gameObject.SetActive(true);
             ResetHEM();
@@ -227,10 +223,10 @@ public class ProtocolsManager : MonoBehaviour
             differenziazione.gameObject.SetActive(false);
 
 
-            multiColoreToggleGroup.gameObject.SetActive(true);
-            multiSimboloToggleGroup.gameObject.SetActive(false);
-            decisionMakingToggleGroup.gameObject.SetActive(false);
-            differenziazioneToggleGroup.gameObject.SetActive(false);
+            multiColoreToggleGroup.interactable = true;
+            multiSimboloToggleGroup.interactable = false;
+            decisionMakingToggleGroup.interactable = false;
+            differenziazioneToggleGroup.interactable = false;
 
         }
     }

@@ -72,7 +72,7 @@ public class SymbolManager {
     }
 
     //// Resetto i valori delle aree corrette
-    //public void ResetCorrectTrigger()
+    //public void ResetVelocityTrigger()
     //{
     //    List<string> keys = new List<string>(MappColore.Keys);
     //    foreach (string key in keys)

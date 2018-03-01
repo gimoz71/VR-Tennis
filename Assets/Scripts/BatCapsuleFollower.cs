@@ -28,7 +28,7 @@ public class BatCapsuleFollower : MonoBehaviour
     }
 
    
-
+    // Setto gli scaglioni di velocità all'impatto
     public static string GetSpeedKey(float speed)
     {
         if (speed < 80f)

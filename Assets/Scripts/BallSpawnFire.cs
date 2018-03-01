@@ -53,12 +53,15 @@ public class BallSpawnFire : MonoBehaviour {
     private float quantity = 10;
     private float delay = 4;
 
+    private CanvasGroup CanvasSwitch;
+
 
     private void Start()
     {
         balltextureManager = BallTextureManager.Instance;
 
         AvatarAnim = GameObject.Find("AvatarAvversario").GetComponent<Animator>();
+        CanvasSwitch = GameObject.Find("[MENU ISTRUTTORE (UI)]").GetComponent<CanvasGroup>();
 
         balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_A, BaseTexture);
         balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_B, BlueTexture);
@@ -89,16 +92,16 @@ public class BallSpawnFire : MonoBehaviour {
     {
         //yield return new WaitForSeconds(3);
         yield return new WaitForSeconds(myDelay);
-        Debug.Log(myInterval);
-        Debug.Log(myQuantity);
-        Debug.Log(myDelay);
         yield return StartCoroutine(sequenzaLancio(myQuantity, myInterval));
     }
 
 	// loop base del lancio
 	public IEnumerator sequenzaLancio(float count, float separation) {
-		for (int i = 0; i < count; i++) {
-			_ToggleDifficultyScript.ActiveToggle ();
+        _ToggleDifficultyScript.ActiveToggle();
+        //Debug.Log("INIZIO LOOP----------------");
+        CanvasSwitch.interactable = false;
+        for (int i = 0; i < count; i++) {
+            
             // toggle avatar animation
             yield return new WaitForSeconds(0.5f);
             AvatarAnim.SetBool("Start", true);
@@ -107,6 +110,11 @@ public class BallSpawnFire : MonoBehaviour {
             yield return new WaitForSeconds(2);
             AvatarAnim.SetBool("Start", false);
             yield return new WaitForSeconds (separation);
+            if(i == count-1)
+            {
+                //Debug.Log("FINE LOOP----------------");
+                CanvasSwitch.interactable = true;
+            }
         }
 	}
 
@@ -117,9 +125,8 @@ public class BallSpawnFire : MonoBehaviour {
         // Creo L'istanza del prefab della pallina
         GameObject tennisBall = Instantiate(Prefab, playerTransform.position, Quaternion.identity) as GameObject;
            
-        // Lancio l'istanza nella scena in base ai parametri di forza
+        // Lancio l'istanza nella scena in base ai parametri di forza e rotazione
         tennisBall.GetComponent<Rigidbody>().AddForce((target.position - source.position) * pulseForce);
-
         tennisBall.GetComponent<Rigidbody>().AddTorque(0,0,-0.2f);
 
         // trovo la mesh della pallina (child della pallina)) e gli assegno una texture random tra quelle definite in textureManager.cs
@@ -129,7 +136,7 @@ public class BallSpawnFire : MonoBehaviour {
         pallaPrefab.material.mainTexture = balltextureManager.RandomTexture();
         
         // Distruggo la pallina dopo N secondi
-        Destroy(tennisBall, 15);
+        //Destroy(tennisBall, 15);
     }
 }
 

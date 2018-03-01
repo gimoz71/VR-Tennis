@@ -2,12 +2,12 @@
 using UnityEngine;
 
 
-// SINGLETON DEI PUNTEGGI (centralizzato)
+// SINGLETON
 public class SpeedManager {
 
    
 
-    // genero l'hashtable delle aree errate
+    // genero l'hashtable delle velocità
     public Dictionary<string, int> MappVelocita = new Dictionary<string, int>();
 
     private static SpeedManager instance;
@@ -34,17 +34,15 @@ public class SpeedManager {
     // aggiungo le voci nella hashtable allo start
     public void Start()
     {
-
-
-        // Aree Errate
+        // Scaglioni velocità
         MappVelocita.Add("Lento", 0);
         MappVelocita.Add("Medio", 0);
         MappVelocita.Add("Veloce", 0);
     }
 
     
-    // Resetto i valori delle aree corrette
-    public void ResetCorrectTrigger()
+    // Resetto i valori delle velocità
+    public void ResetVelocityTrigger()
     {
         List<string> keys = new List<string>(MappVelocita.Keys);
         foreach (string key in keys)

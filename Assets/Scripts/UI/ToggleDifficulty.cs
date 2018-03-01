@@ -57,6 +57,13 @@ public class ToggleDifficulty : MonoBehaviour {
     public GameObject VelocitaLivello3;
     public GameObject VelocitaLivello4;
 
+    [Header("Pannelli Opzioni (per cambio difficoltà)")]
+    public CanvasGroup multiColoreToggleGroup;
+    public CanvasGroup multiSimboloToggleGroup;
+    public CanvasGroup differenziazioneToggleGroup;
+    public CanvasGroup decisionMakingToggleGroup;
+
+
     // modificatore di traiettoria (n.b.: separato dalla variazione in percentuale)
     private Quaternion targetRotation;
 
@@ -72,8 +79,10 @@ public class ToggleDifficulty : MonoBehaviour {
     private float z;
     private Vector3 pos;
 
-    public GameObject MCPanel;
-    public GameObject MSPanel;
+    //public GameObject MCPanel;
+    //public GameObject MSPanel;
+
+    
 
 
     // Use this for initialization
@@ -107,17 +116,19 @@ public class ToggleDifficulty : MonoBehaviour {
         // Variazione livelli velocità
 		if (ToggleVelocitaLivello1.isOn) {
 			_target.transform.position = VelocitaLivello1.transform.position;
+            GlobalScore.VelocitaStatus = "Velocità: livello 1";
 
 		} else if (ToggleVelocitaLivello2.isOn) {
 			_target.transform.position = VelocitaLivello2.transform.position;
+            GlobalScore.VelocitaStatus = "Velocità: livello 2";
 
-
-		} else if (ToggleVelocitaLivello3.isOn) {
+        } else if (ToggleVelocitaLivello3.isOn) {
 			_target.transform.position = VelocitaLivello3.transform.position;
+            GlobalScore.VelocitaStatus = "Velocità: livello 3";
 
-
-		} else if (ToggleVelocitaLivello4.isOn) {
+        } else if (ToggleVelocitaLivello4.isOn) {
             _target.transform.position = VelocitaLivello4.transform.position;
+            GlobalScore.VelocitaStatus = "Velocità: livello 4";
 
         }
 
@@ -127,104 +138,113 @@ public class ToggleDifficulty : MonoBehaviour {
         {
             _minAngTarget = 0;
             _maxAngTarget = 0;
+            GlobalScore.TraiettoriaStatus = "Traiettoria: livello 1";
 
         }
         else if (ToggleTraiettoriaLivello2.isOn)
         {
             _minAngTarget = -4;
             _maxAngTarget = 4;
+            GlobalScore.TraiettoriaStatus = "Traiettoria: livello 2";
 
         }
         else if (ToggleTraiettoriaLivello3.isOn)
         {
             _minAngTarget = -8;
             _maxAngTarget = 8;
+            GlobalScore.TraiettoriaStatus = "Traiettoria: livello 3";
 
         }
         else if (ToggleTraiettoriaLivello4.isOn)
         {
             _minAngTarget = -12;
             _maxAngTarget = 12;
+            GlobalScore.TraiettoriaStatus = "Traiettoria: livello 4";
 
         }
 
         // Variazione livelli posizione di partenza
-         if (TogglePartenzaLivello1.isOn)
-         {
+        if (TogglePartenzaLivello1.isOn)
+        {
             z = Random.Range(-0.5f, 0.5f);
+            GlobalScore.PartenzaStatus = "Partenza: livello 1";
 
         }
          else if (TogglePartenzaLivello2.isOn)
          {
             z = Random.Range(-1f, 1f);
+            GlobalScore.PartenzaStatus = "Partenza: livello 2";
 
         }
          else if (ToggleTraiettoriaLivello3.isOn)
          {
             z = Random.Range(-1.5f, 1.5f);
+            GlobalScore.PartenzaStatus = "Partenza: livello 3";
 
         }
          else if (TogglePartenzaLivello4.isOn)
          {
             z = Random.Range(-2f, 2f);
+            GlobalScore.PartenzaStatus = "Partenza: livello 4";
 
         }
 
 
         BallTextureManager tm = BallTextureManager.Instance;
 
-        if(MCPanel.active)
+        if(multiColoreToggleGroup.interactable)
         { 
             // Variazione Colori palle
             if (ToggleColoriLivello1.isOn)
             {
                 tm.setMaxTextureIndex(3);
-                Debug.Log("Numero COlori: 2");
+                GlobalScore.MCStatus = "Multicolore: livello 1";
             }
             else if (ToggleColoriLivello2.isOn)
             {
                 tm.setMaxTextureIndex(4);
-                Debug.Log("Numero COlori: 3");
+                GlobalScore.MCStatus = "Multicolore: livello 2";
             }
             else if (ToggleColoriLivello3.isOn)
             {
                 tm.setMaxTextureIndex(5);
-                Debug.Log("Numero COlori: 4");
+                GlobalScore.MCStatus = "Multicolore: livello 3";
             }
             else if (ToggleColoriLivello4.isOn)
             {
                 tm.setMaxTextureIndex(6);
-                Debug.Log("Numero COlori: 5");
+                GlobalScore.MCStatus = "Multicolore: livello 4";
             }
-        } else if (MSPanel.active)
+        } else if (multiSimboloToggleGroup.interactable)
         {
-
             // Variazione Colori palle
             if (ToggleSimboliLivello1.isOn)
             {
                 tm.setMaxTextureIndex(3);
-                Debug.Log("Numero Simboli: 2");
+                GlobalScore.MSStatus = "MultiSimbolo: livello 1";
             }
             else if (ToggleSimboliLivello2.isOn)
             {
                 tm.setMaxTextureIndex(4);
-                Debug.Log("Numero Simboli: 3");
+                GlobalScore.MSStatus = "MultiSimbolo: livello 2";
             }
             else if (ToggleSimboliLivello3.isOn)
             {
                 tm.setMaxTextureIndex(5);
-                Debug.Log("Numero Simboli: 4");
+                GlobalScore.MSStatus = "MultiSimbolo: livello 3";
             }
             else if (ToggleSimboliLivello4.isOn)
             {
                 tm.setMaxTextureIndex(6);
-                Debug.Log("Numero Simboli: 5");
+                GlobalScore.MSStatus = "MultiSimbolo: livello 4";
             }
         }
         else
         {
             tm.setMaxTextureIndex(2);
-            Debug.Log("Numero Simboli: 1");
+
+            GlobalScore.MCStatus = "";
+            GlobalScore.MSStatus = "";
         }
 
 

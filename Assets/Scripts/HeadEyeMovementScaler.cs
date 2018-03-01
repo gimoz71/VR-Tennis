@@ -18,7 +18,7 @@ public class HeadEyeMovementScaler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.localScale = originalScale - new Vector3(SliderScaler.value, SliderScaler.value, SliderScaler.value)/300;
+        transform.localScale = originalScale - new Vector3(SliderScaler.value, SliderScaler.value, SliderScaler.value)/270;
     }
 
 }

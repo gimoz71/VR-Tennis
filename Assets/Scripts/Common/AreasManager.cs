@@ -30,7 +30,7 @@ public class AreasManager {
     }
 
 
-    // inizializzo i contatori incrementali usati in DetectArea.cs
+    // inizializzo i contatori incrementali usati in DetectArea.cs (DA CENTRALIZZARE!!!)
     public int counter;
     public int totalcounter;
 

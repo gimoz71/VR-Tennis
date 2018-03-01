@@ -19,7 +19,7 @@ public class DetectArea : MonoBehaviour {
     // Aggiorna il punteggio nel cruscotto dell'istruttore
     [Header("Conteggi (UI)")]
     public Text correttiPanel;
-	public Text totaliPanel;
+    public Text totaliPanel;
 
     public AudioSource ErrorAreaClip;
     //public AudioSource CorrectAreaClip;
