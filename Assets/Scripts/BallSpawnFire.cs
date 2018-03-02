@@ -136,7 +136,7 @@ public class BallSpawnFire : MonoBehaviour {
         pallaPrefab.material.mainTexture = balltextureManager.RandomTexture();
         
         // Distruggo la pallina dopo N secondi
-        //Destroy(tennisBall, 15);
+        Destroy(tennisBall, 15);
     }
 }
 

@@ -39,13 +39,13 @@ public class ProtocolsManager : MonoBehaviour
     public CanvasGroup differenziazioneToggleGroup;
     public CanvasGroup decisionMakingToggleGroup;
 
-    [Header("Slider HEM")]
-    public Slider EyeSlider;
+    /*[Header("Slider HEM")]
+    public Slider EyeSlider;*/
 
     // inizializzo le variabili dei manager 
     private BallTextureManager balltextureManager;
     private AreasManager areasManager;
-
+    private HeadEyeMovementScaler hemObject;
 
     private StroboManager stroboManager;
 
@@ -65,6 +65,7 @@ public class ProtocolsManager : MonoBehaviour
     void Start()
     {
 
+        hemObject = GameObject.Find("SliderChiusura").GetComponent<HeadEyeMovementScaler>();
         balltextureManager = BallTextureManager.Instance;
         areasManager = AreasManager.Instance;
 
@@ -79,21 +80,15 @@ public class ProtocolsManager : MonoBehaviour
         Debug.Log("ARRAY: " + components.Length);
 
         m_Text.text = "Protocollo Base";
-        multiColore.gameObject.SetActive(false);
         balltextureManager.setShutdownTextureIndex();
-
+        multiColore.gameObject.SetActive(false);
         multiSimbolo.gameObject.SetActive(false);
-
         decisionMaking.gameObject.SetActive(false);
         // decisionmakingManager.setShutdownDecisionManagerIndex(False);
-
         strobo.gameObject.SetActive(false);
-        // set to default script (TODO)
-
         headEyeMovement.gameObject.SetActive(false);
-        ResetHEM();
-
         differenziazione.gameObject.SetActive(false);
+        hemObject.disableHEM();
 
         pairButtonIcon();
         //inactiveColor = iconBG.GetComponent<Image>().color;
@@ -143,7 +138,7 @@ public class ProtocolsManager : MonoBehaviour
             stroboManager.StopStrobo();
 
             headEyeMovement.gameObject.SetActive(false);
-            ResetHEM();
+            hemObject.disableHEM();
 
             differenziazione.gameObject.SetActive(false);
             //
@@ -165,7 +160,7 @@ public class ProtocolsManager : MonoBehaviour
             stroboManager.StopStrobo();
 
             headEyeMovement.gameObject.SetActive(true);
-            ResetHEM();
+            hemObject.enableHEM();
 
             differenziazione.gameObject.SetActive(true);
 
@@ -191,7 +186,7 @@ public class ProtocolsManager : MonoBehaviour
             strobo.gameObject.SetActive(true);
 
             headEyeMovement.gameObject.SetActive(true);
-            ResetHEM();
+            hemObject.enableHEM();
 
             differenziazione.gameObject.SetActive(true);
             //
@@ -218,7 +213,7 @@ public class ProtocolsManager : MonoBehaviour
             strobo.gameObject.SetActive(true);
 
             headEyeMovement.gameObject.SetActive(true);
-            ResetHEM();
+            hemObject.enableHEM();
 
             differenziazione.gameObject.SetActive(false);
 
@@ -244,9 +239,5 @@ public class ProtocolsManager : MonoBehaviour
     {
 
     }
-
-    void ResetHEM()
-    {
-        EyeSlider.value = 0;
-    }
+    
 }

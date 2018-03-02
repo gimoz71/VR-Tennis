@@ -5,30 +5,36 @@ using System.IO;
 public class HandleTextFile : MonoBehaviour
 {
 
+    //private PlayerState playerState;
+
     public InputField fieldNome;
-    public GameObject Alert;
+    //public GameObject Alert;
     private string nome;
 
-    public Text fieldCorretti;
-    public Text fieldTotali;
+    //public Text fieldCorretti;
+    //public Text fieldTotali;
 
-    private string corretti;
-    private string totali;
+    //private string corretti;
+    //private string totali;
 
-    private Text ProtocolloAttivo;
+    //private Text ProtocolloAttivo;
 
 
-    StreamWriter sw;
+    //StreamWriter sw;
 
     void Start()
     {
-        Alert.active = false;
-        ProtocolloAttivo = GameObject.Find("Protocollo Attivo").GetComponent<Text>();
+        //playerState = PlayerState.Instance;
+        //Alert.active = false;
+        //ProtocolloAttivo = GameObject.Find("Protocollo Attivo").GetComponent<Text>();
     }
 
     public void saveData()
     {
         nome = fieldNome.text;
+        File.WriteAllText("e:/"+nome+".json", PlayerState.Instance.SaveToString());
+
+        /*nome = fieldNome.text;
         corretti = fieldCorretti.text;
         totali = fieldTotali.text;
         if (nome == "")
@@ -49,7 +55,7 @@ public class HandleTextFile : MonoBehaviour
             sw.WriteLine("-----------------------------------------------------");
             sw.WriteLine("");
             sw.Flush();
-        }
+        }*/
     }
 
 }

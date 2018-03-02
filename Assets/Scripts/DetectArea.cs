@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class DetectArea : MonoBehaviour {
 
     private AreasManager areasManager;
+    private PlayerState playerState;
 
     // Aggiorna il punteggio e collisioni d'errore nel tabellone in campo (DEBUG, da tenere?)
     [Header("Informazioni di errore")]
@@ -22,7 +23,8 @@ public class DetectArea : MonoBehaviour {
     public Text totaliPanel;
 
     public AudioSource ErrorAreaClip;
-    //public AudioSource CorrectAreaClip;
+    //public AudioSource CorrectAreaClip
+
 
     // Use this for initialization
     void Start () {
@@ -36,6 +38,8 @@ public class DetectArea : MonoBehaviour {
 		totaliPanel = GameObject.Find("Totali").GetComponent<Text>();
 
         AudioSource ErrorAreaClip = GetComponent<AudioSource>();
+
+        playerState = PlayerState.Instance;
     }
 	
 	// Update is called once per frame
@@ -55,6 +59,7 @@ public class DetectArea : MonoBehaviour {
             AreasManager.Instance.totalcounter += 1;
             totali.text = "Totali: " + AreasManager.Instance.totalcounter;
 			totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
+            playerState.totalcounter = AreasManager.Instance.totalcounter;
 
             if (areasManager.MappAreeCorrette[other.gameObject.name] == 1) // se colpisco due volte di seguito lo stesso settore riporto l'errore
             {
@@ -70,7 +75,11 @@ public class DetectArea : MonoBehaviour {
 				corretti.text = "Corretti: " + AreasManager.Instance.counter;
 				correttiPanel.text = "Corretti: " + AreasManager.Instance.counter;
                 errori.text = other.gameObject.name;
+
+                playerState.counter = AreasManager.Instance.counter;
             }
+
+            
 
             // conteggio di debug delle mappe
 
@@ -93,12 +102,17 @@ public class DetectArea : MonoBehaviour {
             // Disabilito il collisore dell'instanza della palla dopo la prima collisione
             (gameObject.GetComponent(typeof(SphereCollider)) as Collider).enabled = false;
 
+            Debug.Log("********************" + playerState.counter);
+            Debug.Log("********************" + playerState.totalcounter);
+            Debug.Log("********************" + JsonUtility.ToJson(playerState));
+
         } else if (areasManager.CheckHitError(other.gameObject.name)) // se colpisco aree differenti da quelle della hashtable corretta
             {
             // aggiorno conteggi totali
             AreasManager.Instance.totalcounter += 1;
 			totali.text = "Totali: " + AreasManager.Instance.totalcounter;
 			totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
+            playerState.totalcounter = AreasManager.Instance.totalcounter;
 
             // Riporto l'errore
             errori.text = "ERRORE: colpito " + other.gameObject.name;
@@ -110,6 +124,10 @@ public class DetectArea : MonoBehaviour {
 
             // Disabilito il collisore dell'instanza della palla dopo la prima collisione
             (gameObject.GetComponent(typeof(SphereCollider)) as Collider).enabled = false;
+
+            Debug.Log("********************" + playerState.counter);
+            Debug.Log("********************" + playerState.totalcounter);
+            Debug.Log("********************" + JsonUtility.ToJson(playerState));
         }
     }
 }

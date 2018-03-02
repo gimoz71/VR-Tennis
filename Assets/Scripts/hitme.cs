@@ -35,7 +35,7 @@ public class hitme : MonoBehaviour {
             
     }
 
-
+    // Registro eventi alla collisione con la racchetta
 	void OnTriggerEnter(Collider other)
 	{
         if(other.name == "racket")
@@ -74,8 +74,6 @@ public class hitme : MonoBehaviour {
 
 	private void Pulse( )
 	{
-		
-
 		if ( hand != null )
 		{
             RumbleController(speed/350, speed*500);
