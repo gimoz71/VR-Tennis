@@ -30,10 +30,11 @@ public class ToggleDifficulty : MonoBehaviour {
     public Toggle TogglePartenzaLivello4;
 
     [Header("Toggle Livelli Colore Palla (UI)")]
-    public Toggle ToggleColoriLivello1;
+    /*public Toggle ToggleColoriLivello1;
     public Toggle ToggleColoriLivello2;
     public Toggle ToggleColoriLivello3;
-    public Toggle ToggleColoriLivello4;
+    public Toggle ToggleColoriLivello4;*/
+    public Dropdown dropDown;
 
     [Header("Toggle Livelli Simboli Palla (UI)")]
     public Toggle ToggleSimboliLivello1;
@@ -193,58 +194,67 @@ public class ToggleDifficulty : MonoBehaviour {
         BallTextureManager tm = BallTextureManager.Instance;
 
         if(multiColoreToggleGroup.interactable)
-        { 
+        {
             // Variazione Colori palle
-            if (ToggleColoriLivello1.isOn)
+            /*if (ToggleColoriLivello1.isOn)
             {
                 tm.setMaxTextureIndex(3);
-                GlobalScore.MCStatus = "Multicolore: livello 1";
             }
             else if (ToggleColoriLivello2.isOn)
             {
                 tm.setMaxTextureIndex(4);
-                GlobalScore.MCStatus = "Multicolore: livello 2";
             }
             else if (ToggleColoriLivello3.isOn)
             {
                 tm.setMaxTextureIndex(5);
-                GlobalScore.MCStatus = "Multicolore: livello 3";
             }
             else if (ToggleColoriLivello4.isOn)
             {
                 tm.setMaxTextureIndex(6);
-                GlobalScore.MCStatus = "Multicolore: livello 4";
+            }*/
+
+            if (dropDown.value == 0)
+            {
+                tm.setMaxTextureIndex(3);
             }
+            else if (dropDown.value == 1)
+            {
+                tm.setMaxTextureIndex(4);
+            }
+            else if (dropDown.value == 2)
+            {
+                tm.setMaxTextureIndex(5);
+            }
+            else if (dropDown.value == 3)
+            {
+                tm.setMaxTextureIndex(6);
+            }
+
+
         } else if (multiSimboloToggleGroup.interactable)
         {
             // Variazione Colori palle
             if (ToggleSimboliLivello1.isOn)
             {
                 tm.setMaxTextureIndex(3);
-                GlobalScore.MSStatus = "MultiSimbolo: livello 1";
             }
             else if (ToggleSimboliLivello2.isOn)
             {
                 tm.setMaxTextureIndex(4);
-                GlobalScore.MSStatus = "MultiSimbolo: livello 2";
             }
             else if (ToggleSimboliLivello3.isOn)
             {
                 tm.setMaxTextureIndex(5);
-                GlobalScore.MSStatus = "MultiSimbolo: livello 3";
             }
             else if (ToggleSimboliLivello4.isOn)
             {
                 tm.setMaxTextureIndex(6);
-                GlobalScore.MSStatus = "MultiSimbolo: livello 4";
             }
         }
         else
         {
             tm.setMaxTextureIndex(2);
-
-            GlobalScore.MCStatus = "";
-            GlobalScore.MSStatus = "";
+            
         }
 
 

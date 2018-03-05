@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class PlayerState {
 
     private static PlayerState instance;
 
+    public string playerName;
     public int totalcounter;
     public int counter;
 
@@ -26,6 +28,6 @@ public class PlayerState {
 
     public string SaveToString()
     {
-        return JsonUtility.ToJson(this);
+        return JsonUtility.ToJson(this, true);
     }
 }

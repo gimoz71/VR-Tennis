@@ -25,11 +25,11 @@ public class OptionsManager : MonoBehaviour
     public Text DIFFText;
     public Text DMText;
 
-    [Header("Lista Pannelli Toggle Group Opzioni")]
-    public CanvasGroup multiColoreToggleGroup;
-    public CanvasGroup multiSimboloToggleGroup;
-    public CanvasGroup differenziazioneToggleGroup;
-    public CanvasGroup decisionMakingToggleGroup;
+    [Header("Lista Pannelli Canvas Group Opzioni")]
+    public CanvasGroup multiColoreCanvasGroup;
+    public CanvasGroup multiSimboloCanvasGroup;
+    public CanvasGroup differenziazioneCanvasGroup;
+    public CanvasGroup decisionMakingCanvasGroup;
 
 
     // inizializzo le variabili dei manager 
@@ -59,10 +59,10 @@ public class OptionsManager : MonoBehaviour
         DIFFText.GetComponent<Text>().text = "OFF";
         DMText.GetComponent<Text>().text = "OFF";
 
-        multiColoreToggleGroup.interactable = true;
-        multiSimboloToggleGroup.interactable = false;
-        decisionMakingToggleGroup.interactable = false;
-        differenziazioneToggleGroup.interactable = false;
+        multiColoreCanvasGroup.interactable = false;
+        multiSimboloCanvasGroup.interactable = false;
+        decisionMakingCanvasGroup.interactable = false;
+        differenziazioneCanvasGroup.interactable = false;
 
     }
 
@@ -87,38 +87,38 @@ public class OptionsManager : MonoBehaviour
         }
         if (buttonClicked == MCButton)
         {
-            multiColoreToggleGroup.interactable = true;
-            multiSimboloToggleGroup.interactable = false;
-            decisionMakingToggleGroup.interactable = false;
-            differenziazioneToggleGroup.interactable = false;
+            multiColoreCanvasGroup.interactable = true;
+            multiSimboloCanvasGroup.interactable = false;
+            decisionMakingCanvasGroup.interactable = false;
+            differenziazioneCanvasGroup.interactable = false;
             balltextureManager.setDefaultTextureIndex(); // DEFAULT
             balltextureManager.setMapIndex(BallTextureManager.MAP_INDEX_COLORI);
 
         }
         if (buttonClicked == MSButton)
         {
-            multiColoreToggleGroup.interactable = false;
-            multiSimboloToggleGroup.interactable = true;
-            decisionMakingToggleGroup.interactable = false;
-            differenziazioneToggleGroup.interactable = false;
+            multiColoreCanvasGroup.interactable = false;
+            multiSimboloCanvasGroup.interactable = true;
+            decisionMakingCanvasGroup.interactable = false;
+            differenziazioneCanvasGroup.interactable = false;
             balltextureManager.setDefaultTextureIndex(); // DEFAULT
             balltextureManager.setMapIndex(BallTextureManager.MAP_INDEX_SIMBOLI);
         }
         if (buttonClicked == DIFFButton)
         {
-            multiColoreToggleGroup.interactable = false;
-            multiSimboloToggleGroup.interactable = false;
-            decisionMakingToggleGroup.interactable = false;
-            differenziazioneToggleGroup.interactable = true;
+            multiColoreCanvasGroup.interactable = false;
+            multiSimboloCanvasGroup.interactable = false;
+            decisionMakingCanvasGroup.interactable = false;
+            differenziazioneCanvasGroup.interactable = true;
             balltextureManager.setShutdownTextureIndex(); // SHUTDOWN
             balltextureManager.setMapIndex(BallTextureManager.MAP_INDEX_COLORI);
         }
         if (buttonClicked == DMButton)
         {
-            multiColoreToggleGroup.interactable = false;
-            multiSimboloToggleGroup.interactable = false;
-            decisionMakingToggleGroup.interactable = true;
-            differenziazioneToggleGroup.interactable = false;
+            multiColoreCanvasGroup.interactable = false;
+            multiSimboloCanvasGroup.interactable = false;
+            decisionMakingCanvasGroup.interactable = true;
+            differenziazioneCanvasGroup.interactable = false;
             balltextureManager.setShutdownTextureIndex(); // SHUTDOWN
             balltextureManager.setMapIndex(BallTextureManager.MAP_INDEX_COLORI);
         }

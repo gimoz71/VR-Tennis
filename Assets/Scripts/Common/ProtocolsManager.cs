@@ -34,13 +34,10 @@ public class ProtocolsManager : MonoBehaviour
     public GameObject differenziazione;
 
     [Header("Lista Toggle Group nei Pannelli  Opzioni")]
-    public CanvasGroup multiColoreToggleGroup;
-    public CanvasGroup multiSimboloToggleGroup;
-    public CanvasGroup differenziazioneToggleGroup;
-    public CanvasGroup decisionMakingToggleGroup;
-
-    /*[Header("Slider HEM")]
-    public Slider EyeSlider;*/
+    public CanvasGroup multiColoreCanvasGroup;
+    public CanvasGroup multiSimboloCanvasGroup;
+    public CanvasGroup differenziazioneCanvasGroup;
+    public CanvasGroup decisionMakingCanvasGroup;
 
     // inizializzo le variabili dei manager 
     private BallTextureManager balltextureManager;
@@ -164,10 +161,10 @@ public class ProtocolsManager : MonoBehaviour
 
             differenziazione.gameObject.SetActive(true);
 
-            multiColoreToggleGroup.interactable = true;
-            multiSimboloToggleGroup.interactable = false;
-            decisionMakingToggleGroup.interactable = false;
-            differenziazioneToggleGroup.interactable = false;
+            multiColoreCanvasGroup.interactable = true;
+            multiSimboloCanvasGroup.interactable = false;
+            decisionMakingCanvasGroup.interactable = false;
+            differenziazioneCanvasGroup.interactable = false;
 
         }
         if (buttonClicked == visionButton)
@@ -192,10 +189,10 @@ public class ProtocolsManager : MonoBehaviour
             //
 
 
-            multiColoreToggleGroup.interactable = true;
-            multiSimboloToggleGroup.interactable = false;
-            decisionMakingToggleGroup.interactable = false;
-            differenziazioneToggleGroup.interactable = false;
+            multiColoreCanvasGroup.interactable = true;
+            multiSimboloCanvasGroup.interactable = false;
+            decisionMakingCanvasGroup.interactable = false;
+            differenziazioneCanvasGroup.interactable = false;
         }
         if (buttonClicked == servizioButton)
         {
@@ -218,10 +215,10 @@ public class ProtocolsManager : MonoBehaviour
             differenziazione.gameObject.SetActive(false);
 
 
-            multiColoreToggleGroup.interactable = true;
-            multiSimboloToggleGroup.interactable = false;
-            decisionMakingToggleGroup.interactable = false;
-            differenziazioneToggleGroup.interactable = false;
+            multiColoreCanvasGroup.interactable = true;
+            multiSimboloCanvasGroup.interactable = false;
+            decisionMakingCanvasGroup.interactable = false;
+            differenziazioneCanvasGroup.interactable = false;
 
         }
     }
