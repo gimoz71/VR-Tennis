@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class DetectArea : MonoBehaviour {
+public class DetectArea : MonoBehaviour
+{
 
     private AreasManager areasManager;
     private PlayerState playerState;
@@ -23,51 +24,52 @@ public class DetectArea : MonoBehaviour {
     public Text totaliPanel;
 
     [Header("Lista Toggle Group nei Pannelli  Opzioni")]
-    public CanvasGroup multiColoreCanvasGroup;
-    public CanvasGroup multiSimboloCanvasGroup;
-    public CanvasGroup differenziazioneCanvasGroup;
-    public CanvasGroup decisionMakingCanvasGroup;
+    private CanvasGroup multiColoreCanvasGroup;
+    private CanvasGroup multiSimboloCanvasGroup;
+    private CanvasGroup differenziazioneCanvasGroup;
+    private CanvasGroup decisionMakingCanvasGroup;
+
+    private Text protocolloAttivo;
 
     public AudioSource ErrorAreaClip;
     //public AudioSource CorrectAreaClip
 
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
 
         // Assegno in Runtime i gameobject relativi
         errori = GameObject.Find("Errore").GetComponent<Text>();
-		corretti = GameObject.Find("CorrettiTabellone").GetComponent<Text>();
-		totali = GameObject.Find("TotaliTabellone").GetComponent<Text>();
+        corretti = GameObject.Find("CorrettiTabellone").GetComponent<Text>();
+        totali = GameObject.Find("TotaliTabellone").GetComponent<Text>();
 
-		correttiPanel = GameObject.Find("Corretti").GetComponent<Text>();
-		totaliPanel = GameObject.Find("Totali").GetComponent<Text>();
+        correttiPanel = GameObject.Find("Corretti").GetComponent<Text>();
+        totaliPanel = GameObject.Find("Totali").GetComponent<Text>();
 
-        multiColoreCanvasGroup = GameObject.Find("PanelMC").GetComponent<CanvasGroup>();
-        multiSimboloCanvasGroup = GameObject.Find("PanelMS").GetComponent<CanvasGroup>();
-        differenziazioneCanvasGroup = GameObject.Find("PanelDIFF").GetComponent<CanvasGroup>();
-        decisionMakingCanvasGroup = GameObject.Find("PanelDM").GetComponent<CanvasGroup>();
+        protocolloAttivo = GameObject.Find("Protocollo Attivo").GetComponent<Text>();
 
+        if (protocolloAttivo.text != "Protocollo Base")
+        {
+            multiColoreCanvasGroup = GameObject.Find("PanelMC").GetComponent<CanvasGroup>();
+            multiSimboloCanvasGroup = GameObject.Find("PanelMS").GetComponent<CanvasGroup>();
+            differenziazioneCanvasGroup = GameObject.Find("PanelDIFF").GetComponent<CanvasGroup>();
+            decisionMakingCanvasGroup = GameObject.Find("PanelDM").GetComponent<CanvasGroup>();
+        }
 
         AudioSource ErrorAreaClip = GetComponent<AudioSource>();
 
         playerState = PlayerState.Instance;
-        
         areasManager = AreasManager.Instance;
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    
 
     void OnTriggerEnter(Collider other)
     {
-
-        if (areasManager.CheckHitCorrect(other.gameObject.name))
+        if (areasManager.CheckHitCorrect(other.gameObject.name)) // se colpisco aree della hashtable corretta
         {
-            if (differenziazioneCanvasGroup.interactable == true)
-            { //DIFFERENZIAZIONE
+            if (protocolloAttivo.text == "Vision Training" || protocolloAttivo.text == "Protocollo Cognitivo" && differenziazioneCanvasGroup.interactable == true) //DIFFERENZIAZIONE
+            { 
                 // Aggiorno il conteggio dei colpi totali
                 AreasManager.Instance.totalcounter += 1;
                 totali.text = "Totali: " + AreasManager.Instance.totalcounter;
@@ -101,9 +103,9 @@ public class DetectArea : MonoBehaviour {
                 areasManager.MappAreeCorrette[other.gameObject.name] = 1;
 
             }
-            else if (decisionMakingCanvasGroup.interactable == true)
-            { //DECISION MAKING
-                
+            else if (protocolloAttivo.text == "Risposta al Servizio" || protocolloAttivo.text == "Protocollo Cognitivo" && decisionMakingCanvasGroup.interactable == true) //DECISION MAKING
+            { 
+
                 //ESTRARRE LA ZONA DI CAMPO SUGGERITA DAL TARGET
 
                 //ESTRARRE LA ZONA DI CAMPO COLPITA (other.gameObject.name)
@@ -114,13 +116,15 @@ public class DetectArea : MonoBehaviour {
             }
 
 
-
-        } else if (areasManager.CheckHitError(other.gameObject.name)) // se colpisco aree differenti da quelle della hashtable corretta
-            {
+            // Disabilito il collisore dell'instanza della palla dopo la prima collisione
+            (gameObject.GetComponent(typeof(SphereCollider)) as Collider).enabled = false;
+        }
+        else if (areasManager.CheckHitError(other.gameObject.name)) // se colpisco aree differenti da quelle della hashtable corretta
+        {
             // aggiorno conteggi totali
             AreasManager.Instance.totalcounter += 1;
-			totali.text = "Totali: " + AreasManager.Instance.totalcounter;
-			totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
+            totali.text = "Totali: " + AreasManager.Instance.totalcounter;
+            totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
             playerState.totalcounter = AreasManager.Instance.totalcounter;
 
             // Riporto l'errore
@@ -130,10 +134,11 @@ public class DetectArea : MonoBehaviour {
             areasManager.ResetCorrectTrigger();
 
             ErrorAreaClip.Play();
-           
+
+            // Disabilito il collisore dell'instanza della palla dopo la prima collisione
+            (gameObject.GetComponent(typeof(SphereCollider)) as Collider).enabled = false;
         }
 
-        // Disabilito il collisore dell'instanza della palla dopo la prima collisione
-        (gameObject.GetComponent(typeof(SphereCollider)) as Collider).enabled = false;
+       
     }
 }

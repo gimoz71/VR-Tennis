@@ -35,12 +35,12 @@ public class ToggleDifficulty : MonoBehaviour {
     public Toggle ToggleColoriLivello3;
     public Toggle ToggleColoriLivello4;*/
     public Dropdown dropDown;
-
+    /*
     [Header("Toggle Livelli Simboli Palla (UI)")]
     public Toggle ToggleSimboliLivello1;
     public Toggle ToggleSimboliLivello2;
     public Toggle ToggleSimboliLivello3;
-    public Toggle ToggleSimboliLivello4;
+    public Toggle ToggleSimboliLivello4;*/
     
 
     // Punto di origine del lancio
@@ -93,8 +93,8 @@ public class ToggleDifficulty : MonoBehaviour {
         // settaggi di potenza e variabilità traiettoria iniziali (Livello 1)
 
         _target.transform.position = VelocitaLivello1.transform.position;
-        _minAngTarget = -2;
-        _maxAngTarget = 2;
+        _minAngTarget = 0;
+        _maxAngTarget = 0;
 
         // setto all'avvio la posizione dell'avatar
         x = 0;
@@ -117,19 +117,15 @@ public class ToggleDifficulty : MonoBehaviour {
         // Variazione livelli velocità
 		if (ToggleVelocitaLivello1.isOn) {
 			_target.transform.position = VelocitaLivello1.transform.position;
-            GlobalScore.VelocitaStatus = "Velocità: livello 1";
 
 		} else if (ToggleVelocitaLivello2.isOn) {
 			_target.transform.position = VelocitaLivello2.transform.position;
-            GlobalScore.VelocitaStatus = "Velocità: livello 2";
 
         } else if (ToggleVelocitaLivello3.isOn) {
 			_target.transform.position = VelocitaLivello3.transform.position;
-            GlobalScore.VelocitaStatus = "Velocità: livello 3";
 
         } else if (ToggleVelocitaLivello4.isOn) {
             _target.transform.position = VelocitaLivello4.transform.position;
-            GlobalScore.VelocitaStatus = "Velocità: livello 4";
 
         }
 
@@ -139,54 +135,42 @@ public class ToggleDifficulty : MonoBehaviour {
         {
             _minAngTarget = 0;
             _maxAngTarget = 0;
-            GlobalScore.TraiettoriaStatus = "Traiettoria: livello 1";
-
         }
         else if (ToggleTraiettoriaLivello2.isOn)
         {
             _minAngTarget = -4;
             _maxAngTarget = 4;
-            GlobalScore.TraiettoriaStatus = "Traiettoria: livello 2";
-
         }
         else if (ToggleTraiettoriaLivello3.isOn)
         {
             _minAngTarget = -8;
             _maxAngTarget = 8;
-            GlobalScore.TraiettoriaStatus = "Traiettoria: livello 3";
-
         }
         else if (ToggleTraiettoriaLivello4.isOn)
         {
             _minAngTarget = -12;
             _maxAngTarget = 12;
-            GlobalScore.TraiettoriaStatus = "Traiettoria: livello 4";
-
         }
 
         // Variazione livelli posizione di partenza
         if (TogglePartenzaLivello1.isOn)
         {
             z = Random.Range(-0.5f, 0.5f);
-            GlobalScore.PartenzaStatus = "Partenza: livello 1";
 
         }
          else if (TogglePartenzaLivello2.isOn)
          {
             z = Random.Range(-1f, 1f);
-            GlobalScore.PartenzaStatus = "Partenza: livello 2";
 
         }
          else if (ToggleTraiettoriaLivello3.isOn)
          {
             z = Random.Range(-1.5f, 1.5f);
-            GlobalScore.PartenzaStatus = "Partenza: livello 3";
 
         }
          else if (TogglePartenzaLivello4.isOn)
          {
             z = Random.Range(-2f, 2f);
-            GlobalScore.PartenzaStatus = "Partenza: livello 4";
 
         }
 
@@ -196,23 +180,7 @@ public class ToggleDifficulty : MonoBehaviour {
         if(multiColoreToggleGroup.interactable)
         {
             // Variazione Colori palle
-            /*if (ToggleColoriLivello1.isOn)
-            {
-                tm.setMaxTextureIndex(3);
-            }
-            else if (ToggleColoriLivello2.isOn)
-            {
-                tm.setMaxTextureIndex(4);
-            }
-            else if (ToggleColoriLivello3.isOn)
-            {
-                tm.setMaxTextureIndex(5);
-            }
-            else if (ToggleColoriLivello4.isOn)
-            {
-                tm.setMaxTextureIndex(6);
-            }*/
-
+           
             if (dropDown.value == 0)
             {
                 tm.setMaxTextureIndex(3);
@@ -234,19 +202,20 @@ public class ToggleDifficulty : MonoBehaviour {
         } else if (multiSimboloToggleGroup.interactable)
         {
             // Variazione Colori palle
-            if (ToggleSimboliLivello1.isOn)
+            
+            if (dropDown.value == 0)
             {
                 tm.setMaxTextureIndex(3);
             }
-            else if (ToggleSimboliLivello2.isOn)
+            else if (dropDown.value == 1)
             {
                 tm.setMaxTextureIndex(4);
             }
-            else if (ToggleSimboliLivello3.isOn)
+            else if (dropDown.value == 2)
             {
                 tm.setMaxTextureIndex(5);
             }
-            else if (ToggleSimboliLivello4.isOn)
+            else if (dropDown.value == 3)
             {
                 tm.setMaxTextureIndex(6);
             }
@@ -268,7 +237,7 @@ public class ToggleDifficulty : MonoBehaviour {
         origineLancio.transform.localRotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 15.0f);
         pos = new Vector3(x, y, z);
         avversario.transform.localPosition = pos;
-
+        Debug.Log("RELOCATE!");
 	}
 
 	public void OnSubmit () {

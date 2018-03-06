@@ -98,7 +98,7 @@ public class BallSpawnFire : MonoBehaviour {
 	// loop base del lancio
 	public IEnumerator sequenzaLancio(float count, float separation) {
         _ToggleDifficultyScript.ActiveToggle();
-        //Debug.Log("INIZIO LOOP----------------");
+
         CanvasSwitch.interactable = false;
         for (int i = 0; i < count; i++) {
             
