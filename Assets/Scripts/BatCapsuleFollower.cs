@@ -31,20 +31,22 @@ public class BatCapsuleFollower : MonoBehaviour
     // Setto gli scaglioni di velocità all'impatto
     public static string GetSpeedKey(float speed)
     {
-        if (speed < 80f)
+        Debug.Log(speed);
+
+        if (speed < 40f)
         {
             return "Lento";
         }
-        if (speed > 80f && speed < 160f)
+        if (speed > 40f && speed < 60f)
         {
             return "Medio";
         }
-        if (speed > 160f)
+        if (speed > 60f)
         {
             return "Veloce";
         }
 
-        return "";
+        return "Lento";
     }
 
     public void SetFollowTarget(BatCapsule batFollower)

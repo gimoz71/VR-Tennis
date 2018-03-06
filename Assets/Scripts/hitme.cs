@@ -42,12 +42,14 @@ public class hitme : MonoBehaviour {
         {
             // calcolo la distanza della palla dal centro della racchetta all'impatto
             float dist = Vector3.Distance(transform.position, racketCenter.transform.position);
-            Debug.Log(string.Format("La distanza tra {0} and {1} è: {2}", transform.position, racketCenter.transform.position, dist));
+            //Debug.Log(string.Format("La distanza tra {0} and {1} è: {2}", transform.position, racketCenter.transform.position, dist));
             distanceText.text = dist.ToString();
 
 
             speed = bcf._speed;
             string key = BatCapsuleFollower.GetSpeedKey(speed);
+
+
 
             speedManager = SpeedManager.Instance;
             //speedManager.stampaMappa();

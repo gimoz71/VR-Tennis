@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Valve.VR.InteractionSystem;
 
 
 public class DetectArea : MonoBehaviour
 {
 
     private AreasManager areasManager;
+    private DiffManager diffManager;
     private PlayerState playerState;
 
     // Aggiorna il punteggio e collisioni d'errore nel tabellone in campo (DEBUG, da tenere?)
@@ -33,6 +35,22 @@ public class DetectArea : MonoBehaviour
 
     public AudioSource ErrorAreaClip;
     //public AudioSource CorrectAreaClip
+
+    //private SpeedManager speedManager;
+
+    private GameObject physParent;
+    public AudioSource RacketHit;
+    private BatCapsuleFollower bcf;
+
+    private GameObject racketCenter;
+
+    private Text velocita;
+    private Text distanceText;
+
+    private string ballSpeed = "";
+
+    private float speed;
+    private Hand hand;
 
 
     // Use this for initialization
@@ -61,51 +79,113 @@ public class DetectArea : MonoBehaviour
 
         playerState = PlayerState.Instance;
         areasManager = AreasManager.Instance;
+        diffManager = DiffManager.Instance;
+
+        AudioSource source = GetComponent<AudioSource>();
+        if (GameObject.Find("racket") != null)
+        {
+            physParent = GameObject.Find("racket");
+            bcf = GameObject.Find("Racket Follower(Clone)").GetComponent<BatCapsuleFollower>();
+            velocita = GameObject.Find("Velocita").GetComponent<Text>();
+            racketCenter = GameObject.Find("racketCenter");
+            distanceText = GameObject.Find("distanceText").GetComponent<Text>();
+            hand = physParent.GetComponentInParent<Hand>();
+        }
     }
-    
 
     void OnTriggerEnter(Collider other)
     {
-        if (areasManager.CheckHitCorrect(other.gameObject.name)) // se colpisco aree della hashtable corretta
+        if (other.name == "racket")
         {
+            // calcolo la distanza della palla dal centro della racchetta all'impatto
+            float dist = Vector3.Distance(transform.position, racketCenter.transform.position);
+            //Debug.Log(string.Format("La distanza tra {0} and {1} è: {2}", transform.position, racketCenter.transform.position, dist));
+            distanceText.text = dist.ToString();
+
+            speed = bcf._speed;
+
+            string key = BatCapsuleFollower.GetSpeedKey(speed);
+            ballSpeed = key;
+
+            //speedManager = SpeedManager.Instance;
+            //speedManager.stampaMappa();
+
+            /*velocita.text = "velocità momentanea: " + speed;
+            if (speedManager.MappVelocita[key] == 1)
+            {
+                //Debug.Log("ERRORE STESSA VELOCITA' PRECEDENTE");
+                velocita.text += " ERRORE STESSA VELOCITA': " + key;
+            }
+            else
+            {
+                velocita.text += " VELOCITA': " + key;
+            }
+
+            speedManager.ResetVelocityTrigger();
+            speedManager.MappVelocita[key] = 1;*/
+
+            //speedManager.stampaMappa();
+            Pulse();
+        } else if (areasManager.CheckHitCorrect(other.gameObject.name)) // se colpisco aree della hashtable corretta
+        {
+            if (ballSpeed.Equals(""))
+            {
+                //lancio errore perchè manca velocità della pallina
+                Debug.LogError("Parametro Speed vuoto");
+            }
             if (protocolloAttivo.text == "Vision Training" || protocolloAttivo.text == "Protocollo Cognitivo" && differenziazioneCanvasGroup.interactable == true) //DIFFERENZIAZIONE
-            { 
+            {
                 // Aggiorno il conteggio dei colpi totali
-                AreasManager.Instance.totalcounter += 1;
-                totali.text = "Totali: " + AreasManager.Instance.totalcounter;
-                totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
-                playerState.totalcounter = AreasManager.Instance.totalcounter;
+                //AreasManager.Instance.totalcounter += 1;
+                //totali.text = "Totali: " + AreasManager.Instance.totalcounter;
+                //totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
+                //playerState.totalcounter = AreasManager.Instance.totalcounter;
 
-
-                // Gestione aree corrette DIFFERENZIAZIONE
-                if (areasManager.MappAreeCorrette[other.gameObject.name] == 1) // se colpisco due volte di seguito lo stesso settore riporto l'errore
+                string zone = other.gameObject.name;
+                if (ballSpeed.Equals(""))
                 {
-                    Debug.Log("ERRORE: Colpito due volte " + other.gameObject.name);
-                    errori.text = "ERRORE Colpito due volte " + other.gameObject.name;
-
-                    ErrorAreaClip.Play();
+                    //lancio errore perchè manca velocità della pallina
+                    Debug.LogError("Parametro Speed vuoto");
                 }
-                else
-                {
-                    // Aggiorno il conteggio dei colpi corretti
-                    AreasManager.Instance.counter += 1;
-                    corretti.text = "Corretti: " + AreasManager.Instance.counter;
-                    correttiPanel.text = "Corretti: " + AreasManager.Instance.counter;
-                    errori.text = other.gameObject.name;
+                else {
+                    // Gestione aree corrette DIFFERENZIAZIONE
+                    if (!diffManager.checkCombination(ballSpeed, zone)) // se colpisco due volte di seguito lo stesso settore riporto l'errore
+                    {
+                        //ZONA COLPITA E/O VELOCITA' PALLINA NON SONO OK
+                        Debug.Log("ERRORE VELOCITA': " + ballSpeed);
+                        Debug.Log("Colpito due volte: " + other.gameObject.name + " " + ballSpeed + " con livello " + diffManager.getLivello());
+                        errori.text = "Colpito due volte: " + other.gameObject.name + " " + ballSpeed + " con livello " + diffManager.getLivello();
 
-                    playerState.counter = AreasManager.Instance.counter;
+                        ErrorAreaClip.Play();
+                    }
+                    else
+                    {
+                        //LA ZONA COLPITA E LA VELOCITA' DELLA PALLINA SONO OK
+
+                        // Aggiorno il conteggio dei colpi corretti
+                        //AreasManager.Instance.counter += 1;
+                        //corretti.text = "Corretti: " + AreasManager.Instance.counter;
+                        //correttiPanel.text = "Corretti: " + AreasManager.Instance.counter;
+                        Debug.Log("OK VELOCITA': " + ballSpeed);
+                        Debug.Log("Colpo OK: " + other.gameObject.name + " " + ballSpeed + " con livello " + diffManager.getLivello());
+                        errori.text = "Colpo OK: " + other.gameObject.name + " " + ballSpeed + " con livello " + diffManager.getLivello();
+
+                        //playerState.counter = AreasManager.Instance.counter;
+                    }
+
+                    ballSpeed = "";
+
                 }
 
-                // pulisco la hashMap (reinizializzo)
-                areasManager.ResetCorrectTrigger();
-
-                // assegno valore 1 a quello colpito
-                areasManager.MappAreeCorrette[other.gameObject.name] = 1;
 
             }
             else if (protocolloAttivo.text == "Risposta al Servizio" || protocolloAttivo.text == "Protocollo Cognitivo" && decisionMakingCanvasGroup.interactable == true) //DECISION MAKING
-            { 
-
+            {
+                if (ballSpeed.Equals(""))
+                {
+                    //lancio errore perchè manca velocità della pallina
+                    Debug.LogError("Parametro Speed vuoto");
+                }
                 //ESTRARRE LA ZONA DI CAMPO SUGGERITA DAL TARGET
 
                 //ESTRARRE LA ZONA DI CAMPO COLPITA (other.gameObject.name)
@@ -122,16 +202,15 @@ public class DetectArea : MonoBehaviour
         else if (areasManager.CheckHitError(other.gameObject.name)) // se colpisco aree differenti da quelle della hashtable corretta
         {
             // aggiorno conteggi totali
-            AreasManager.Instance.totalcounter += 1;
-            totali.text = "Totali: " + AreasManager.Instance.totalcounter;
-            totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
-            playerState.totalcounter = AreasManager.Instance.totalcounter;
+            //AreasManager.Instance.totalcounter += 1;
+            //totali.text = "Totali: " + AreasManager.Instance.totalcounter;
+            //totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
+            //playerState.totalcounter = AreasManager.Instance.totalcounter;
 
             // Riporto l'errore
             errori.text = "ERRORE: colpito " + other.gameObject.name;
 
             // pulisco la hashMap (reinizializzo)
-            areasManager.ResetCorrectTrigger();
 
             ErrorAreaClip.Play();
 
@@ -140,5 +219,36 @@ public class DetectArea : MonoBehaviour
         }
 
        
+    }
+
+    private void Pulse()
+    {
+        if (hand != null)
+        {
+            RumbleController(speed / 350, speed * 500);
+            //hand.controller.TriggerHapticPulse(3000);
+            RacketHit.Play();
+        }
+
+    }
+
+    void RumbleController(float duration, float strength)
+    {
+        StartCoroutine(RumbleControllerRoutine(duration, strength));
+    }
+
+    IEnumerator RumbleControllerRoutine(float duration, float strength)
+    {
+        strength = Mathf.Clamp01(strength);
+        float startTime = Time.realtimeSinceStartup;
+
+        while (Time.realtimeSinceStartup - startTime <= duration)
+        {
+            int valveStrength = Mathf.RoundToInt(Mathf.Lerp(0, 3999, strength));
+
+            hand.controller.TriggerHapticPulse((ushort)valveStrength);
+
+            yield return null;
+        }
     }
 }

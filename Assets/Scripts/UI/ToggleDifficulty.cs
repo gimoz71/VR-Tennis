@@ -11,37 +11,17 @@ public class ToggleDifficulty : MonoBehaviour {
 
     // Toggle UI per cambiare il livello
 
-    [Header("Toggle Livelli Velocità (UI)")]
-    public Toggle ToggleVelocitaLivello1;
-    public Toggle ToggleVelocitaLivello2;
-    public Toggle ToggleVelocitaLivello3;
-    public Toggle ToggleVelocitaLivello4;
+    [Header("Dropdown Livelli Velocità/Traiettoria/Partenza (UI)")]
+    public Dropdown dropDownVelocita;
+    public Dropdown dropDownTraiettoria;
+    public Dropdown dropDownPartenza;
 
-    [Header("Toggle Livelli Traiettoria (UI)")]
-    public Toggle ToggleTraiettoriaLivello1;
-    public Toggle ToggleTraiettoriaLivello2;
-    public Toggle ToggleTraiettoriaLivello3;
-    public Toggle ToggleTraiettoriaLivello4;
+    [Header("Toggle Livelli Colore/Texture Palla (UI)")]
+    public Dropdown dropDownColore;
+    public Dropdown dropDownSimbolo;
 
-    [Header("Toggle Livelli Partenza (UI)")]
-    public Toggle TogglePartenzaLivello1;
-    public Toggle TogglePartenzaLivello2;
-    public Toggle TogglePartenzaLivello3;
-    public Toggle TogglePartenzaLivello4;
-
-    [Header("Toggle Livelli Colore Palla (UI)")]
-    /*public Toggle ToggleColoriLivello1;
-    public Toggle ToggleColoriLivello2;
-    public Toggle ToggleColoriLivello3;
-    public Toggle ToggleColoriLivello4;*/
-    public Dropdown dropDown;
-    /*
-    [Header("Toggle Livelli Simboli Palla (UI)")]
-    public Toggle ToggleSimboliLivello1;
-    public Toggle ToggleSimboliLivello2;
-    public Toggle ToggleSimboliLivello3;
-    public Toggle ToggleSimboliLivello4;*/
-    
+    [Header("Toggle Livelli Differenziazione (UI)")]
+    public Dropdown dropDownDiff;
 
     // Punto di origine del lancio
 
@@ -113,65 +93,64 @@ public class ToggleDifficulty : MonoBehaviour {
 	public void ActiveToggle () {
 
 		relocateTarget ();
-       
+
         // Variazione livelli velocità
-		if (ToggleVelocitaLivello1.isOn) {
-			_target.transform.position = VelocitaLivello1.transform.position;
-
-		} else if (ToggleVelocitaLivello2.isOn) {
-			_target.transform.position = VelocitaLivello2.transform.position;
-
-        } else if (ToggleVelocitaLivello3.isOn) {
-			_target.transform.position = VelocitaLivello3.transform.position;
-
-        } else if (ToggleVelocitaLivello4.isOn) {
+        if (dropDownVelocita.value == 0)
+        {
+            _target.transform.position = VelocitaLivello1.transform.position;
+        }
+        else if (dropDownVelocita.value == 1)
+        {
+            _target.transform.position = VelocitaLivello2.transform.position;
+        }
+        else if (dropDownVelocita.value == 2)
+        {
+            _target.transform.position = VelocitaLivello3.transform.position;
+        }
+        else if (dropDownVelocita.value == 3)
+        {
             _target.transform.position = VelocitaLivello4.transform.position;
-
         }
 
 
         // Variazione livelli traiettoria
-        if (ToggleTraiettoriaLivello1.isOn)
+        if (dropDownTraiettoria.value == 0)
         {
             _minAngTarget = 0;
             _maxAngTarget = 0;
         }
-        else if (ToggleTraiettoriaLivello2.isOn)
+        else if (dropDownTraiettoria.value == 1)
         {
             _minAngTarget = -4;
             _maxAngTarget = 4;
         }
-        else if (ToggleTraiettoriaLivello3.isOn)
+        else if (dropDownTraiettoria.value == 2)
         {
             _minAngTarget = -8;
             _maxAngTarget = 8;
         }
-        else if (ToggleTraiettoriaLivello4.isOn)
+        else if (dropDownTraiettoria.value == 3)
         {
             _minAngTarget = -12;
             _maxAngTarget = 12;
         }
 
         // Variazione livelli posizione di partenza
-        if (TogglePartenzaLivello1.isOn)
+        if (dropDownPartenza.value == 0)
         {
             z = Random.Range(-0.5f, 0.5f);
-
         }
-         else if (TogglePartenzaLivello2.isOn)
-         {
+        else if (dropDownPartenza.value == 1)
+        {
             z = Random.Range(-1f, 1f);
-
         }
-         else if (ToggleTraiettoriaLivello3.isOn)
-         {
+        else if (dropDownPartenza.value == 2)
+        {
             z = Random.Range(-1.5f, 1.5f);
-
         }
-         else if (TogglePartenzaLivello4.isOn)
-         {
+        else if (dropDownPartenza.value == 3)
+        {
             z = Random.Range(-2f, 2f);
-
         }
 
 
@@ -181,19 +160,19 @@ public class ToggleDifficulty : MonoBehaviour {
         {
             // Variazione Colori palle
            
-            if (dropDown.value == 0)
+            if (dropDownColore.value == 0)
             {
                 tm.setMaxTextureIndex(3);
             }
-            else if (dropDown.value == 1)
+            else if (dropDownColore.value == 1)
             {
                 tm.setMaxTextureIndex(4);
             }
-            else if (dropDown.value == 2)
+            else if (dropDownColore.value == 2)
             {
                 tm.setMaxTextureIndex(5);
             }
-            else if (dropDown.value == 3)
+            else if (dropDownColore.value == 3)
             {
                 tm.setMaxTextureIndex(6);
             }
@@ -203,19 +182,19 @@ public class ToggleDifficulty : MonoBehaviour {
         {
             // Variazione Colori palle
             
-            if (dropDown.value == 0)
+            if (dropDownSimbolo.value == 0)
             {
                 tm.setMaxTextureIndex(3);
             }
-            else if (dropDown.value == 1)
+            else if (dropDownSimbolo.value == 1)
             {
                 tm.setMaxTextureIndex(4);
             }
-            else if (dropDown.value == 2)
+            else if (dropDownSimbolo.value == 2)
             {
                 tm.setMaxTextureIndex(5);
             }
-            else if (dropDown.value == 3)
+            else if (dropDownSimbolo.value == 3)
             {
                 tm.setMaxTextureIndex(6);
             }
@@ -224,6 +203,25 @@ public class ToggleDifficulty : MonoBehaviour {
         {
             tm.setMaxTextureIndex(2);
             
+        }
+
+
+        DiffManager df = DiffManager.Instance;
+
+        Debug.Log("dropDownDiff.value: " + dropDownDiff.value);
+
+        // Variazione livelli posizione di partenza
+        if (dropDownDiff.value == 0)
+        {
+            df.setLivello1();
+        }
+        else if (dropDownPartenza.value == 1)
+        {
+            df.setLivello2();
+        }
+        else if (dropDownPartenza.value == 2)
+        {
+            df.setLivello3();
         }
 
 
