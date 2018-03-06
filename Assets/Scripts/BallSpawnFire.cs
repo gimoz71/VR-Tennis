@@ -97,11 +97,11 @@ public class BallSpawnFire : MonoBehaviour {
 
 	// loop base del lancio
 	public IEnumerator sequenzaLancio(float count, float separation) {
-        _ToggleDifficultyScript.ActiveToggle();
+        
 
         CanvasSwitch.interactable = false;
         for (int i = 0; i < count; i++) {
-            
+            _ToggleDifficultyScript.ActiveToggle();
             // toggle avatar animation
             yield return new WaitForSeconds(0.5f);
             AvatarAnim.SetBool("Start", true);
