@@ -14,18 +14,21 @@ public class OptionsManager : MonoBehaviour
     public GameObject iconBG;
 
     [Header("Lista Pulsante Opzioni)")]
+    public Button TGButton;
     public Button MCButton;
     public Button MSButton;
     public Button DIFFButton;
     public Button DMButton;
 
     [Header("Background Pulsante Protocolli)")]
-    public Text MCtext;
+    public Text TGText;
+    public Text MCText;
     public Text MSText;
     public Text DIFFText;
     public Text DMText;
 
     [Header("Lista Pannelli Canvas Group Opzioni")]
+    public CanvasGroup targetCanvasGroup;
     public CanvasGroup multiColoreCanvasGroup;
     public CanvasGroup multiSimboloCanvasGroup;
     public CanvasGroup differenziazioneCanvasGroup;
@@ -41,7 +44,8 @@ public class OptionsManager : MonoBehaviour
 
     void pairButtonIcon()
     {
-        MapOpzioni.Add(MCButton, MCtext);
+        MapOpzioni.Add(TGButton, TGText);
+        MapOpzioni.Add(MCButton, MCText);
         MapOpzioni.Add(MSButton, MSText);
         MapOpzioni.Add(DIFFButton, DIFFText);
         MapOpzioni.Add(DMButton, DMText);
@@ -54,11 +58,13 @@ public class OptionsManager : MonoBehaviour
         areasManager = AreasManager.Instance;
 
         pairButtonIcon();
-        MCtext.GetComponent<Text>().text = "ON";
+        TGText.GetComponent<Text>().text = "ON";
+        MCText.GetComponent<Text>().text = "OFF";
         MSText.GetComponent<Text>().text = "OFF";
         DIFFText.GetComponent<Text>().text = "OFF";
         DMText.GetComponent<Text>().text = "OFF";
 
+        targetCanvasGroup.interactable = true;
         multiColoreCanvasGroup.interactable = false;
         multiSimboloCanvasGroup.interactable = false;
         decisionMakingCanvasGroup.interactable = false;
@@ -85,40 +91,60 @@ public class OptionsManager : MonoBehaviour
                 itemValue.GetComponent<Text>().text = "OFF";
             }
         }
+        if (buttonClicked == TGButton)
+        {
+            targetCanvasGroup.interactable = true;
+            multiColoreCanvasGroup.interactable = false;
+            multiSimboloCanvasGroup.interactable = false;
+            decisionMakingCanvasGroup.interactable = false;
+            differenziazioneCanvasGroup.interactable = false;
+
+            balltextureManager.setDefaultTextureIndex(); // DEFAULT
+            balltextureManager.setMapIndex(BallTextureManager.MAP_INDEX_COLORI);
+
+        }
         if (buttonClicked == MCButton)
         {
+            targetCanvasGroup.interactable = false;
             multiColoreCanvasGroup.interactable = true;
             multiSimboloCanvasGroup.interactable = false;
             decisionMakingCanvasGroup.interactable = false;
             differenziazioneCanvasGroup.interactable = false;
+
             balltextureManager.setDefaultTextureIndex(); // DEFAULT
             balltextureManager.setMapIndex(BallTextureManager.MAP_INDEX_COLORI);
 
         }
         if (buttonClicked == MSButton)
         {
+            targetCanvasGroup.interactable = false;
             multiColoreCanvasGroup.interactable = false;
             multiSimboloCanvasGroup.interactable = true;
             decisionMakingCanvasGroup.interactable = false;
             differenziazioneCanvasGroup.interactable = false;
+
             balltextureManager.setDefaultTextureIndex(); // DEFAULT
             balltextureManager.setMapIndex(BallTextureManager.MAP_INDEX_SIMBOLI);
         }
         if (buttonClicked == DIFFButton)
         {
+            targetCanvasGroup.interactable = false;
             multiColoreCanvasGroup.interactable = false;
             multiSimboloCanvasGroup.interactable = false;
             decisionMakingCanvasGroup.interactable = false;
             differenziazioneCanvasGroup.interactable = true;
+
             balltextureManager.setShutdownTextureIndex(); // SHUTDOWN
             balltextureManager.setMapIndex(BallTextureManager.MAP_INDEX_COLORI);
         }
         if (buttonClicked == DMButton)
         {
+            targetCanvasGroup.interactable = false;
             multiColoreCanvasGroup.interactable = false;
             multiSimboloCanvasGroup.interactable = false;
             decisionMakingCanvasGroup.interactable = true;
             differenziazioneCanvasGroup.interactable = false;
+
             balltextureManager.setShutdownTextureIndex(); // SHUTDOWN
             balltextureManager.setMapIndex(BallTextureManager.MAP_INDEX_COLORI);
         }
@@ -126,6 +152,7 @@ public class OptionsManager : MonoBehaviour
 
     void OnEnable()
     {
+        TGButton.onClick.AddListener(() => buttonCallBack(TGButton));
         MCButton.onClick.AddListener(() => buttonCallBack(MCButton));
         MSButton.onClick.AddListener(() => buttonCallBack(MSButton));
         DIFFButton.onClick.AddListener(() => buttonCallBack(DIFFButton));

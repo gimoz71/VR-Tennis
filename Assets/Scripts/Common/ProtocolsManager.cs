@@ -34,6 +34,7 @@ public class ProtocolsManager : MonoBehaviour
     public GameObject differenziazione;
 
     [Header("Lista Toggle Group nei Pannelli  Opzioni")]
+    public CanvasGroup targetCanvasGroup;
     public CanvasGroup multiColoreCanvasGroup;
     public CanvasGroup multiSimboloCanvasGroup;
     public CanvasGroup differenziazioneCanvasGroup;
@@ -161,7 +162,8 @@ public class ProtocolsManager : MonoBehaviour
 
             differenziazione.gameObject.SetActive(true);
 
-            multiColoreCanvasGroup.interactable = true;
+            targetCanvasGroup.interactable = true;
+            multiColoreCanvasGroup.interactable = false;
             multiSimboloCanvasGroup.interactable = false;
             decisionMakingCanvasGroup.interactable = false;
             differenziazioneCanvasGroup.interactable = false;
@@ -189,7 +191,8 @@ public class ProtocolsManager : MonoBehaviour
             //
 
 
-            multiColoreCanvasGroup.interactable = true;
+            targetCanvasGroup.interactable = true;
+            multiColoreCanvasGroup.interactable = false;
             multiSimboloCanvasGroup.interactable = false;
             decisionMakingCanvasGroup.interactable = false;
             differenziazioneCanvasGroup.interactable = false;
@@ -214,8 +217,8 @@ public class ProtocolsManager : MonoBehaviour
 
             differenziazione.gameObject.SetActive(false);
 
-
-            multiColoreCanvasGroup.interactable = true;
+            targetCanvasGroup.interactable = true;
+            multiColoreCanvasGroup.interactable = false;
             multiSimboloCanvasGroup.interactable = false;
             decisionMakingCanvasGroup.interactable = false;
             differenziazioneCanvasGroup.interactable = false;
