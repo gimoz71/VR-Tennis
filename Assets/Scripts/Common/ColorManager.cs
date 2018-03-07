@@ -7,16 +7,19 @@ using UnityEngine.UI;
 // SINGLETON DElle textture (centralizzato)
 public class ColorManager {
 
-    public static int COLORE_PALLA_BASE = 1;
-    public static int COLORE_PALLA_BLUE = 2;
-    public static int COLORE_PALLA_FUCSIA = 3;
-    public static int COLORE_PALLA_ORANGE = 4;
-    public static int COLORE_PALLA_RED = 5;
+    public static int COLORE_PALLA_BASE = 0;
+    public static int COLORE_PALLA_RED = 1;
+    public static int COLORE_PALLA_FUCSIA = 2;
+    public static int COLORE_PALLA_ORANGE = 3;
+    public static int COLORE_PALLA_BLUE = 4;
 
     private int maxColorIndex = 3;
 
-    // genero l'hashtable delle aree errate
+    // genero l'hashtable dei colori delle palle
     public Dictionary<int, Texture> MappColorePalla = new Dictionary<int, Texture>();
+
+   
+    
 
     private static ColorManager instance;
 
@@ -29,20 +32,10 @@ public class ColorManager {
             if (instance == null)
             {
                 instance = new ColorManager();
-                instance.Start();
             }
             
             return instance;
         }
-    }
-
-    //public int counter;
-    //public int totalcounter;
-
-    // aggiungo le voci nella hashtable allo start
-    public void Start()
-    {
-
     }
 
     public Texture RandomColor()
@@ -56,7 +49,6 @@ public class ColorManager {
     {
         maxColorIndex = index;
     }
-    
 
     public int getMaxColorIndex()
     {
@@ -72,15 +64,4 @@ public class ColorManager {
     {
         maxColorIndex = 3;
     }
-
-    // (DEBUG) estraggo e visualizzo la lista dei valori
-    //public void stampaMappa()
-    //{
-    //    List<int> keys = new List<int>(MappColorePalla.Keys);
-    //    foreach (int key in keys)
-    //    {
-    //        Debug.Log("MAXOLORINDEX: " + maxColorIndex);
-    //    }
-    //    Debug.Log("------------------------------------------");
-    //}
 }

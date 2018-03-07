@@ -7,11 +7,11 @@ using UnityEngine.UI;
 // SINGLETON DElle textture (centralizzato)
 public class SymbolManager {
 
-    public static int SIMBOLO_PALLA_A = 1;
-    public static int SIMBOLO_PALLA_B = 2;
-    public static int SIMBOLO_PALLA_C = 3;
-    public static int SIMBOLO_PALLA_D = 4;
-    public static int SIMBOLO_PALLA_E = 5;
+    public static int SIMBOLO_PALLA_A = 0;
+    public static int SIMBOLO_PALLA_B = 1;
+    public static int SIMBOLO_PALLA_C = 2;
+    public static int SIMBOLO_PALLA_D = 3;
+    public static int SIMBOLO_PALLA_E = 4;
 
     private int maxSymbolIndex = 3;
 
@@ -29,20 +29,10 @@ public class SymbolManager {
             if (instance == null)
             {
                 instance = new SymbolManager();
-                instance.Start();
             }
             
             return instance;
         }
-    }
-
-    //public int counter;
-    //public int totalcounter;
-
-    // aggiungo le voci nella hashtable allo start
-    public void Start()
-    {
-
     }
 
     public Texture RandomSymbol()
@@ -66,29 +56,9 @@ public class SymbolManager {
     {
         maxSymbolIndex = 2;
     }
+
     public void setDefaultSymbolIndex()
     {
         maxSymbolIndex = 3;
     }
-
-    //// Resetto i valori delle aree corrette
-    //public void ResetVelocityTrigger()
-    //{
-    //    List<string> keys = new List<string>(MappColore.Keys);
-    //    foreach (string key in keys)
-    //    {
-    //        MappColore[key] = 0;
-    //    }
-    //}
-
-    // (DEBUG) estraggo e visualizzo la lista dei valori
-    //public void stampaMappa()
-    //{
-    //    List<string> keys = new List<string>(MappColore.Keys);
-    //    foreach (string key in keys)
-    //    {
-    //        Debug.Log("Chiave: " + key + " | Valore: " + MappColore[key]);
-    //    }
-    //    Debug.Log("------------------------------------------");
-    //}
 }

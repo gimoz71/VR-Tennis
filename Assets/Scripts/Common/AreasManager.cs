@@ -37,8 +37,8 @@ public class AreasManager {
     {
         // Aree corrette
         listaAreeCorrette.Add("AreaAnterioreDX");
-        listaAreeCorrette.Add("AreaAnterioreSX");
         listaAreeCorrette.Add("AreaPosterioreDX");
+        listaAreeCorrette.Add("AreaAnterioreSX");
         listaAreeCorrette.Add("AreaPosterioreSX");
 
         // Aree Errate

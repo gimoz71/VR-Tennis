@@ -7,21 +7,25 @@ using UnityEngine.UI;
 // SINGLETON delle texture (centralizzato)
 public class BallTextureManager {
 
-    public static int TEXTURE_A = 1;
-    public static int TEXTURE_B = 2;
-    public static int TEXTURE_C = 3;
-    public static int TEXTURE_D = 4;
-    public static int TEXTURE_E = 5;
+    public static int TEXTURE_A = 0;
+    public static int TEXTURE_B = 1;
+    public static int TEXTURE_C = 2;
+    public static int TEXTURE_D = 3;
+    public static int TEXTURE_E = 4;
 
     public static int MAP_INDEX_COLORI = 0;
     public static int MAP_INDEX_SIMBOLI = 1;
 
     private int maxTextureIndex = 3;
+    public int next;
 
     // genero l'hashtable dei simboli delle palle
     public Dictionary<int, Texture> MappSimboloPalla = new Dictionary<int, Texture>();
     public Dictionary<int, Texture> MappColorePalla = new Dictionary<int, Texture>();
 
+    public Dictionary<string, int> associazioneTextureArea = new Dictionary<string, int>();
+
+   
 
     public Dictionary<int, Texture>[] mappe;
     private int mapIndex = 0;
@@ -44,6 +48,12 @@ public class BallTextureManager {
         }
     }
 
+    public void setAssociazioneTextureArea(Dictionary<string, int> dictionary)
+    {
+        associazioneTextureArea = dictionary;
+    }
+
+
     public int getMapIndex ()
     {
         return mapIndex;
@@ -65,7 +75,7 @@ public class BallTextureManager {
     public Texture RandomTexture()
     {
         System.Random rand = new System.Random();
-        int next = rand.Next(1, maxTextureIndex);
+        next = rand.Next(1, maxTextureIndex);
         return mappe[mapIndex][next];
     }
     

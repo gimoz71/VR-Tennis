@@ -6,15 +6,16 @@ using UnityEngine.UI;
 public class BallSpawnFire : MonoBehaviour {
 
     private BallTextureManager balltextureManager;
+    private ColorManager colorManager;
 
     public Animator AvatarAnim;
 
     [Header("Colore Palla (Prefab)")]
     public Texture BaseTexture;
-    public Texture BlueTexture;
+    public Texture RedTexture;
     public Texture FucsiaTexture;
     public Texture OrangeTexture;
-    public Texture RedTexture;
+    public Texture BlueTexture;
 
     [Header("Simbolo Palla (Prefab)")]
     public Texture ATexture;
@@ -23,8 +24,36 @@ public class BallSpawnFire : MonoBehaviour {
     public Texture DTexture;
     public Texture ETexture;
 
+    [Header("Assegnazione Aree/Colori (DropDown)")]
+    public Dropdown MCAreaPosterioreDX;
+    public Dropdown MCAreaAnterioreDX;
+    public Dropdown MCAreaPosterioreSX;
+    public Dropdown MCAreaAnterioreSX;
+
+    public Dropdown MSAreaPosterioreDX;
+    public Dropdown MSAreaAnterioreDX;
+    public Dropdown MSAreaPosterioreSX;
+    public Dropdown MSAreaAnterioreSX;
+
+    private int mx_ap_dx;
+    private int mx_aa_dx;
+    private int mx_ap_sx;
+    private int mx_aa_sx;
+
+
+    [Header("Lista Toggle Group nei Pannelli  Opzioni")]
+    private CanvasGroup multiColoreCanvasGroup;
+    private CanvasGroup multiSimboloCanvasGroup;
+    private CanvasGroup differenziazioneCanvasGroup;
+    private CanvasGroup decisionMakingCanvasGroup;
+
+    private Text protocolloAttivo;
+
     [Header("Palla (Prefab)")]
-    public GameObject Prefab;
+    public GameObject ballPrefab;
+
+    [Header("Target Area")]
+    public GameObject mxMarker;
 
     [Header("Origine lancio")]
     public Transform playerTransform;
@@ -55,6 +84,7 @@ public class BallSpawnFire : MonoBehaviour {
 
     private CanvasGroup CanvasSwitch;
 
+    
 
     private void Start()
     {
@@ -63,22 +93,61 @@ public class BallSpawnFire : MonoBehaviour {
         AvatarAnim = GameObject.Find("AvatarAvversario").GetComponent<Animator>();
         CanvasSwitch = GameObject.Find("[MENU ISTRUTTORE (UI)]").GetComponent<CanvasGroup>();
 
+
+        protocolloAttivo = GameObject.Find("Protocollo Attivo").GetComponent<Text>();
+        if (protocolloAttivo.text != "Protocollo Base")
+        {
+            multiColoreCanvasGroup = GameObject.Find("PanelMC").GetComponent<CanvasGroup>();
+            multiSimboloCanvasGroup = GameObject.Find("PanelMS").GetComponent<CanvasGroup>();
+            differenziazioneCanvasGroup = GameObject.Find("PanelDIFF").GetComponent<CanvasGroup>();
+            decisionMakingCanvasGroup = GameObject.Find("PanelDM").GetComponent<CanvasGroup>();
+        }
+
         balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_A, BaseTexture);
-        balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_B, BlueTexture);
+        balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_B, RedTexture);
         balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_C, FucsiaTexture);
         balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_D, OrangeTexture);
-        balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_E, RedTexture);
+        balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_E, BlueTexture);
 
         balltextureManager.MappSimboloPalla.Add(BallTextureManager.TEXTURE_A, ATexture);
         balltextureManager.MappSimboloPalla.Add(BallTextureManager.TEXTURE_B, BTexture);
         balltextureManager.MappSimboloPalla.Add(BallTextureManager.TEXTURE_C, CTexture);
         balltextureManager.MappSimboloPalla.Add(BallTextureManager.TEXTURE_D, DTexture);
         balltextureManager.MappSimboloPalla.Add(BallTextureManager.TEXTURE_E, ETexture);
+
+       
+
     }
 
     // Lancio palle come da parametri settati negli sliders
     public void SerialFire()
     {
+        if (multiColoreCanvasGroup.interactable == true)
+        {
+            mx_aa_dx = MCAreaAnterioreDX.GetComponent<Dropdown>().value;
+            mx_ap_dx = MCAreaPosterioreDX.GetComponent<Dropdown>().value;
+            mx_aa_sx = MCAreaAnterioreSX.GetComponent<Dropdown>().value;
+            mx_ap_sx = MCAreaPosterioreSX.GetComponent<Dropdown>().value;
+        }
+        else if (multiSimboloCanvasGroup.interactable == true)
+        {
+            mx_aa_dx = MSAreaAnterioreDX.GetComponent<Dropdown>().value;
+            mx_ap_dx = MSAreaPosterioreDX.GetComponent<Dropdown>().value;
+            mx_aa_sx = MSAreaAnterioreSX.GetComponent<Dropdown>().value;
+            mx_ap_sx = MSAreaPosterioreSX.GetComponent<Dropdown>().value;
+        }
+
+        Debug.Log(mx_ap_dx + " " + mx_aa_dx + " " + mx_ap_sx + " " + mx_aa_sx);
+        Dictionary<string, int> associazioneTextureArea = new Dictionary<string, int>();
+
+        associazioneTextureArea.Add("AreaAnterioreDX", mx_aa_dx);
+        associazioneTextureArea.Add("AreaPosterioreDX", mx_ap_dx);
+        associazioneTextureArea.Add("AreaAnterioreSX", mx_aa_sx);
+        associazioneTextureArea.Add("AreaPosterioreSX", mx_ap_sx);
+
+        balltextureManager.setAssociazioneTextureArea(associazioneTextureArea);
+
+
         float interval = IntervalSlider.GetComponent<Slider>().value;
         float quantity = QuantitySlider.GetComponent<Slider>().value;
         float delay = DelaySlider.GetComponent<Slider>().value;
@@ -97,8 +166,8 @@ public class BallSpawnFire : MonoBehaviour {
 
 	// loop base del lancio
 	public IEnumerator sequenzaLancio(float count, float separation) {
-        
 
+        
         CanvasSwitch.interactable = false;
         for (int i = 0; i < count; i++) {
             _ToggleDifficultyScript.ActiveToggle();
@@ -123,7 +192,7 @@ public class BallSpawnFire : MonoBehaviour {
     {
 
         // Creo L'istanza del prefab della pallina
-        GameObject tennisBall = Instantiate(Prefab, playerTransform.position, Quaternion.identity) as GameObject;
+        GameObject tennisBall = Instantiate(ballPrefab, playerTransform.position, Quaternion.identity) as GameObject;
            
         // Lancio l'istanza nella scena in base ai parametri di forza e rotazione
         tennisBall.GetComponent<Rigidbody>().AddForce((target.position - source.position) * pulseForce);
@@ -132,9 +201,10 @@ public class BallSpawnFire : MonoBehaviour {
         // trovo la mesh della pallina (child della pallina)) e gli assegno una texture random tra quelle definite in textureManager.cs
         GameObject palla = tennisBall.transform.Find("TennisBall/ball").gameObject;
         Renderer pallaPrefab = palla.GetComponent<Renderer>();
-        //balltextureManager.stampaMappa();
+        Renderer mxMarkerTexture = mxMarker.GetComponent<Renderer>();
         pallaPrefab.material.mainTexture = balltextureManager.RandomTexture();
-        
+        mxMarkerTexture.material.mainTexture = balltextureManager.RandomTexture();
+
         // Distruggo la pallina dopo N secondi
         Destroy(tennisBall, 15);
     }

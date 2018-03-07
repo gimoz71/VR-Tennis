@@ -11,6 +11,7 @@ public class DetectArea : MonoBehaviour
     private AreasManager areasManager;
     private DiffManager diffManager;
     private PlayerState playerState;
+    private BallTextureManager ballTextureManager;
 
     // Aggiorna il punteggio e collisioni d'errore nel tabellone in campo (DEBUG, da tenere?)
     [Header("Informazioni di errore")]
@@ -30,6 +31,11 @@ public class DetectArea : MonoBehaviour
     private CanvasGroup multiSimboloCanvasGroup;
     private CanvasGroup differenziazioneCanvasGroup;
     private CanvasGroup decisionMakingCanvasGroup;
+
+    private Dropdown MCAreaPosterioreDX;
+    private Dropdown MCAreaAnterioreDX;
+    private Dropdown MCAreaPosterioreSX;
+    private Dropdown MCAreaAnterioreSX;
 
     private Text protocolloAttivo;
 
@@ -56,6 +62,7 @@ public class DetectArea : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        ballTextureManager = BallTextureManager.Instance;
 
         // Assegno in Runtime i gameobject relativi
         errori = GameObject.Find("Errore").GetComponent<Text>();
@@ -134,13 +141,57 @@ public class DetectArea : MonoBehaviour
                 Debug.LogError("Parametro Speed vuoto");
                 ballSpeed = "Lento";
             }
-            if (protocolloAttivo.text == "Vision Training" || protocolloAttivo.text == "Protocollo Cognitivo" && differenziazioneCanvasGroup.interactable == true) //DIFFERENZIAZIONE
+
+            //MULTICOLORE
+            if (protocolloAttivo.text != "Protocollo Base" && multiColoreCanvasGroup.interactable == true) 
+            {
+                AreasManager.Instance.totalcounter += 1;
+                totali.text = "Totali: " + AreasManager.Instance.totalcounter;
+                totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
+                playerState.totalcounter = AreasManager.Instance.totalcounter;
+
+                int ballTexture = ballTextureManager.next;
+                string zone = other.gameObject.name;
+                if (ballTextureManager.associazioneTextureArea[zone] == ballTexture)
+                {
+                    Debug.Log("OK COLORE!!");
+                } else
+                {
+                    ErrorAreaClip.Play();
+                    errori.text = "Area Sbagliata";
+                }
+            }
+
+            //MULTISIMBOLO
+            if (protocolloAttivo.text != "Protocollo Base" && multiSimboloCanvasGroup.interactable == true)
+            {
+                AreasManager.Instance.totalcounter += 1;
+                totali.text = "Totali: " + AreasManager.Instance.totalcounter;
+                totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
+                playerState.totalcounter = AreasManager.Instance.totalcounter;
+
+                int ballTexture = ballTextureManager.next;
+                string zone = other.gameObject.name;
+
+                if (ballTextureManager.associazioneTextureArea[zone] == ballTexture)
+                {
+                    Debug.Log("OK SIMBOLO!!");
+                }
+                else
+                {
+                    ErrorAreaClip.Play();
+                    errori.text = "Area Sbagliata";
+                }
+            }
+
+            //DIFFERENZIAZIONE
+            else if (protocolloAttivo.text == "Vision Training" || protocolloAttivo.text == "Protocollo Cognitivo" && differenziazioneCanvasGroup.interactable == true) 
             {
                 // Aggiorno il conteggio dei colpi totali
-                //AreasManager.Instance.totalcounter += 1;
-                //totali.text = "Totali: " + AreasManager.Instance.totalcounter;
-                //totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
-                //playerState.totalcounter = AreasManager.Instance.totalcounter;
+                AreasManager.Instance.totalcounter += 1;
+                totali.text = "Totali: " + AreasManager.Instance.totalcounter;
+                totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
+                playerState.totalcounter = AreasManager.Instance.totalcounter;
 
                 string zone = other.gameObject.name;
                 if (ballSpeed.Equals(""))
@@ -160,33 +211,36 @@ public class DetectArea : MonoBehaviour
 
                         ErrorAreaClip.Play();
                     }
-                    else
+                    else //corretto
                     {
                         //LA ZONA COLPITA E LA VELOCITA' DELLA PALLINA SONO OK
 
                         // Aggiorno il conteggio dei colpi corretti
-                        //AreasManager.Instance.counter += 1;
-                        //corretti.text = "Corretti: " + AreasManager.Instance.counter;
-                        //correttiPanel.text = "Corretti: " + AreasManager.Instance.counter;
+                        AreasManager.Instance.counter += 1;
+                        corretti.text = "Corretti: " + AreasManager.Instance.counter;
+                        correttiPanel.text = "Corretti: " + AreasManager.Instance.counter;
                         Debug.Log("OK VELOCITA': " + ballSpeed);
                         Debug.Log("Colpo OK: " + other.gameObject.name + " " + ballSpeed + " con livello " + diffManager.getLivello());
                         errori.text = "Colpo OK: " + other.gameObject.name + " " + ballSpeed + " con livello " + diffManager.getLivello();
 
-                        //playerState.counter = AreasManager.Instance.counter;
+                        playerState.counter = AreasManager.Instance.counter;
                     }
 
-                    ballSpeed = "";
+                    ballSpeed = "Lento";
 
                 }
 
 
             }
-            else if (protocolloAttivo.text == "Risposta al Servizio" || protocolloAttivo.text == "Protocollo Cognitivo" && decisionMakingCanvasGroup.interactable == true) //DECISION MAKING
+
+            //DECISION MAKING
+            else if (protocolloAttivo.text == "Risposta al Servizio" || protocolloAttivo.text == "Protocollo Cognitivo" && decisionMakingCanvasGroup.interactable == true)
             {
                 if (ballSpeed.Equals(""))
                 {
                     //lancio errore perchè manca velocità della pallina
                     Debug.LogError("Parametro Speed vuoto");
+                    ballSpeed = "Lento";
                 }
                 //ESTRARRE LA ZONA DI CAMPO SUGGERITA DAL TARGET
 
@@ -197,17 +251,20 @@ public class DetectArea : MonoBehaviour
                 //GESTIONE OK OPPURE ERRORE
             }
 
-
             // Disabilito il collisore dell'instanza della palla dopo la prima collisione
             (gameObject.GetComponent(typeof(SphereCollider)) as Collider).enabled = false;
+
+
         }
-        else if (areasManager.CheckHitError(other.gameObject.name)) // se colpisco aree differenti da quelle della hashtable corretta
+
+        // se colpisco aree differenti da quelle della hashtable corretta
+        else if (areasManager.CheckHitError(other.gameObject.name)) 
         {
             // aggiorno conteggi totali
-            //AreasManager.Instance.totalcounter += 1;
-            //totali.text = "Totali: " + AreasManager.Instance.totalcounter;
-            //totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
-            //playerState.totalcounter = AreasManager.Instance.totalcounter;
+            AreasManager.Instance.totalcounter += 1;
+            totali.text = "Totali: " + AreasManager.Instance.totalcounter;
+            totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
+            playerState.totalcounter = AreasManager.Instance.totalcounter;
 
             // Riporto l'errore
             errori.text = "ERRORE: colpito " + other.gameObject.name;
