@@ -132,6 +132,7 @@ public class DetectArea : MonoBehaviour
             {
                 //lancio errore perchè manca velocità della pallina
                 Debug.LogError("Parametro Speed vuoto");
+                ballSpeed = "Lento";
             }
             if (protocolloAttivo.text == "Vision Training" || protocolloAttivo.text == "Protocollo Cognitivo" && differenziazioneCanvasGroup.interactable == true) //DIFFERENZIAZIONE
             {
@@ -146,6 +147,7 @@ public class DetectArea : MonoBehaviour
                 {
                     //lancio errore perchè manca velocità della pallina
                     Debug.LogError("Parametro Speed vuoto");
+                    ballSpeed = "Lento";
                 }
                 else {
                     // Gestione aree corrette DIFFERENZIAZIONE
