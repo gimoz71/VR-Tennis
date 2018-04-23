@@ -17,7 +17,7 @@ public class BallTextureManager {
     public static int MAP_INDEX_SIMBOLI = 1;
 
     private int maxTextureIndex = 3;
-    public int next;
+    public int current;
 
     // genero l'hashtable dei simboli delle palle
     public Dictionary<int, Texture> MappSimboloPalla = new Dictionary<int, Texture>();
@@ -75,8 +75,9 @@ public class BallTextureManager {
     public Texture RandomTexture()
     {
         System.Random rand = new System.Random();
-        next = rand.Next(1, maxTextureIndex);
-        return mappe[mapIndex][next];
+        current = rand.Next(0, maxTextureIndex);
+        Debug.Log("NEXT: " + current + " | MAXTXTUREINDEX: "+maxTextureIndex);
+        return mappe[mapIndex][current];
     }
     
     public void setMaxTextureIndex(int index)

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class BallSpawnFire : MonoBehaviour {
 
     private BallTextureManager balltextureManager;
+    private TargetManager targetManager;
     private ColorManager colorManager;
 
     public Animator AvatarAnim;
@@ -24,6 +25,11 @@ public class BallSpawnFire : MonoBehaviour {
     public Texture DTexture;
     public Texture ETexture;
 
+    public Toggle TGAreaPosterioreDX;
+    public Toggle TGAreaAnterioreDX;
+    public Toggle TGAreaPosterioreSX;
+    public Toggle TGAreaAnterioreSX;
+
     [Header("Assegnazione Aree/Colori (DropDown)")]
     public Dropdown MCAreaPosterioreDX;
     public Dropdown MCAreaAnterioreDX;
@@ -40,8 +46,15 @@ public class BallSpawnFire : MonoBehaviour {
     private int mx_ap_sx;
     private int mx_aa_sx;
 
+    private bool tg_ap_dx;
+    private bool tg_aa_dx;
+    private bool tg_ap_sx;
+    private bool tg_aa_sx;
+
 
     [Header("Lista Toggle Group nei Pannelli  Opzioni")]
+
+    private CanvasGroup targetCanvasGroup;
     private CanvasGroup multiColoreCanvasGroup;
     private CanvasGroup multiSimboloCanvasGroup;
     private CanvasGroup differenziazioneCanvasGroup;
@@ -89,12 +102,16 @@ public class BallSpawnFire : MonoBehaviour {
     private void Start()
     {
         balltextureManager = BallTextureManager.Instance;
+        targetManager = TargetManager.Instance;
 
         AvatarAnim = GameObject.Find("AvatarAvversario").GetComponent<Animator>();
         CanvasSwitch = GameObject.Find("[MENU ISTRUTTORE (UI)]").GetComponent<CanvasGroup>();
 
 
         protocolloAttivo = GameObject.Find("Protocollo Attivo").GetComponent<Text>();
+
+        targetCanvasGroup = GameObject.Find("PanelTG").GetComponent<CanvasGroup>();
+
         if (protocolloAttivo.text != "Protocollo Base")
         {
             multiColoreCanvasGroup = GameObject.Find("PanelMC").GetComponent<CanvasGroup>();
@@ -122,30 +139,53 @@ public class BallSpawnFire : MonoBehaviour {
     // Lancio palle come da parametri settati negli sliders
     public void SerialFire()
     {
-        if (multiColoreCanvasGroup.interactable == true)
+        if (targetCanvasGroup.interactable == true)
         {
-            mx_aa_dx = MCAreaAnterioreDX.GetComponent<Dropdown>().value;
-            mx_ap_dx = MCAreaPosterioreDX.GetComponent<Dropdown>().value;
-            mx_aa_sx = MCAreaAnterioreSX.GetComponent<Dropdown>().value;
-            mx_ap_sx = MCAreaPosterioreSX.GetComponent<Dropdown>().value;
+            tg_aa_dx = TGAreaAnterioreDX.GetComponent<Toggle>().isOn;
+            tg_ap_dx = TGAreaPosterioreDX.GetComponent<Toggle>().isOn;
+            tg_aa_sx = TGAreaAnterioreSX.GetComponent<Toggle>().isOn;
+            tg_ap_sx = TGAreaPosterioreSX.GetComponent<Toggle>().isOn;
+
+            Dictionary<string, bool> associazioneTargetArea = new Dictionary<string, bool>();
+
+            associazioneTargetArea.Add("AreaAnterioreDX", tg_aa_dx);
+            associazioneTargetArea.Add("AreaPosterioreDX", tg_ap_dx);
+            associazioneTargetArea.Add("AreaAnterioreSX", tg_aa_sx);
+            associazioneTargetArea.Add("AreaPosterioreSX", tg_ap_sx);
+
+            targetManager.setAssociazioneTargetArea(associazioneTargetArea);
         }
-        else if (multiSimboloCanvasGroup.interactable == true)
+        else
         {
-            mx_aa_dx = MSAreaAnterioreDX.GetComponent<Dropdown>().value;
-            mx_ap_dx = MSAreaPosterioreDX.GetComponent<Dropdown>().value;
-            mx_aa_sx = MSAreaAnterioreSX.GetComponent<Dropdown>().value;
-            mx_ap_sx = MSAreaPosterioreSX.GetComponent<Dropdown>().value;
+
+            if (multiColoreCanvasGroup.interactable == true)
+            {
+                mx_aa_dx = MCAreaAnterioreDX.GetComponent<Dropdown>().value;
+                mx_ap_dx = MCAreaPosterioreDX.GetComponent<Dropdown>().value;
+                mx_aa_sx = MCAreaAnterioreSX.GetComponent<Dropdown>().value;
+                mx_ap_sx = MCAreaPosterioreSX.GetComponent<Dropdown>().value;
+            }
+            else if (multiSimboloCanvasGroup.interactable == true)
+            {
+                mx_aa_dx = MSAreaAnterioreDX.GetComponent<Dropdown>().value;
+                mx_ap_dx = MSAreaPosterioreDX.GetComponent<Dropdown>().value;
+                mx_aa_sx = MSAreaAnterioreSX.GetComponent<Dropdown>().value;
+                mx_ap_sx = MSAreaPosterioreSX.GetComponent<Dropdown>().value;
+            }
+            Debug.Log(mx_ap_dx + " " + mx_aa_dx + " " + mx_ap_sx + " " + mx_aa_sx);
+
+            Dictionary<string, int> associazioneTextureArea = new Dictionary<string, int>();
+
+            associazioneTextureArea.Add("AreaAnterioreDX", mx_aa_dx);
+            associazioneTextureArea.Add("AreaPosterioreDX", mx_ap_dx);
+            associazioneTextureArea.Add("AreaAnterioreSX", mx_aa_sx);
+            associazioneTextureArea.Add("AreaPosterioreSX", mx_ap_sx);
+            balltextureManager.setAssociazioneTextureArea(associazioneTextureArea);
         }
 
-        Debug.Log(mx_ap_dx + " " + mx_aa_dx + " " + mx_ap_sx + " " + mx_aa_sx);
-        Dictionary<string, int> associazioneTextureArea = new Dictionary<string, int>();
+        
 
-        associazioneTextureArea.Add("AreaAnterioreDX", mx_aa_dx);
-        associazioneTextureArea.Add("AreaPosterioreDX", mx_ap_dx);
-        associazioneTextureArea.Add("AreaAnterioreSX", mx_aa_sx);
-        associazioneTextureArea.Add("AreaPosterioreSX", mx_ap_sx);
-
-        balltextureManager.setAssociazioneTextureArea(associazioneTextureArea);
+        
 
 
         float interval = IntervalSlider.GetComponent<Slider>().value;
@@ -203,10 +243,11 @@ public class BallSpawnFire : MonoBehaviour {
         Renderer pallaPrefab = palla.GetComponent<Renderer>();
         Renderer mxMarkerTexture = mxMarker.GetComponent<Renderer>();
         pallaPrefab.material.mainTexture = balltextureManager.RandomTexture();
+        Debug.Log("TEXTURE: "+pallaPrefab.material.mainTexture);
         mxMarkerTexture.material.mainTexture = balltextureManager.RandomTexture();
 
         // Distruggo la pallina dopo N secondi
-        Destroy(tennisBall, 15);
+        //Destroy(tennisBall, 15);
     }
 }
 

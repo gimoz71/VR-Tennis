@@ -205,7 +205,7 @@ namespace Valve.VR.InteractionSystem
 
 						segmentStartTime += timeStep + segmentBreak;
 
-						//If the previous end time or the next start time is beyond the duration then stop the arc
+						//If the previous end time or the current start time is beyond the duration then stop the arc
 						if ( stopArc || segmentStartTime >= arcDuration || segmentStartTime >= arcHitTime )
 						{
 							break;

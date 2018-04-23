@@ -188,7 +188,7 @@ namespace Valve.VR.InteractionSystem
 			rb.angularVelocity = angularVelocity;
 
 			// Make the object travel at the release velocity for the amount
-			// of time it will take until the next fixed update, at which
+			// of time it will take until the current fixed update, at which
 			// point Unity physics will take over
 			float timeUntilFixedUpdate = ( Time.fixedDeltaTime + Time.fixedTime ) - Time.time;
 			transform.position += timeUntilFixedUpdate * velocity;

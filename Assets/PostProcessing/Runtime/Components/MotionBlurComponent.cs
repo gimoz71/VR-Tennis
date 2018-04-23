@@ -390,7 +390,7 @@ namespace UnityEngine.PostProcessing
 #endif
 
             // Skip rendering in the first frame as motion vectors won't be abvailable until the
-            // next one
+            // current one
             if (m_FirstFrame)
             {
                 m_FirstFrame = false;

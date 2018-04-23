@@ -162,19 +162,19 @@ public class ToggleDifficulty : MonoBehaviour {
            
             if (dropDownColore.value == 0)
             {
-                tm.setMaxTextureIndex(3);
+                tm.setMaxTextureIndex(2);
             }
             else if (dropDownColore.value == 1)
             {
-                tm.setMaxTextureIndex(4);
+                tm.setMaxTextureIndex(3);
             }
             else if (dropDownColore.value == 2)
             {
-                tm.setMaxTextureIndex(5);
+                tm.setMaxTextureIndex(4);
             }
             else if (dropDownColore.value == 3)
             {
-                tm.setMaxTextureIndex(6);
+                tm.setMaxTextureIndex(5);
             }
 
 
@@ -184,24 +184,24 @@ public class ToggleDifficulty : MonoBehaviour {
             
             if (dropDownSimbolo.value == 0)
             {
-                tm.setMaxTextureIndex(3);
+                tm.setMaxTextureIndex(2);
             }
             else if (dropDownSimbolo.value == 1)
             {
-                tm.setMaxTextureIndex(4);
+                tm.setMaxTextureIndex(3);
             }
             else if (dropDownSimbolo.value == 2)
             {
-                tm.setMaxTextureIndex(5);
+                tm.setMaxTextureIndex(4);
             }
             else if (dropDownSimbolo.value == 3)
             {
-                tm.setMaxTextureIndex(6);
+                tm.setMaxTextureIndex(5);
             }
         }
         else
         {
-            tm.setMaxTextureIndex(2);
+            tm.setMaxTextureIndex(1);
             
         }
 

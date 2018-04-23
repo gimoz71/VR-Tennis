@@ -12,6 +12,7 @@ public class DetectArea : MonoBehaviour
     private DiffManager diffManager;
     private PlayerState playerState;
     private BallTextureManager ballTextureManager;
+    private TargetManager targetManager;
 
     // Aggiorna il punteggio e collisioni d'errore nel tabellone in campo (DEBUG, da tenere?)
     [Header("Informazioni di errore")]
@@ -27,6 +28,8 @@ public class DetectArea : MonoBehaviour
     public Text totaliPanel;
 
     [Header("Lista Toggle Group nei Pannelli  Opzioni")]
+
+    private CanvasGroup targetCanvasGroup;
     private CanvasGroup multiColoreCanvasGroup;
     private CanvasGroup multiSimboloCanvasGroup;
     private CanvasGroup differenziazioneCanvasGroup;
@@ -63,6 +66,7 @@ public class DetectArea : MonoBehaviour
     void Start()
     {
         ballTextureManager = BallTextureManager.Instance;
+        targetManager = TargetManager.Instance;
 
         // Assegno in Runtime i gameobject relativi
         errori = GameObject.Find("Errore").GetComponent<Text>();
@@ -73,6 +77,8 @@ public class DetectArea : MonoBehaviour
         totaliPanel = GameObject.Find("Totali").GetComponent<Text>();
 
         protocolloAttivo = GameObject.Find("Protocollo Attivo").GetComponent<Text>();
+
+        targetCanvasGroup = GameObject.Find("PanelTG").GetComponent<CanvasGroup>();
 
         if (protocolloAttivo.text != "Protocollo Base")
         {
@@ -142,6 +148,30 @@ public class DetectArea : MonoBehaviour
                 ballSpeed = "Lento";
             }
 
+            //TARGET
+            if ( targetCanvasGroup.interactable == true)
+            {
+                AreasManager.Instance.totalcounter += 1;
+                totali.text = "Totali: " + AreasManager.Instance.totalcounter;
+                totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
+                playerState.totalcounter = AreasManager.Instance.totalcounter;
+
+                string zone = other.gameObject.name;
+                if (targetManager.associazioneTargetArea[zone])
+                {
+                    AreasManager.Instance.counter += 1;
+                    correttiPanel.text = "Corretti: " + AreasManager.Instance.counter;
+                    Debug.Log("OK AREA!!");
+                    errori.text = "OK AREA";
+                }
+                else
+                {
+                    Debug.Log("AREA SBAGLIATA!!");
+                    ErrorAreaClip.Play();
+                    errori.text = "Area Sbagliata";
+                }
+            }
+
             //MULTICOLORE
             if (protocolloAttivo.text != "Protocollo Base" && multiColoreCanvasGroup.interactable == true) 
             {
@@ -150,13 +180,18 @@ public class DetectArea : MonoBehaviour
                 totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
                 playerState.totalcounter = AreasManager.Instance.totalcounter;
 
-                int ballTexture = ballTextureManager.next;
+                int ballTexture = ballTextureManager.current;
                 string zone = other.gameObject.name;
+                Debug.Log("texture: " + ballTexture  + " area: " + ballTextureManager.associazioneTextureArea[zone] + " zone: " + zone);
                 if (ballTextureManager.associazioneTextureArea[zone] == ballTexture)
                 {
+                    AreasManager.Instance.counter += 1;
+                    correttiPanel.text = "Corretti: " + AreasManager.Instance.counter;
                     Debug.Log("OK COLORE!!");
+                    errori.text = "OK COLORE";
                 } else
                 {
+                    Debug.Log("AREA SBAGLIATA!!");
                     ErrorAreaClip.Play();
                     errori.text = "Area Sbagliata";
                 }
@@ -170,11 +205,13 @@ public class DetectArea : MonoBehaviour
                 totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
                 playerState.totalcounter = AreasManager.Instance.totalcounter;
 
-                int ballTexture = ballTextureManager.next;
+                int ballTexture = ballTextureManager.current;
                 string zone = other.gameObject.name;
 
                 if (ballTextureManager.associazioneTextureArea[zone] == ballTexture)
                 {
+                    AreasManager.Instance.counter += 1;
+                    correttiPanel.text = "Corretti: " + AreasManager.Instance.counter;
                     Debug.Log("OK SIMBOLO!!");
                 }
                 else
@@ -274,7 +311,7 @@ public class DetectArea : MonoBehaviour
             ErrorAreaClip.Play();
 
             // Disabilito il collisore dell'instanza della palla dopo la prima collisione
-            (gameObject.GetComponent(typeof(SphereCollider)) as Collider).enabled = false;
+            //(gameObject.GetComponent(typeof(SphereCollider)) as Collider).enabled = false;
         }
 
        
