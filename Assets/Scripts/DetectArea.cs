@@ -311,7 +311,7 @@ public class DetectArea : MonoBehaviour
             ErrorAreaClip.Play();
 
             // Disabilito il collisore dell'instanza della palla dopo la prima collisione
-            //(gameObject.GetComponent(typeof(SphereCollider)) as Collider).enabled = false;
+            (gameObject.GetComponent(typeof(SphereCollider)) as Collider).enabled = false;
         }
 
        

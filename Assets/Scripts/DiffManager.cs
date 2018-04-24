@@ -86,8 +86,8 @@ public class DiffManager {
 
         Debug.Log("*******SPEED: " + speed);
 
-        int indiceVelocita = indiciVelocita[speed];
-        int indiceZona = indiciZona[zone];
+        int indiceVelocita = (livelloPrecedente == 1 ? 0 : indiciVelocita[speed]);
+        int indiceZona = (livelloPrecedente == 2 ? 0 : indiciZona[zone]);
 
         /*Debug.Log("indiceVelocita: " + indiceVelocita);
         Debug.Log("indiceZona " + indiceZona);*/
@@ -107,8 +107,8 @@ public class DiffManager {
             {
                 if (combinazioni[i, j].Equals(1))
                 {
-                    indiceVelocitaPrecedente = i;
-                    indiceZonaPrecedente = j;
+                    indiceVelocitaPrecedente = (livelloPrecedente == 1 ? -1 : i);
+                    indiceZonaPrecedente = (livelloPrecedente == 2 ? -1 : j);
                     break;
                 }
             }

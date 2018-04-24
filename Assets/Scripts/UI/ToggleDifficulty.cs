@@ -215,11 +215,11 @@ public class ToggleDifficulty : MonoBehaviour {
         {
             df.setLivello1();
         }
-        else if (dropDownPartenza.value == 1)
+        else if (dropDownDiff.value == 1)
         {
             df.setLivello2();
         }
-        else if (dropDownPartenza.value == 2)
+        else if (dropDownDiff.value == 2)
         {
             df.setLivello3();
         }

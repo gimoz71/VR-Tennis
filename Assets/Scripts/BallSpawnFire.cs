@@ -247,7 +247,7 @@ public class BallSpawnFire : MonoBehaviour {
         mxMarkerTexture.material.mainTexture = balltextureManager.RandomTexture();
 
         // Distruggo la pallina dopo N secondi
-        //Destroy(tennisBall, 15);
+        Destroy(tennisBall, 15);
     }
 }
 
