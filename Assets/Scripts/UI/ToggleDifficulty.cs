@@ -79,7 +79,7 @@ public class ToggleDifficulty : MonoBehaviour {
         // setto all'avvio la posizione dell'avatar
         x = 0;
         y = 0f;
-        z = Random.Range(-0.5f, 0.5f);
+        z = Random.Range(-0f, 0f);
 
         pos = new Vector3(x, y, z);
         
@@ -138,7 +138,7 @@ public class ToggleDifficulty : MonoBehaviour {
         // Variazione livelli posizione di partenza
         if (dropDownPartenza.value == 0)
         {
-            z = Random.Range(-0.5f, 0.5f);
+            z = Random.Range(-0f, 0f);
         }
         else if (dropDownPartenza.value == 1)
         {

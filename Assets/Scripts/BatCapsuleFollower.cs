@@ -23,6 +23,9 @@ public class BatCapsuleFollower : MonoBehaviour
         _velocity = (destination - _rigidbody.transform.position) * _sensitivity;
 
         _rigidbody.velocity = _velocity;
+        transform.rotation = _batFollower.transform.rotation;
+
+        // registro nella variabile speed il valore della velocità
         _speed = _velocity.magnitude * 10;
 
     }
