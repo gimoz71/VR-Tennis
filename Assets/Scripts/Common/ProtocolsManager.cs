@@ -40,6 +40,12 @@ public class ProtocolsManager : MonoBehaviour
     public CanvasGroup differenziazioneCanvasGroup;
     public CanvasGroup decisionMakingCanvasGroup;
 
+    [Header("Posizione giocatori")]
+    public GameObject playerPositionDefault;
+    public GameObject playerPositionServizio;
+    public GameObject avversarioPositionDefault;
+    public GameObject avversarioPositionServizio;
+
     // inizializzo le variabili dei manager 
     private BallTextureManager balltextureManager;
     private AreasManager areasManager;
@@ -47,7 +53,14 @@ public class ProtocolsManager : MonoBehaviour
 
     private StroboManager stroboManager;
 
-   
+    //setto la posizione dei giocatori in base al protocollo
+    private GameObject playerPosition;
+    private GameObject avversarioPosition;
+
+
+    
+
+
     // Genero L'hashtable dei pulsanti
     public Dictionary<Button, GameObject> buttonIconPair = new Dictionary<Button, GameObject>();
 
@@ -62,6 +75,12 @@ public class ProtocolsManager : MonoBehaviour
 
     void Start()
     {
+
+        playerPosition = GameObject.Find("Player");
+        avversarioPosition = GameObject.Find("AvversarioOrigine");
+
+        avversarioPosition.transform.position = avversarioPositionDefault.transform.position;
+        playerPosition.transform.position = playerPositionDefault.transform.position;
 
         hemObject = GameObject.Find("SliderChiusura").GetComponent<HeadEyeMovementScaler>();
         balltextureManager = BallTextureManager.Instance;
@@ -121,8 +140,12 @@ public class ProtocolsManager : MonoBehaviour
         }
         if (buttonClicked == baseButton)
         {
+
             Debug.Log("BASE");
             m_Text.text = "Protocollo Base";
+
+            avversarioPosition.transform.position = avversarioPositionDefault.transform.position;
+            playerPosition.transform.position = playerPositionDefault.transform.position;
 
             balltextureManager.setShutdownTextureIndex(); // SPENTO
 
@@ -140,12 +163,17 @@ public class ProtocolsManager : MonoBehaviour
 
             differenziazione.gameObject.SetActive(false);
             //
+
+            //playerPosition.transform.position = playerPositionDefault.transform.position;
         }
         if (buttonClicked == cognitivoButton)
         {
             Debug.Log("COGNITIVO");
             m_Text.text = "Protocollo Cognitivo";
-            
+
+            avversarioPosition.transform.position = avversarioPositionDefault.transform.position;
+            playerPosition.transform.position = playerPositionDefault.transform.position;
+
             balltextureManager.setDefaultTextureIndex(); // DEFAULT
 
             multiColore.gameObject.SetActive(true);
@@ -161,7 +189,9 @@ public class ProtocolsManager : MonoBehaviour
             hemObject.enableHEM();
 
             differenziazione.gameObject.SetActive(true);
+            
 
+            //settaggi di partenza
             targetCanvasGroup.interactable = true;
             multiColoreCanvasGroup.interactable = false;
             multiSimboloCanvasGroup.interactable = false;
@@ -173,6 +203,9 @@ public class ProtocolsManager : MonoBehaviour
         {
             Debug.Log("VISION");
             m_Text.text = "Vision Training";
+
+            avversarioPosition.transform.position = avversarioPositionDefault.transform.position;
+            playerPosition.transform.position = playerPositionDefault.transform.position;
 
             balltextureManager.setShutdownTextureIndex(); // SHUTDOWN
 
@@ -188,9 +221,9 @@ public class ProtocolsManager : MonoBehaviour
             hemObject.enableHEM();
 
             differenziazione.gameObject.SetActive(true);
-            //
+            
 
-
+            //settaggi di partenza
             targetCanvasGroup.interactable = true;
             multiColoreCanvasGroup.interactable = false;
             multiSimboloCanvasGroup.interactable = false;
@@ -199,8 +232,12 @@ public class ProtocolsManager : MonoBehaviour
         }
         if (buttonClicked == servizioButton)
         {
+            
             Debug.Log("SERVIZIO");
             m_Text.text = "Risposta al Servizio";
+
+            avversarioPosition.transform.position = avversarioPositionServizio.transform.position;
+            playerPosition.transform.position = playerPositionServizio.transform.position;
 
             balltextureManager.setShutdownTextureIndex(); // SHUTDOWN
 
@@ -216,7 +253,9 @@ public class ProtocolsManager : MonoBehaviour
             hemObject.enableHEM();
 
             differenziazione.gameObject.SetActive(false);
+            
 
+            //settaggi di partenza
             targetCanvasGroup.interactable = true;
             multiColoreCanvasGroup.interactable = false;
             multiSimboloCanvasGroup.interactable = false;

@@ -28,6 +28,7 @@ public class ToggleDifficulty : MonoBehaviour {
     [Header("Origine lancio")]
     public GameObject origineLancio;
 
+
     [Header("Avatar avversario")]
     public GameObject avversario;
 
@@ -39,6 +40,7 @@ public class ToggleDifficulty : MonoBehaviour {
     public GameObject VelocitaLivello4;
 
     [Header("Pannelli Opzioni (per cambio difficoltà)")]
+    public CanvasGroup targetToggleGroup;
     public CanvasGroup multiColoreToggleGroup;
     public CanvasGroup multiSimboloToggleGroup;
     public CanvasGroup differenziazioneToggleGroup;
@@ -62,8 +64,6 @@ public class ToggleDifficulty : MonoBehaviour {
 
     //public GameObject MCPanel;
     //public GameObject MSPanel;
-
-    
 
 
     // Use this for initialization
