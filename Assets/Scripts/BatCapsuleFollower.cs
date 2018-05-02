@@ -5,6 +5,7 @@ public class BatCapsuleFollower : MonoBehaviour
     private BatCapsule _batFollower;
     private Rigidbody _rigidbody;
     private Vector3 _velocity;
+    private Vector3 destination;
     public float _speed;
 
     [SerializeField]
@@ -17,8 +18,8 @@ public class BatCapsuleFollower : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 destination = _batFollower.transform.position;
-		_rigidbody.transform.rotation = _batFollower.transform.rotation;
+        destination = _batFollower.transform.position;
+        _rigidbody.MoveRotation(_batFollower.transform.rotation);
 
         _velocity = (destination - _rigidbody.transform.position) * _sensitivity;
 
@@ -26,7 +27,7 @@ public class BatCapsuleFollower : MonoBehaviour
         transform.rotation = _batFollower.transform.rotation;
 
         // registro nella variabile speed il valore della velocità
-        _speed = _velocity.magnitude * 10;
+        _speed = _rigidbody.velocity.magnitude * 10;
 
     }
 
