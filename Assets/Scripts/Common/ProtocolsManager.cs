@@ -53,9 +53,13 @@ public class ProtocolsManager : MonoBehaviour
 
     private StroboManager stroboManager;
 
-    //setto la posizione dei giocatori in base al protocollo
+    //setto la posizione e la visibilità dei giocatori in base al protocollo
     private GameObject playerPosition;
     private GameObject avversarioPosition;
+
+    private GameObject avatarAvversario;
+    private GameObject ballLauncher;
+
 
 
     
@@ -75,9 +79,15 @@ public class ProtocolsManager : MonoBehaviour
 
     void Start()
     {
-
+        
         playerPosition = GameObject.Find("Player");
         avversarioPosition = GameObject.Find("AvversarioOrigine");
+
+        avatarAvversario = GameObject.Find("AvatarAvversario");
+        ballLauncher = GameObject.Find("ballLauncher");
+
+        avatarAvversario.SetActive(false);
+        ballLauncher.SetActive(true);
 
         avversarioPosition.transform.position = avversarioPositionDefault.transform.position;
         playerPosition.transform.position = playerPositionDefault.transform.position;
@@ -147,6 +157,9 @@ public class ProtocolsManager : MonoBehaviour
             avversarioPosition.transform.position = avversarioPositionDefault.transform.position;
             playerPosition.transform.position = playerPositionDefault.transform.position;
 
+            avatarAvversario.SetActive(false);
+            ballLauncher.SetActive(true);
+
             balltextureManager.setShutdownTextureIndex(); // SPENTO
 
             multiColore.gameObject.SetActive(false);
@@ -162,9 +175,7 @@ public class ProtocolsManager : MonoBehaviour
             hemObject.disableHEM();
 
             differenziazione.gameObject.SetActive(false);
-            //
-
-            //playerPosition.transform.position = playerPositionDefault.transform.position;
+            
         }
         if (buttonClicked == cognitivoButton)
         {
@@ -173,6 +184,9 @@ public class ProtocolsManager : MonoBehaviour
 
             avversarioPosition.transform.position = avversarioPositionDefault.transform.position;
             playerPosition.transform.position = playerPositionDefault.transform.position;
+
+            avatarAvversario.SetActive(false);
+            ballLauncher.SetActive(true);
 
             balltextureManager.setDefaultTextureIndex(); // DEFAULT
 
@@ -207,6 +221,9 @@ public class ProtocolsManager : MonoBehaviour
             avversarioPosition.transform.position = avversarioPositionDefault.transform.position;
             playerPosition.transform.position = playerPositionDefault.transform.position;
 
+            avatarAvversario.SetActive(false);
+            ballLauncher.SetActive(true);
+
             balltextureManager.setShutdownTextureIndex(); // SHUTDOWN
 
             multiColore.gameObject.SetActive(true);
@@ -238,6 +255,9 @@ public class ProtocolsManager : MonoBehaviour
 
             avversarioPosition.transform.position = avversarioPositionServizio.transform.position;
             playerPosition.transform.position = playerPositionServizio.transform.position;
+
+            avatarAvversario.SetActive(true);
+            ballLauncher.SetActive(false);
 
             balltextureManager.setShutdownTextureIndex(); // SHUTDOWN
 
