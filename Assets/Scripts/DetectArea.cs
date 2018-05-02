@@ -80,13 +80,36 @@ public class DetectArea : MonoBehaviour
 
         targetCanvasGroup = GameObject.Find("PanelTG").GetComponent<CanvasGroup>();
 
-        if (protocolloAttivo.text != "Protocollo Base")
+        if (protocolloAttivo.text.Equals("Protocollo Base"))
+        {
+            //multiColoreCanvasGroup = GameObject.Find("PanelMC").GetComponent<CanvasGroup>();
+            //multiSimboloCanvasGroup = GameObject.Find("PanelMS").GetComponent<CanvasGroup>();
+            //differenziazioneCanvasGroup = GameObject.Find("PanelDIFF").GetComponent<CanvasGroup>();
+            //decisionMakingCanvasGroup = GameObject.Find("PanelDM").GetComponent<CanvasGroup>();
+
+        } else if (protocolloAttivo.text.Equals("Protocollo Cognitivo"))
         {
             multiColoreCanvasGroup = GameObject.Find("PanelMC").GetComponent<CanvasGroup>();
             multiSimboloCanvasGroup = GameObject.Find("PanelMS").GetComponent<CanvasGroup>();
             differenziazioneCanvasGroup = GameObject.Find("PanelDIFF").GetComponent<CanvasGroup>();
             decisionMakingCanvasGroup = GameObject.Find("PanelDM").GetComponent<CanvasGroup>();
+
+        } else if (protocolloAttivo.text.Equals("Vision Training "))
+        {
+            multiColoreCanvasGroup = GameObject.Find("PanelMC").GetComponent<CanvasGroup>();
+            //multiSimboloCanvasGroup = GameObject.Find("PanelMS").GetComponent<CanvasGroup>();
+            differenziazioneCanvasGroup = GameObject.Find("PanelDIFF").GetComponent<CanvasGroup>();
+            decisionMakingCanvasGroup = GameObject.Find("PanelDM").GetComponent<CanvasGroup>();
+
+        } else if (protocolloAttivo.text.Equals("Risposta al Servizio"))
+        {
+            multiColoreCanvasGroup = GameObject.Find("PanelMC").GetComponent<CanvasGroup>();
+            //multiSimboloCanvasGroup = GameObject.Find("PanelMS").GetComponent<CanvasGroup>();
+           // differenziazioneCanvasGroup = GameObject.Find("PanelDIFF").GetComponent<CanvasGroup>();
+            decisionMakingCanvasGroup = GameObject.Find("PanelDM").GetComponent<CanvasGroup>();
+
         }
+
 
         AudioSource ErrorAreaClip = GetComponent<AudioSource>();
 
