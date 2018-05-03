@@ -37,7 +37,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4743951474986946}
   - component: {fileID: 135510386015469330}
-  - component: {fileID: 135257404057948462}
   - component: {fileID: 114457184731541396}
   - component: {fileID: 82464792226385680}
   - component: {fileID: 82017022597420640}
@@ -73,11 +72,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4534589325382944}
   - component: {fileID: 54904840237264608}
+  - component: {fileID: 135284625998199348}
   - component: {fileID: 114722349882896068}
   - component: {fileID: 114173304344140982}
   - component: {fileID: 114301741582833512}
   - component: {fileID: 114994151184398062}
   - component: {fileID: 114354536204825476}
+  - component: {fileID: 114216416807603396}
   m_Layer: 0
   m_Name: ThrowableBall
   m_TagString: Untagged
@@ -188,9 +189,9 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1980853003164028}
   serializedVersion: 2
-  m_Mass: 0.7
-  m_Drag: 0.17
-  m_AngularDrag: 0.47
+  m_Mass: 0.4
+  m_Drag: 0.3
+  m_AngularDrag: 0.1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
@@ -460,6 +461,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b93b6a877adcbf94c89a9d6e0c0e844d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114216416807603396
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1980853003164028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 962ac3589a3678d49ab689037b2c6d48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSpeed: 25
 --- !u!114 &114301741582833512
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -604,12 +617,12 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!135 &135257404057948462
+--- !u!135 &135284625998199348
 SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1494239019080536}
+  m_GameObject: {fileID: 1980853003164028}
   m_Material: {fileID: 13400000, guid: 3a8438d5545e8c94b8d7e3accdd9b0a5, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
