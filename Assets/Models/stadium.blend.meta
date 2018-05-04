@@ -52,6 +52,9 @@ ModelImporter:
     100088: linee_bianche
     100090: piloncini_rete
     100092: recinto_campo
+    100094: Cylinder
+    100096: tribuna_lati_001
+    100098: tribuna_lati_002
     400000: Cube
     400002: Cube_001
     400004: desie
@@ -99,6 +102,9 @@ ModelImporter:
     400088: linee_bianche
     400090: piloncini_rete
     400092: recinto_campo
+    400094: Cylinder
+    400096: tribuna_lati_001
+    400098: tribuna_lati_002
     2100000: unnamed
     2100002: 01_-_Default
     2100004: Material__25
@@ -150,6 +156,9 @@ ModelImporter:
     2300082: linee_bianche
     2300084: piloncini_rete
     2300086: recinto_campo
+    2300088: Cylinder
+    2300090: tribuna_lati_001
+    2300092: tribuna_lati_002
     3300000: Cube
     3300002: Cube_001
     3300004: desie
@@ -194,6 +203,9 @@ ModelImporter:
     3300082: linee_bianche
     3300084: piloncini_rete
     3300086: recinto_campo
+    3300088: Cylinder
+    3300090: tribuna_lati_001
+    3300092: tribuna_lati_002
     4300000: desie_001
     4300002: Cube_001
     4300004: desie
@@ -238,6 +250,9 @@ ModelImporter:
     4300082: guardiano_linea
     4300084: area_verde
     4300086: recinto_campo
+    4300088: Cylinder
+    4300090: tribuna_lati_002
+    4300092: tribuna_lati_001
     7400000: Default Take
     9500000: //RootNode
   externalObjects: {}
