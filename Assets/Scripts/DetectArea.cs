@@ -43,12 +43,10 @@ public class DetectArea : MonoBehaviour
     private Text protocolloAttivo;
 
     public AudioSource ErrorAreaClip;
-    //public AudioSource CorrectAreaClip
-
-    //private SpeedManager speedManager;
+    public AudioSource RacketHit;
+    public AudioSource GroundHit;
 
     private GameObject physParent;
-    public AudioSource RacketHit;
     private BatCapsuleFollower bcf;
 
     private GameObject racketCenter;
@@ -60,6 +58,8 @@ public class DetectArea : MonoBehaviour
 
     private float speed;
     private Hand hand;
+
+    private bool hasCollide = false;
 
 
     // Use this for initialization
@@ -111,13 +111,14 @@ public class DetectArea : MonoBehaviour
         }
 
 
-        AudioSource ErrorAreaClip = GetComponent<AudioSource>();
+        //AudioSource ErrorAreaClip = GetComponent<AudioSource>();
+        //AudioSource source = GetComponent<AudioSource>();
 
         playerState = PlayerState.Instance;
         areasManager = AreasManager.Instance;
         diffManager = DiffManager.Instance;
 
-        AudioSource source = GetComponent<AudioSource>();
+        
         if (GameObject.Find("racket") != null)
         {
             physParent = GameObject.Find("racket");
@@ -134,38 +135,27 @@ public class DetectArea : MonoBehaviour
 
         if (other.name == "Racket Follower(Clone)")
         {
-            // calcolo la distanza della palla dal centro della racchetta all'impatto
-            float dist = Vector3.Distance(transform.position, racketCenter.transform.position);
-            //Debug.Log(string.Format("La distanza tra {0} and {1} è: {2}", transform.position, racketCenter.transform.position, dist));
-            distanceText.text = dist.ToString();
-        
-            speed = bcf._speed;
-            
-
-            string key = BatCapsuleFollower.GetSpeedKey(speed);
-            ballSpeed = key;
-
-            //speedManager = SpeedManager.Instance;
-            //speedManager.stampaMappa();
-
-            /*velocita.text = "velocità momentanea: " + speed;
-            if (speedManager.MappVelocita[key] == 1)
+            if (hasCollide == false) // per evitare la doppia collisione (dovuta alla compenetrazione) con la racchetta 
             {
-                //Debug.Log("ERRORE STESSA VELOCITA' PRECEDENTE");
-                velocita.text += " ERRORE STESSA VELOCITA': " + key;
-            }
-            else
-            {
-                velocita.text += " VELOCITA': " + key;
-            }
+                hasCollide = true; // rimetto a true per evitare la doppia collisione
 
-            speedManager.ResetVelocityTrigger();
-            speedManager.MappVelocita[key] = 1;*/
+                // calcolo la distanza della palla dal centro della racchetta all'impatto
+                float dist = Vector3.Distance(transform.position, racketCenter.transform.position);
+                //Debug.Log(string.Format("La distanza tra {0} and {1} è: {2}", transform.position, racketCenter.transform.position, dist));
+                distanceText.text = dist.ToString();
 
-            //speedManager.stampaMappa();
-            Pulse();
+                speed = bcf._speed;
+
+
+                string key = BatCapsuleFollower.GetSpeedKey(speed);
+                ballSpeed = key;
+
+                Debug.Log("PULSE!!!!!");
+                Pulse();
+            }
         } else if (areasManager.CheckHitCorrect(other.gameObject.name)) // se colpisco aree della hashtable corretta
         {
+
             if (ballSpeed.Equals(""))
             {
                 //lancio errore perchè manca velocità della pallina
