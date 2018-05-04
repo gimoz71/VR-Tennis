@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114704196991878190}
   - component: {fileID: 114477199307046728}
   - component: {fileID: 64067999071428460}
+  - component: {fileID: 64692729006837284}
   m_Layer: 0
   m_Name: Racket Follower
   m_TagString: Untagged
@@ -109,6 +110,20 @@ MeshCollider:
   m_GameObject: {fileID: 1915027876758418}
   m_Material: {fileID: 13400000, guid: f167f9e93f6aed642a2189062d444d4c, type: 2}
   m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300002, guid: 7c1fbc7216cacdb48a893464fd0c21aa, type: 3}
+--- !u!64 &64692729006837284
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1915027876758418}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 3
   m_Convex: 1

@@ -42,9 +42,10 @@ public class DetectArea : MonoBehaviour
 
     private Text protocolloAttivo;
 
-    public AudioSource ErrorAreaClip;
-    public AudioSource RacketHit;
-    public AudioSource GroundHit;
+    public AudioSource audioSource;
+    public AudioClip errorAreaClip;
+    public AudioClip racketHit;
+    public AudioClip groundHit;
 
     private GameObject physParent;
     private BatCapsuleFollower bcf;
@@ -132,6 +133,10 @@ public class DetectArea : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        /*if (other.name == "area_gioco_campo" || other.name == "area_esterna_campo")
+        {
+            PlaySound(groundHit);
+        }*/
 
         if (other.name == "Racket Follower(Clone)")
         {
@@ -146,12 +151,12 @@ public class DetectArea : MonoBehaviour
 
                 speed = bcf._speed;
 
-
                 string key = BatCapsuleFollower.GetSpeedKey(speed);
                 ballSpeed = key;
 
                 Debug.Log("PULSE!!!!!");
                 Pulse();
+                PlaySound(racketHit);
             }
         } else if (areasManager.CheckHitCorrect(other.gameObject.name)) // se colpisco aree della hashtable corretta
         {
@@ -182,7 +187,7 @@ public class DetectArea : MonoBehaviour
                 else
                 {
                     Debug.Log("AREA SBAGLIATA!!");
-                    ErrorAreaClip.Play();
+                    audioSource.PlayOneShot(errorAreaClip, 1f);
                     errori.text = "Area Sbagliata";
                 }
             }
@@ -207,7 +212,7 @@ public class DetectArea : MonoBehaviour
                 } else
                 {
                     Debug.Log("AREA SBAGLIATA!!");
-                    ErrorAreaClip.Play();
+                    PlaySound(errorAreaClip);
                     errori.text = "Area Sbagliata";
                 }
             }
@@ -231,7 +236,7 @@ public class DetectArea : MonoBehaviour
                 }
                 else
                 {
-                    ErrorAreaClip.Play();
+                    PlaySound(errorAreaClip);
                     errori.text = "Area Sbagliata";
                 }
             }
@@ -261,7 +266,7 @@ public class DetectArea : MonoBehaviour
                         Debug.Log("Colpito due volte: " + other.gameObject.name + " " + ballSpeed + " con livello " + diffManager.getLivello());
                         errori.text = "Colpito due volte: " + other.gameObject.name + " " + ballSpeed + " con livello " + diffManager.getLivello();
 
-                        ErrorAreaClip.Play();
+                        PlaySound(errorAreaClip);
                     }
                     else //corretto
                     {
@@ -323,7 +328,8 @@ public class DetectArea : MonoBehaviour
 
             // pulisco la hashMap (reinizializzo)
 
-            ErrorAreaClip.Play();
+            
+            PlaySound(errorAreaClip);
 
             // Disabilito il collisore dell'instanza della palla dopo la prima collisione
             (gameObject.GetComponent(typeof(SphereCollider)) as Collider).enabled = false;
@@ -332,22 +338,29 @@ public class DetectArea : MonoBehaviour
        
     }
 
+
+    // metodo per gnerare i suoni sui vari contatti
+    private void PlaySound(AudioClip ac)
+    {
+        audioSource.PlayOneShot(ac, 0.15f);
+    }
+
+    // metodo per generare la vibrazione del controller sulla collisione della palla sulla racchetta
     private void Pulse()
     {
         if (hand != null)
         {
             RumbleController(speed / 350, speed * 500);
-            //hand.controller.TriggerHapticPulse(3000);
-            RacketHit.Play();
         }
-
     }
 
+    // metodo per controllare la durata e la forza della vibrazione
     void RumbleController(float duration, float strength)
     {
         StartCoroutine(RumbleControllerRoutine(duration, strength));
     }
-
+    
+    // genero la durata della vibrazione
     IEnumerator RumbleControllerRoutine(float duration, float strength)
     {
         strength = Mathf.Clamp01(strength);
