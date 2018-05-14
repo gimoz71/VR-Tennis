@@ -327,8 +327,6 @@ public class DetectArea : MonoBehaviour
             errori.text = "ERRORE: colpito " + other.gameObject.name;
 
             // pulisco la hashMap (reinizializzo)
-
-            
             PlaySound(errorAreaClip);
 
             // Disabilito il collisore dell'instanza della palla dopo la prima collisione
@@ -369,9 +367,7 @@ public class DetectArea : MonoBehaviour
         while (Time.realtimeSinceStartup - startTime <= duration)
         {
             int valveStrength = Mathf.RoundToInt(Mathf.Lerp(0, 3999, strength));
-
             hand.controller.TriggerHapticPulse((ushort)valveStrength);
-
             yield return null;
         }
     }

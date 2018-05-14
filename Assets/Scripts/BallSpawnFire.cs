@@ -96,8 +96,9 @@ public class BallSpawnFire : MonoBehaviour {
     private float delay = 4;
 
     private CanvasGroup CanvasSwitch;
+    private Renderer mxMarkerTexture;
+    private Transform mxMarkerTransform;
 
-    
 
     private void Start()
     {
@@ -106,6 +107,8 @@ public class BallSpawnFire : MonoBehaviour {
 
         AvatarAnim = GameObject.Find("AvatarAvversario").GetComponent<Animator>();
         CanvasSwitch = GameObject.Find("[MENU ISTRUTTORE (UI)]").GetComponent<CanvasGroup>();
+        mxMarkerTexture = mxMarker.GetComponent<Renderer>();
+        mxMarkerTransform = mxMarker.GetComponent<Transform>();
 
 
         protocolloAttivo = GameObject.Find("Protocollo Attivo").GetComponent<Text>();
@@ -241,7 +244,6 @@ public class BallSpawnFire : MonoBehaviour {
         // trovo la mesh della pallina (child della pallina)) e gli assegno una texture random tra quelle definite in textureManager.cs
         GameObject palla = tennisBall.transform.Find("TennisBall/ball").gameObject;
         Renderer pallaPrefab = palla.GetComponent<Renderer>();
-        Renderer mxMarkerTexture = mxMarker.GetComponent<Renderer>();
         pallaPrefab.material.mainTexture = balltextureManager.RandomTexture();
         Debug.Log("TEXTURE: "+pallaPrefab.material.mainTexture);
         mxMarkerTexture.material.mainTexture = balltextureManager.RandomTexture();
