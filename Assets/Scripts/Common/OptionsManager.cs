@@ -38,6 +38,10 @@ public class OptionsManager : MonoBehaviour
     // inizializzo le variabili dei manager 
     private BallTextureManager balltextureManager;
     private AreasManager areasManager;
+    
+
+    private bool clickedMC = false;
+    private bool clickedMS = false;
 
     // Genero L'hashtable dei pulsanti
     public Dictionary<Button, Text> MapOpzioni = new Dictionary<Button, Text>();
@@ -114,7 +118,6 @@ public class OptionsManager : MonoBehaviour
             balltextureManager.setDefaultTextureIndex(); // DEFAULT
             balltextureManager.setMapIndex(BallTextureManager.MAP_INDEX_COLORI);
 
-
         }
         if (buttonClicked == MSButton)
         {
@@ -126,6 +129,7 @@ public class OptionsManager : MonoBehaviour
 
             balltextureManager.setDefaultTextureIndex(); // DEFAULT
             balltextureManager.setMapIndex(BallTextureManager.MAP_INDEX_SIMBOLI);
+
         }
         if (buttonClicked == DIFFButton)
         {

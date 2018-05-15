@@ -53,8 +53,6 @@ public class ProtocolsManager : MonoBehaviour
 
     private StroboManager stroboManager;
 
-    private SelectChooser selectChooser;
-    private bool clicked = false;
 
     //setto la posizione e la visibilità dei giocatori in base al protocollo
     private GameObject playerPosition;
@@ -98,8 +96,6 @@ public class ProtocolsManager : MonoBehaviour
         hemObject = GameObject.Find("SliderChiusura").GetComponent<HeadEyeMovementScaler>();
         balltextureManager = BallTextureManager.Instance;
         areasManager = AreasManager.Instance;
-
-        selectChooser = new SelectChooser();
 
         //stroboManager = new StroboManager();
 
@@ -217,12 +213,7 @@ public class ProtocolsManager : MonoBehaviour
             decisionMakingCanvasGroup.interactable = false;
             differenziazioneCanvasGroup.interactable = false;
 
-            if (!clicked)
-            {
-                clicked = true;
-                selectChooser.ChooseSelect("MC", "PanelMC", "Scelta Area Colori");
-                selectChooser.ChooseSelect("MS", "PanelMS", "Scelta Area Simboli");
-            }
+           
 
 
         }

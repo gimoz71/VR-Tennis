@@ -91,11 +91,12 @@ public class BallSpawnFire : MonoBehaviour {
     [Header("Aggancio difficoltà (trigger ActiveToggle)")]
     public ToggleDifficulty _ToggleDifficultyScript;
 
-    private float interval = 4;
+    /*private float interval = 4;
     private float quantity = 10;
-    private float delay = 4;
+    private float delay = 4;*/
 
-    private CanvasGroup CanvasSwitch;
+    private CanvasGroup canvasSwitch;
+    private GameObject refYard;
     private Renderer mxMarkerTexture;
     private Transform mxMarkerTransform;
 
@@ -106,7 +107,11 @@ public class BallSpawnFire : MonoBehaviour {
         targetManager = TargetManager.Instance;
 
         AvatarAnim = GameObject.Find("AvatarAvversario").GetComponent<Animator>();
-        CanvasSwitch = GameObject.Find("[MENU ISTRUTTORE (UI)]").GetComponent<CanvasGroup>();
+        canvasSwitch = GameObject.Find("[MENU ISTRUTTORE (UI)]").GetComponent<CanvasGroup>();
+        refYard = GameObject.Find("[PLAYER INFO]");
+
+        refYard.SetActive(false);
+
         mxMarkerTexture = mxMarker.GetComponent<Renderer>();
         mxMarkerTransform = mxMarker.GetComponent<Transform>();
 
@@ -210,8 +215,8 @@ public class BallSpawnFire : MonoBehaviour {
 	// loop base del lancio
 	public IEnumerator sequenzaLancio(float count, float separation) {
 
-        
-        CanvasSwitch.interactable = false;
+        refYard.SetActive(true);
+        canvasSwitch.interactable = false;
         for (int i = 0; i < count; i++) {
             _ToggleDifficultyScript.ActiveToggle();
             // toggle avatar animation
@@ -225,7 +230,8 @@ public class BallSpawnFire : MonoBehaviour {
             if(i == count-1)
             {
                 //Debug.Log("FINE LOOP----------------");
-                CanvasSwitch.interactable = true;
+                canvasSwitch.interactable = true;
+                refYard.SetActive(false);
             }
         }
 	}

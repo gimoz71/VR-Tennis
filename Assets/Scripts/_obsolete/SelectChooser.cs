@@ -30,12 +30,13 @@ public class SelectChooser : MonoBehaviour {
 
     public void ChooseSelect (string context, string path, string path2) {
 
-        Debug.Log(path+path2);
-        dDMain = GameObject.Find(path + "/Dropdown").GetComponent<Dropdown>();
+        //Debug.Log(path+path2);
+        dDMain = GameObject.Find("PanelMC/Dropdown").GetComponent<Dropdown>();
         //mxddref = GameObject.Find("MXDDRef").GetComponent<Sprite>();
 
         if(context == "MC")
         {
+            Debug.Log("CONTESTO MULTICOLORE");
             defaultSprite = Resources.Load<Sprite>("UI/panel") as Sprite;
             firstSprite = Resources.Load<Sprite>("UI/redUI") as Sprite;
             secondSprite = Resources.Load<Sprite>("UI/fucsiaUI") as Sprite;
@@ -43,6 +44,7 @@ public class SelectChooser : MonoBehaviour {
             fourthSprite = Resources.Load<Sprite>("UI/blueUI") as Sprite;
         } else if (context == "MS")
         {
+            Debug.Log("CONTESTO MULTISIMBOLO");
             defaultSprite = Resources.Load<Sprite>("UI/panel") as Sprite;
             firstSprite = Resources.Load<Sprite>("UI/a") as Sprite;
             secondSprite = Resources.Load<Sprite>("UI/b") as Sprite;
@@ -63,13 +65,17 @@ public class SelectChooser : MonoBehaviour {
         populateDD(dDAreaAnterioreSX, m_Messages);
 
         dDMain.onValueChanged.AddListener(delegate {
-            //DropdownValueChanged(dDMain);
-            List<Dropdown.OptionData> m_current_Messages = getOptionsList(dDMain.value);
-            populateDD(dDAreaPosterioreDX, m_current_Messages);
-            populateDD(dDAreaAnterioreDX, m_current_Messages);
-            populateDD(dDAreaPosterioreSX, m_current_Messages);
-            populateDD(dDAreaAnterioreSX, m_current_Messages);
+            DropdownValueChanged(dDMain);
         });
+    }
+
+    void DropdownValueChanged(Dropdown dD) {
+        Debug.Log("scelta opzione: " + dD.value);
+        List<Dropdown.OptionData> m_current_Messages = getOptionsList(dDMain.value);
+        populateDD(dDAreaPosterioreDX, m_current_Messages);
+        populateDD(dDAreaAnterioreDX, m_current_Messages);
+        populateDD(dDAreaPosterioreSX, m_current_Messages);
+        populateDD(dDAreaAnterioreSX, m_current_Messages);
     }
 
     private void populateDD(Dropdown dd, List<Dropdown.OptionData> options) {
@@ -79,7 +85,7 @@ public class SelectChooser : MonoBehaviour {
         {
             //Add each entry to the Dropdown
             dd.options.Add(message);
-            Debug.Log(message);
+            //Debug.Log(message);
         }
         dd.value = 0;
     }

@@ -24,8 +24,11 @@ public class ResetScore : MonoBehaviour {
         areasManager = AreasManager.Instance;
 
         // Assegno in Runtime i gameobject relativi
-        corretti = GameObject.Find("CorrettiTabellone").GetComponent<Text>();
-        totali = GameObject.Find("TotaliTabellone").GetComponent<Text>();
+        if (GameObject.Find("[DEBUGGER TEXT]") != null)
+        {
+            corretti = GameObject.Find("CorrettiTabellone").GetComponent<Text>();
+            totali = GameObject.Find("TotaliTabellone").GetComponent<Text>();
+        }
 
         correttiPanel = GameObject.Find("Corretti").GetComponent<Text>();
         totaliPanel = GameObject.Find("Totali").GetComponent<Text>();
@@ -37,8 +40,11 @@ public class ResetScore : MonoBehaviour {
         AreasManager.Instance.counter = 0;
         AreasManager.Instance.totalcounter = 0;
 
-        corretti.text = "Corretti: " + AreasManager.Instance.counter;
-        totali.text = "Totali: " + AreasManager.Instance.totalcounter;
+        if (GameObject.Find("[DEBUGGER TEXT]") != null)
+        {
+            corretti.text = "Corretti: " + AreasManager.Instance.counter;
+            totali.text = "Totali: " + AreasManager.Instance.totalcounter;
+        }
 
         correttiPanel.text = "Corretti: " + AreasManager.Instance.counter;
         totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
