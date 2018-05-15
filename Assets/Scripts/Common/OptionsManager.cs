@@ -114,6 +114,7 @@ public class OptionsManager : MonoBehaviour
             balltextureManager.setDefaultTextureIndex(); // DEFAULT
             balltextureManager.setMapIndex(BallTextureManager.MAP_INDEX_COLORI);
 
+
         }
         if (buttonClicked == MSButton)
         {
