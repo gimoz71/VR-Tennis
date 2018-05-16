@@ -76,7 +76,7 @@ public class BallTextureManager {
     {
         System.Random rand = new System.Random();
         current = rand.Next(0, maxTextureIndex);
-        Debug.Log("NEXT: " + current + " | MAXTXTUREINDEX: "+maxTextureIndex);
+        //Debug.Log("NEXT: " + current + " | MAXTXTUREINDEX: "+maxTextureIndex);
         return mappe[mapIndex][current];
     }
     
