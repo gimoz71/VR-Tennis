@@ -201,7 +201,7 @@ public class BallSpawnFire : MonoBehaviour {
 
     }
 
-    private Sprite getSpriteFromIndex(int index) {
+    private Sprite getSpriteMCFromIndex(int index) {
         switch (index) {
             case 1:
                 return redUI;
@@ -215,7 +215,24 @@ public class BallSpawnFire : MonoBehaviour {
                 return defaultUI;
         }
     }
- 
+
+    private Sprite getSpriteMSFromIndex(int index)
+    {
+        switch (index)
+        {
+            case 1:
+                return aUI;
+            case 2:
+                return bUI;
+            case 3:
+                return cUI;
+            case 4:
+                return dUI;
+            default:
+                return defaultUI;
+        }
+    }
+
 
     // Lancio palle come da parametri settati negli sliders
     public void SerialFire()
@@ -275,10 +292,10 @@ public class BallSpawnFire : MonoBehaviour {
                 mx_aa_sx = MCAreaAnterioreSX.GetComponent<Dropdown>().value;
                 mx_ap_sx = MCAreaPosterioreSX.GetComponent<Dropdown>().value;
 
-                area1.sprite = getSpriteFromIndex(mx_ap_dx);
-                area2.sprite = getSpriteFromIndex(mx_aa_dx);
-                area3.sprite = getSpriteFromIndex(mx_aa_sx);
-                area4.sprite = getSpriteFromIndex(mx_ap_sx);
+                area1.sprite = getSpriteMCFromIndex(mx_ap_dx);
+                area2.sprite = getSpriteMCFromIndex(mx_aa_dx);
+                area3.sprite = getSpriteMCFromIndex(mx_aa_sx);
+                area4.sprite = getSpriteMCFromIndex(mx_ap_sx);
             }
             else if (multiSimboloCanvasGroup.interactable == true)
             {
@@ -294,10 +311,10 @@ public class BallSpawnFire : MonoBehaviour {
                 mx_aa_sx = MSAreaAnterioreSX.GetComponent<Dropdown>().value;
                 mx_ap_sx = MSAreaPosterioreSX.GetComponent<Dropdown>().value;
 
-                area1.sprite = getSpriteFromIndex(mx_ap_dx);
-                area2.sprite = getSpriteFromIndex(mx_aa_dx);
-                area3.sprite = getSpriteFromIndex(mx_aa_sx);
-                area4.sprite = getSpriteFromIndex(mx_ap_sx);
+                area1.sprite = getSpriteMSFromIndex(mx_ap_dx);
+                area2.sprite = getSpriteMSFromIndex(mx_aa_dx);
+                area3.sprite = getSpriteMSFromIndex(mx_aa_sx);
+                area4.sprite = getSpriteMSFromIndex(mx_ap_sx);
             }
 
             
