@@ -6453,10 +6453,10 @@ RectTransform:
   m_Father: {fileID: 1175515566}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 513.5, y: 0}
-  m_SizeDelta: {x: 1027, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 374, y: 0}
+  m_SizeDelta: {x: 748, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &353653976
 MonoBehaviour:
@@ -12283,10 +12283,10 @@ RectTransform:
   m_Father: {fileID: 1175515566}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 513.5, y: -965.3001}
-  m_SizeDelta: {x: 1027, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 478.71, y: 0}
+  m_SizeDelta: {x: 957.42, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &682003984
 MonoBehaviour:
@@ -13429,7 +13429,7 @@ MonoBehaviour:
   MCAreaPosterioreSX: {fileID: 1152014168}
   MCAreaAnterioreSX: {fileID: 717306289}
   MSAreaPosterioreDX: {fileID: 1742686505}
-  MSAreaAnterioreDX: {fileID: 64915613}
+  MSAreaAnterioreDX: {fileID: 1047992221}
   MSAreaPosterioreSX: {fileID: 1280839912}
   MSAreaAnterioreSX: {fileID: 64915613}
   ballPrefab: {fileID: 1980853003164028, guid: 39e9c82beac4da144aeda177b83830e6, type: 2}
@@ -14166,10 +14166,10 @@ RectTransform:
   m_Father: {fileID: 1175515566}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 513.5, y: -798.3551}
-  m_SizeDelta: {x: 1027, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 374, y: 0}
+  m_SizeDelta: {x: 748, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &764521123
 CanvasRenderer:
