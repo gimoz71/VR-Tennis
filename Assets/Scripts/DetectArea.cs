@@ -46,6 +46,7 @@ public class DetectArea : MonoBehaviour
     private Text protocolloAttivo;
 
     public AudioSource audioSource;
+    public AudioSource errorSource;
     public AudioClip errorAreaClip;
     public AudioClip racketHit;
     public AudioClip groundHit;
@@ -71,6 +72,9 @@ public class DetectArea : MonoBehaviour
     {
         ballTextureManager = BallTextureManager.Instance;
         targetManager = TargetManager.Instance;
+
+        errorSource = GameObject.Find("Stadium").GetComponent<AudioSource>();
+        Debug.Log("AUDIOSOURCE: " + errorSource);
 
         // Assegno in Runtime i gameobject relativi
         if (GameObject.Find("[DEBUGGER TEXT]") != null)
@@ -205,7 +209,7 @@ public class DetectArea : MonoBehaviour
                 }
                 else
                 {
-                    audioSource.PlayOneShot(errorAreaClip, 1f);
+                    errorSource.PlayOneShot(errorAreaClip, 1f);
                     if (GameObject.Find("[DEBUGGER TEXT]") != null)
                     {
                         errori.text = "Area Sbagliata";
@@ -238,7 +242,8 @@ public class DetectArea : MonoBehaviour
                     }
                 } else
                 {
-                    PlaySound(errorAreaClip);
+                    //PlaySound(errorAreaClip);
+                    errorSource.PlayOneShot(errorAreaClip, 1f);
                     if (GameObject.Find("[DEBUGGER TEXT]") != null)
                     {
                         errori.text = "Area Sbagliata";
@@ -273,7 +278,8 @@ public class DetectArea : MonoBehaviour
                 }
                 else
                 {
-                    PlaySound(errorAreaClip);
+                    //PlaySound(errorAreaClip);
+                    errorSource.PlayOneShot(errorAreaClip, 1f);
                     if (GameObject.Find("[DEBUGGER TEXT]") != null)
                     {
                         errori.text = "Area Sbagliata";
@@ -310,7 +316,8 @@ public class DetectArea : MonoBehaviour
                         {
                             errori.text = "Colpito due volte: " + other.gameObject.name + " " + ballSpeed + " con livello " + diffManager.getLivello();
                         }
-                        PlaySound(errorAreaClip);
+                        //PlaySound(errorAreaClip);
+                        errorSource.PlayOneShot(errorAreaClip, 1f);
                     }
                     else //corretto
                     {
@@ -375,10 +382,11 @@ public class DetectArea : MonoBehaviour
             totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
             playerState.totalcounter = AreasManager.Instance.totalcounter;
 
-           
+
 
             // pulisco la hashMap (reinizializzo)
-            PlaySound(errorAreaClip);
+            //PlaySound(errorAreaClip);
+            errorSource.PlayOneShot(errorAreaClip, 1f);
 
             // Disabilito il collisore dell'instanza della palla dopo la prima collisione
             (gameObject.GetComponent(typeof(SphereCollider)) as Collider).enabled = false;

@@ -207,7 +207,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.22
+  m_Volume: 1
   m_Pitch: 1.47
   Loop: 0
   Mute: 0
@@ -215,10 +215,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 22
   DopplerLevel: 0
-  MinDistance: 1
+  MinDistance: 0.2
   MaxDistance: 200
   Pan2D: 0
-  rolloffMode: 2
+  rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -257,7 +257,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 2
       time: 0
-      value: 0.175
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -461,11 +461,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 274cfa32b1fe1cc4eb413b53cc8c9fc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  errori: {fileID: 0}
-  corretti: {fileID: 0}
-  totali: {fileID: 0}
-  correttiPanel: {fileID: 0}
-  totaliPanel: {fileID: 0}
   audioSource: {fileID: 82464792226385680}
   errorAreaClip: {fileID: 8300000, guid: 919292cf8384acd4dad7d4fe8c223e2f, type: 3}
   racketHit: {fileID: 8300000, guid: 008462312c8aa9b4b8f5f608253fd5c1, type: 3}
