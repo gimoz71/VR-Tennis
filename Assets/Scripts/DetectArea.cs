@@ -13,6 +13,7 @@ public class DetectArea : MonoBehaviour
     private PlayerState playerState;
     private BallTextureManager ballTextureManager;
     private TargetManager targetManager;
+    private DMDrawManager dmDrawManager;
 
     // Aggiorna il punteggio e collisioni d'errore nel tabellone in campo (DEBUG, da tenere?)
 
@@ -72,6 +73,7 @@ public class DetectArea : MonoBehaviour
     {
         ballTextureManager = BallTextureManager.Instance;
         targetManager = TargetManager.Instance;
+        dmDrawManager = DMDrawManager.Instance;
 
         errorSource = GameObject.Find("Stadium").GetComponent<AudioSource>();
         Debug.Log("AUDIOSOURCE: " + errorSource);
@@ -171,7 +173,7 @@ public class DetectArea : MonoBehaviour
                 Pulse();
                 PlaySound(racketHit);
             }
-        } else if (areasManager.CheckHitCorrect(other.gameObject.name)) // se colpisco aree della hashtable corretta
+        } else if (areasManager.CheckHitCorrect(other.gameObject.name)) // se colpisco aree della hashtable corretta, una delle 4 del campo avversario
         {
 
             // aggiorno conteggi totali
@@ -354,13 +356,42 @@ public class DetectArea : MonoBehaviour
                     Debug.LogError("Parametro Speed vuoto");
                     ballSpeed = "Lento";
                 }
-                //ESTRARRE LA ZONA DI CAMPO SUGGERITA DAL TARGET
 
-                //ESTRARRE LA ZONA DI CAMPO COLPITA (other.gameObject.name)
 
-                //CONFRONTO
+                if (GameObject.Find("[DEBUGGER TEXT]") != null)
+                {
+                    totali.text = "Totali: " + AreasManager.Instance.totalcounter;
+                }
+                totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
+                playerState.totalcounter = AreasManager.Instance.totalcounter;
+                
+                string zone = other.gameObject.name;
+                if (!dmDrawManager.checkCombination(zone)) // se colpisco due volte di seguito lo stesso settore riporto l'errore
+                {
+                    //ZONA COLPITA E/O VELOCITA' PALLINA NON SONO OK
+                    Debug.Log("ERRORE TARGET");
+                    if (GameObject.Find("[DEBUGGER TEXT]") != null)
+                    {
+                        errori.text = "Colpita area fuori target";
+                    }
+                    //PlaySound(errorAreaClip);
+                    errorSource.PlayOneShot(errorAreaClip, 1f);
+                }
+                else //corretto
+                {
+                    //LA ZONA COLPITA E LA VELOCITA' DELLA PALLINA SONO OK
 
-                //GESTIONE OK OPPURE ERRORE
+                    // Aggiorno il conteggio dei colpi corretti
+                    AreasManager.Instance.counter += 1;
+                    if (GameObject.Find("[DEBUGGER TEXT]") != null)
+                    {
+                        corretti.text = "Corretti: " + AreasManager.Instance.counter;
+                        errori.text = "Colpo OK: " + other.gameObject.name;
+                    }
+                    correttiPanel.text = "Corretti: " + AreasManager.Instance.counter;
+
+                    playerState.counter = AreasManager.Instance.counter;
+                }
             }
 
             // Disabilito il collisore dell'instanza della palla dopo la prima collisione
