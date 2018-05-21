@@ -112,10 +112,10 @@ public class ProtocolsManager : MonoBehaviour
         multiColore.gameObject.SetActive(false);
         multiSimbolo.gameObject.SetActive(false);
         decisionMaking.gameObject.SetActive(false);
-        // decisionmakingManager.setShutdownDecisionManagerIndex(False);
         strobo.gameObject.SetActive(false);
         headEyeMovement.gameObject.SetActive(false);
         differenziazione.gameObject.SetActive(false);
+
         hemObject.disableHEM();
 
         pairButtonIcon();
@@ -129,6 +129,7 @@ public class ProtocolsManager : MonoBehaviour
         servizioiconBG.GetComponent<Image>().color = inactiveColor;
 
     }
+
 
     // Use this for initialization
     void buttonCallBack(Button buttonClicked)
@@ -164,19 +165,19 @@ public class ProtocolsManager : MonoBehaviour
             balltextureManager.setShutdownTextureIndex(); // SPENTO
 
             multiColore.gameObject.SetActive(false);
-
             multiSimbolo.gameObject.SetActive(false);
-
             decisionMaking.gameObject.SetActive(false);
-
+            differenziazione.gameObject.SetActive(false);
             strobo.gameObject.SetActive(false);
             stroboManager.StopStrobo();
-
             headEyeMovement.gameObject.SetActive(false);
+
             hemObject.disableHEM();
 
-            differenziazione.gameObject.SetActive(false);
-            
+            //settaggi di partenza
+            targetCanvasGroup.interactable = true;
+
+
         }
         if (buttonClicked == cognitivoButton)
         {
@@ -192,18 +193,14 @@ public class ProtocolsManager : MonoBehaviour
             balltextureManager.setDefaultTextureIndex(); // DEFAULT
 
             multiColore.gameObject.SetActive(true);
-
             multiSimbolo.gameObject.SetActive(true);
-
             decisionMaking.gameObject.SetActive(true);
-
+            differenziazione.gameObject.SetActive(true);
             strobo.gameObject.SetActive(false);
             stroboManager.StopStrobo();
-
             headEyeMovement.gameObject.SetActive(true);
-            hemObject.enableHEM();
 
-            differenziazione.gameObject.SetActive(true);
+            hemObject.enableHEM();
             
 
             //settaggi di partenza
@@ -231,17 +228,13 @@ public class ProtocolsManager : MonoBehaviour
             balltextureManager.setShutdownTextureIndex(); // SHUTDOWN
 
             multiColore.gameObject.SetActive(true);
-
             multiSimbolo.gameObject.SetActive(false);
-
             decisionMaking.gameObject.SetActive(false);
-
-            strobo.gameObject.SetActive(true);
-
-            headEyeMovement.gameObject.SetActive(true);
-            hemObject.enableHEM();
-
             differenziazione.gameObject.SetActive(true);
+            strobo.gameObject.SetActive(true);
+            headEyeMovement.gameObject.SetActive(true);
+
+            hemObject.enableHEM();
             
 
             //settaggi di partenza
@@ -266,17 +259,14 @@ public class ProtocolsManager : MonoBehaviour
             balltextureManager.setShutdownTextureIndex(); // SHUTDOWN
 
             multiColore.gameObject.SetActive(true);
-
             multiSimbolo.gameObject.SetActive(false);
-
             decisionMaking.gameObject.SetActive(true);
-
+            differenziazione.gameObject.SetActive(false);
             strobo.gameObject.SetActive(true);
-
             headEyeMovement.gameObject.SetActive(true);
+
             hemObject.enableHEM();
 
-            differenziazione.gameObject.SetActive(false);
             
 
             //settaggi di partenza
