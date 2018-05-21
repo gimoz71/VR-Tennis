@@ -24,9 +24,7 @@ public class BallTextureManager {
     public Dictionary<int, Texture> MappColorePalla = new Dictionary<int, Texture>();
 
     public Dictionary<string, int> associazioneTextureArea = new Dictionary<string, int>();
-
-   
-
+    
     public Dictionary<int, Texture>[] mappe;
     private int mapIndex = 0;
 
@@ -76,7 +74,7 @@ public class BallTextureManager {
     {
         System.Random rand = new System.Random();
         current = rand.Next(0, maxTextureIndex);
-        Debug.Log("NEXT: " + current + " | MAXTXTUREINDEX: "+maxTextureIndex);
+        //Debug.Log("NEXT: " + current + " | MAXTXTUREINDEX: "+maxTextureIndex);
         return mappe[mapIndex][current];
     }
     
@@ -92,7 +90,7 @@ public class BallTextureManager {
 
     public void setShutdownTextureIndex()
     {
-        maxTextureIndex = 2;
+        maxTextureIndex = 1;
     }
     public void setDefaultTextureIndex()
     {

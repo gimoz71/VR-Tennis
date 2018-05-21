@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: d7c480f099e77484597465246f6765aa
+timeCreated: 1526309182
+licenseType: Free
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - firstSprite: {fileID: 21300000, guid: b73a1fd6096a1bd48969793f5c87b241, type: 3}
+  - secondSprite: {fileID: 21300000, guid: 450f189495a6bbc4b9356eae3cc1d021, type: 3}
+  - thirdSprite: {fileID: 21300000, guid: f562f4debc8a9fa47a78e604b7c10f9e, type: 3}
+  - fourthSprite: {fileID: 21300000, guid: 1b2427e31d34fd447a0799e382b4bdc9, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

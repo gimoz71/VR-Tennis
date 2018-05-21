@@ -12,7 +12,7 @@ public class BallSpawnController : MonoBehaviour {
     [Header("Palla (Prefab)")]
     public GameObject Prefab;
 
-    private TargetManager targetManager;
+    /*private TargetManager targetManager;
 
     public Toggle TGAreaPosterioreDX;
     public Toggle TGAreaAnterioreDX;
@@ -23,9 +23,9 @@ public class BallSpawnController : MonoBehaviour {
     private bool tg_ap_dx;
     private bool tg_aa_dx;
     private bool tg_ap_sx;
-    private bool tg_aa_sx;
+    private bool tg_aa_sx;*/
 
-    private CanvasGroup targetCanvasGroup;
+    //private CanvasGroup targetCanvasGroup;
 
     /*[Header("Punto di creazione palla")]*/
     private Transform ballSpawnPoint;
@@ -33,8 +33,8 @@ public class BallSpawnController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		ballSpawnPoint = GameObject.Find ("BallSpawnPoint").GetComponent<Transform>();
-        targetManager = TargetManager.Instance;
-        targetCanvasGroup = GameObject.Find("PanelTG").GetComponent<CanvasGroup>();
+        //targetManager = TargetManager.Instance;
+        //targetCanvasGroup = GameObject.Find("PanelTG").GetComponent<CanvasGroup>();
     }
 
 	// Update is called once per frame
@@ -65,7 +65,7 @@ public class BallSpawnController : MonoBehaviour {
 			Destroy (tennisBall, 15);
 		}
 	}*/
-    private void SetArea()
+    /*private void SetArea()
     {
         if (targetCanvasGroup.interactable == true)
         {
@@ -83,11 +83,11 @@ public class BallSpawnController : MonoBehaviour {
 
             targetManager.setAssociazioneTargetArea(associazioneTargetArea);
         }
-    }
+    }*/
 
     public void InitBall()
     {
-        SetArea();
+        //SetArea();
         GameObject tennisBall = Instantiate(Prefab, ballSpawnPoint.position, Quaternion.identity) as GameObject;
         Destroy(tennisBall, 15);
     }

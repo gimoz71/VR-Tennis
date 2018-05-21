@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class ToggleDifficulty : MonoBehaviour {
 
+    //managers
+    private DMDrawManager dmDrawManager;
 
     // Aggancio per la variazione del target di potenza
     [Header("Target lancio")]
@@ -22,6 +24,9 @@ public class ToggleDifficulty : MonoBehaviour {
 
     [Header("Toggle Livelli Differenziazione (UI)")]
     public Dropdown dropDownDiff;
+
+    [Header("Toggle Livelli Decision Making (UI)")]
+    public Dropdown dropDownDM;
 
     // Punto di origine del lancio
 
@@ -69,6 +74,8 @@ public class ToggleDifficulty : MonoBehaviour {
     // Use this for initialization
 
     void Start() {
+
+        dmDrawManager = DMDrawManager.Instance;
 
         // settaggi di potenza e variabilità traiettoria iniziali (Livello 1)
 
@@ -159,45 +166,17 @@ public class ToggleDifficulty : MonoBehaviour {
         if(multiColoreToggleGroup.interactable)
         {
             // Variazione Colori palle
-           
-            if (dropDownColore.value == 0)
-            {
-                tm.setMaxTextureIndex(2);
-            }
-            else if (dropDownColore.value == 1)
-            {
-                tm.setMaxTextureIndex(3);
-            }
-            else if (dropDownColore.value == 2)
-            {
-                tm.setMaxTextureIndex(4);
-            }
-            else if (dropDownColore.value == 3)
-            {
-                tm.setMaxTextureIndex(5);
-            }
-
+            tm.setMaxTextureIndex(dropDownColore.value + 2);
 
         } else if (multiSimboloToggleGroup.interactable)
         {
             // Variazione Colori palle
+            tm.setMaxTextureIndex(dropDownSimbolo.value + 2);
             
-            if (dropDownSimbolo.value == 0)
-            {
-                tm.setMaxTextureIndex(2);
-            }
-            else if (dropDownSimbolo.value == 1)
-            {
-                tm.setMaxTextureIndex(3);
-            }
-            else if (dropDownSimbolo.value == 2)
-            {
-                tm.setMaxTextureIndex(4);
-            }
-            else if (dropDownSimbolo.value == 3)
-            {
-                tm.setMaxTextureIndex(5);
-            }
+        } else if (decisionMakingToggleGroup.interactable)
+        {
+            // Decision Making
+            dmDrawManager.setLivello(dropDownDM.value);
         }
         else
         {

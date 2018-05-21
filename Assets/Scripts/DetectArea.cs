@@ -13,19 +13,23 @@ public class DetectArea : MonoBehaviour
     private PlayerState playerState;
     private BallTextureManager ballTextureManager;
     private TargetManager targetManager;
+    private DMDrawManager dmDrawManager;
 
     // Aggiorna il punteggio e collisioni d'errore nel tabellone in campo (DEBUG, da tenere?)
+
+    private GameObject debugPanel;
+
     [Header("Informazioni di errore")]
-    public Text errori;
+    private Text errori;
 
     [Header("Conteggi")]
-    public Text corretti;
-    public Text totali;
+    private Text corretti;
+    private Text totali;
 
     // Aggiorna il punteggio nel cruscotto dell'istruttore
     [Header("Conteggi (UI)")]
-    public Text correttiPanel;
-    public Text totaliPanel;
+    private Text correttiPanel;
+    private Text totaliPanel;
 
     [Header("Lista Toggle Group nei Pannelli  Opzioni")]
 
@@ -43,6 +47,7 @@ public class DetectArea : MonoBehaviour
     private Text protocolloAttivo;
 
     public AudioSource audioSource;
+    public AudioSource errorSource;
     public AudioClip errorAreaClip;
     public AudioClip racketHit;
     public AudioClip groundHit;
@@ -68,11 +73,18 @@ public class DetectArea : MonoBehaviour
     {
         ballTextureManager = BallTextureManager.Instance;
         targetManager = TargetManager.Instance;
+        dmDrawManager = DMDrawManager.Instance;
+
+        errorSource = GameObject.Find("Stadium").GetComponent<AudioSource>();
+        Debug.Log("AUDIOSOURCE: " + errorSource);
 
         // Assegno in Runtime i gameobject relativi
-        errori = GameObject.Find("Errore").GetComponent<Text>();
-        corretti = GameObject.Find("CorrettiTabellone").GetComponent<Text>();
-        totali = GameObject.Find("TotaliTabellone").GetComponent<Text>();
+        if (GameObject.Find("[DEBUGGER TEXT]") != null)
+        {
+            errori = GameObject.Find("Errore").GetComponent<Text>();
+            corretti = GameObject.Find("CorrettiTabellone").GetComponent<Text>();
+            totali = GameObject.Find("TotaliTabellone").GetComponent<Text>();
+        }
 
         correttiPanel = GameObject.Find("Corretti").GetComponent<Text>();
         totaliPanel = GameObject.Find("Totali").GetComponent<Text>();
@@ -124,7 +136,10 @@ public class DetectArea : MonoBehaviour
         {
             physParent = GameObject.Find("racket");
             bcf = GameObject.Find("Racket Follower(Clone)").GetComponent<BatCapsuleFollower>();
-            velocita = GameObject.Find("Velocita").GetComponent<Text>();
+            if (GameObject.Find("[DEBUGGER TEXT]") != null)
+            {
+                velocita = GameObject.Find("Velocita").GetComponent<Text>();
+            }
             racketCenter = GameObject.Find("racketCenter");
             distanceText = GameObject.Find("distanceText").GetComponent<Text>();
             hand = physParent.GetComponentInParent<Hand>();
@@ -158,8 +173,11 @@ public class DetectArea : MonoBehaviour
                 Pulse();
                 PlaySound(racketHit);
             }
-        } else if (areasManager.CheckHitCorrect(other.gameObject.name)) // se colpisco aree della hashtable corretta
+        } else if (areasManager.CheckHitCorrect(other.gameObject.name)) // se colpisco aree della hashtable corretta, una delle 4 del campo avversario
         {
+
+            // aggiorno conteggi totali
+            AreasManager.Instance.totalcounter += 1;
 
             if (ballSpeed.Equals(""))
             {
@@ -171,8 +189,12 @@ public class DetectArea : MonoBehaviour
             //TARGET
             if ( targetCanvasGroup.interactable == true)
             {
-                AreasManager.Instance.totalcounter += 1;
-                totali.text = "Totali: " + AreasManager.Instance.totalcounter;
+
+                if (GameObject.Find("[DEBUGGER TEXT]") != null)
+                {
+                    totali.text = "Totali: " + AreasManager.Instance.totalcounter;
+                }
+
                 totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
                 playerState.totalcounter = AreasManager.Instance.totalcounter;
 
@@ -181,47 +203,64 @@ public class DetectArea : MonoBehaviour
                 {
                     AreasManager.Instance.counter += 1;
                     correttiPanel.text = "Corretti: " + AreasManager.Instance.counter;
-                    Debug.Log("OK AREA!!");
-                    errori.text = "OK AREA";
+                    if (GameObject.Find("[DEBUGGER TEXT]") != null)
+                    {
+                        corretti.text = "Corretti: " + AreasManager.Instance.counter;
+                        errori.text = "OK AREA";
+                    }
                 }
                 else
                 {
-                    Debug.Log("AREA SBAGLIATA!!");
-                    audioSource.PlayOneShot(errorAreaClip, 1f);
-                    errori.text = "Area Sbagliata";
+                    errorSource.PlayOneShot(errorAreaClip, 1f);
+                    if (GameObject.Find("[DEBUGGER TEXT]") != null)
+                    {
+                        errori.text = "Area Sbagliata";
+                    }
                 }
             }
 
             //MULTICOLORE
             if (protocolloAttivo.text != "Protocollo Base" && multiColoreCanvasGroup.interactable == true) 
             {
-                AreasManager.Instance.totalcounter += 1;
-                totali.text = "Totali: " + AreasManager.Instance.totalcounter;
+              
+                if (GameObject.Find("[DEBUGGER TEXT]") != null)
+                {
+                    totali.text = "Totali: " + AreasManager.Instance.totalcounter;
+                }
                 totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
                 playerState.totalcounter = AreasManager.Instance.totalcounter;
 
                 int ballTexture = ballTextureManager.current;
                 string zone = other.gameObject.name;
-                Debug.Log("texture: " + ballTexture  + " area: " + ballTextureManager.associazioneTextureArea[zone] + " zone: " + zone);
+               // Debug.Log("texture: " + ballTexture  + " area: " + ballTextureManager.associazioneTextureArea[zone] + " zone: " + zone);
                 if (ballTextureManager.associazioneTextureArea[zone] == ballTexture)
                 {
                     AreasManager.Instance.counter += 1;
                     correttiPanel.text = "Corretti: " + AreasManager.Instance.counter;
-                    Debug.Log("OK COLORE!!");
-                    errori.text = "OK COLORE";
+                    if (GameObject.Find("[DEBUGGER TEXT]") != null)
+                    {
+                        corretti.text = "Corretti: " + AreasManager.Instance.counter;
+                        errori.text = "OK COLORE";
+                    }
                 } else
                 {
-                    Debug.Log("AREA SBAGLIATA!!");
-                    PlaySound(errorAreaClip);
-                    errori.text = "Area Sbagliata";
+                    //PlaySound(errorAreaClip);
+                    errorSource.PlayOneShot(errorAreaClip, 1f);
+                    if (GameObject.Find("[DEBUGGER TEXT]") != null)
+                    {
+                        errori.text = "Area Sbagliata";
+                    }
                 }
             }
 
             //MULTISIMBOLO
             if (protocolloAttivo.text != "Protocollo Base" && multiSimboloCanvasGroup.interactable == true)
             {
-                AreasManager.Instance.totalcounter += 1;
-                totali.text = "Totali: " + AreasManager.Instance.totalcounter;
+                
+                if (GameObject.Find("[DEBUGGER TEXT]") != null)
+                {
+                    totali.text = "Totali: " + AreasManager.Instance.totalcounter;
+                }
                 totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
                 playerState.totalcounter = AreasManager.Instance.totalcounter;
 
@@ -233,20 +272,31 @@ public class DetectArea : MonoBehaviour
                     AreasManager.Instance.counter += 1;
                     correttiPanel.text = "Corretti: " + AreasManager.Instance.counter;
                     Debug.Log("OK SIMBOLO!!");
+                    if (GameObject.Find("[DEBUGGER TEXT]") != null)
+                    {
+                        corretti.text = "Corretti: " + AreasManager.Instance.counter;
+                        errori.text = "OK SIMBOLO";
+                    }
                 }
                 else
                 {
-                    PlaySound(errorAreaClip);
-                    errori.text = "Area Sbagliata";
+                    //PlaySound(errorAreaClip);
+                    errorSource.PlayOneShot(errorAreaClip, 1f);
+                    if (GameObject.Find("[DEBUGGER TEXT]") != null)
+                    {
+                        errori.text = "Area Sbagliata";
+                    }
                 }
             }
 
             //DIFFERENZIAZIONE
             else if (protocolloAttivo.text == "Vision Training" || protocolloAttivo.text == "Protocollo Cognitivo" && differenziazioneCanvasGroup.interactable == true) 
             {
-                // Aggiorno il conteggio dei colpi totali
-                AreasManager.Instance.totalcounter += 1;
-                totali.text = "Totali: " + AreasManager.Instance.totalcounter;
+                
+                if (GameObject.Find("[DEBUGGER TEXT]") != null)
+                {
+                    totali.text = "Totali: " + AreasManager.Instance.totalcounter;
+                }
                 totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
                 playerState.totalcounter = AreasManager.Instance.totalcounter;
 
@@ -264,9 +314,12 @@ public class DetectArea : MonoBehaviour
                         //ZONA COLPITA E/O VELOCITA' PALLINA NON SONO OK
                         Debug.Log("ERRORE VELOCITA': " + ballSpeed);
                         Debug.Log("Colpito due volte: " + other.gameObject.name + " " + ballSpeed + " con livello " + diffManager.getLivello());
-                        errori.text = "Colpito due volte: " + other.gameObject.name + " " + ballSpeed + " con livello " + diffManager.getLivello();
-
-                        PlaySound(errorAreaClip);
+                        if (GameObject.Find("[DEBUGGER TEXT]") != null)
+                        {
+                            errori.text = "Colpito due volte: " + other.gameObject.name + " " + ballSpeed + " con livello " + diffManager.getLivello();
+                        }
+                        //PlaySound(errorAreaClip);
+                        errorSource.PlayOneShot(errorAreaClip, 1f);
                     }
                     else //corretto
                     {
@@ -274,11 +327,15 @@ public class DetectArea : MonoBehaviour
 
                         // Aggiorno il conteggio dei colpi corretti
                         AreasManager.Instance.counter += 1;
-                        corretti.text = "Corretti: " + AreasManager.Instance.counter;
+                        if (GameObject.Find("[DEBUGGER TEXT]") != null)
+                        {
+                            corretti.text = "Corretti: " + AreasManager.Instance.counter;
+                            errori.text = "Colpo OK: " + other.gameObject.name + " " + ballSpeed + " con livello " + diffManager.getLivello();
+                        }
                         correttiPanel.text = "Corretti: " + AreasManager.Instance.counter;
                         Debug.Log("OK VELOCITA': " + ballSpeed);
                         Debug.Log("Colpo OK: " + other.gameObject.name + " " + ballSpeed + " con livello " + diffManager.getLivello());
-                        errori.text = "Colpo OK: " + other.gameObject.name + " " + ballSpeed + " con livello " + diffManager.getLivello();
+                        
 
                         playerState.counter = AreasManager.Instance.counter;
                     }
@@ -299,13 +356,42 @@ public class DetectArea : MonoBehaviour
                     Debug.LogError("Parametro Speed vuoto");
                     ballSpeed = "Lento";
                 }
-                //ESTRARRE LA ZONA DI CAMPO SUGGERITA DAL TARGET
 
-                //ESTRARRE LA ZONA DI CAMPO COLPITA (other.gameObject.name)
 
-                //CONFRONTO
+                if (GameObject.Find("[DEBUGGER TEXT]") != null)
+                {
+                    totali.text = "Totali: " + AreasManager.Instance.totalcounter;
+                }
+                totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
+                playerState.totalcounter = AreasManager.Instance.totalcounter;
+                
+                string zone = other.gameObject.name;
+                if (!dmDrawManager.checkCombination(zone)) // se colpisco due volte di seguito lo stesso settore riporto l'errore
+                {
+                    //ZONA COLPITA E/O VELOCITA' PALLINA NON SONO OK
+                    Debug.Log("ERRORE TARGET");
+                    if (GameObject.Find("[DEBUGGER TEXT]") != null)
+                    {
+                        errori.text = "Colpita area fuori target";
+                    }
+                    //PlaySound(errorAreaClip);
+                    errorSource.PlayOneShot(errorAreaClip, 1f);
+                }
+                else //corretto
+                {
+                    //LA ZONA COLPITA E LA VELOCITA' DELLA PALLINA SONO OK
 
-                //GESTIONE OK OPPURE ERRORE
+                    // Aggiorno il conteggio dei colpi corretti
+                    AreasManager.Instance.counter += 1;
+                    if (GameObject.Find("[DEBUGGER TEXT]") != null)
+                    {
+                        corretti.text = "Corretti: " + AreasManager.Instance.counter;
+                        errori.text = "Colpo OK: " + other.gameObject.name;
+                    }
+                    correttiPanel.text = "Corretti: " + AreasManager.Instance.counter;
+
+                    playerState.counter = AreasManager.Instance.counter;
+                }
             }
 
             // Disabilito il collisore dell'instanza della palla dopo la prima collisione
@@ -319,17 +405,19 @@ public class DetectArea : MonoBehaviour
         {
             // aggiorno conteggi totali
             AreasManager.Instance.totalcounter += 1;
-            totali.text = "Totali: " + AreasManager.Instance.totalcounter;
+            if (GameObject.Find("[DEBUGGER TEXT]") != null)
+            {
+                totali.text = "Totali: " + AreasManager.Instance.totalcounter;
+                errori.text = "ERRORE: colpito " + other.gameObject.name;
+            }
             totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
             playerState.totalcounter = AreasManager.Instance.totalcounter;
 
-            // Riporto l'errore
-            errori.text = "ERRORE: colpito " + other.gameObject.name;
+
 
             // pulisco la hashMap (reinizializzo)
-
-            
-            PlaySound(errorAreaClip);
+            //PlaySound(errorAreaClip);
+            errorSource.PlayOneShot(errorAreaClip, 1f);
 
             // Disabilito il collisore dell'instanza della palla dopo la prima collisione
             (gameObject.GetComponent(typeof(SphereCollider)) as Collider).enabled = false;
@@ -369,9 +457,7 @@ public class DetectArea : MonoBehaviour
         while (Time.realtimeSinceStartup - startTime <= duration)
         {
             int valveStrength = Mathf.RoundToInt(Mathf.Lerp(0, 3999, strength));
-
             hand.controller.TriggerHapticPulse((ushort)valveStrength);
-
             yield return null;
         }
     }

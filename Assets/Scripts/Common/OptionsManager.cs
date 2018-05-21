@@ -38,6 +38,10 @@ public class OptionsManager : MonoBehaviour
     // inizializzo le variabili dei manager 
     private BallTextureManager balltextureManager;
     private AreasManager areasManager;
+    
+
+    private bool clickedMC = false;
+    private bool clickedMS = false;
 
     // Genero L'hashtable dei pulsanti
     public Dictionary<Button, Text> MapOpzioni = new Dictionary<Button, Text>();
@@ -72,6 +76,53 @@ public class OptionsManager : MonoBehaviour
 
     }
 
+    void Update()
+    {
+        if(targetCanvasGroup.interactable == false)
+        {
+            TGText.GetComponent<Text>().text = "OFF";
+        } else
+        {
+            TGText.GetComponent<Text>().text = "ON";
+        }
+
+        if (multiColoreCanvasGroup.interactable == false)
+        {
+            MCText.GetComponent<Text>().text = "OFF";
+        }
+        else
+        {
+            MCText.GetComponent<Text>().text = "ON";
+        }
+
+        if (multiSimboloCanvasGroup.interactable == false)
+        {
+            MSText.GetComponent<Text>().text = "OFF";
+        }
+        else
+        {
+            MSText.GetComponent<Text>().text = "ON";
+        }
+
+        if (differenziazioneCanvasGroup.interactable == false)
+        {
+            DIFFText.GetComponent<Text>().text = "OFF";
+        }
+        else
+        {
+            DIFFText.GetComponent<Text>().text = "ON";
+        }
+
+        if (decisionMakingCanvasGroup.interactable == false)
+        {
+            DMText.GetComponent<Text>().text = "OFF";
+        }
+        else
+        {
+            DMText.GetComponent<Text>().text = "ON";
+        }
+    }
+
     // Use this for initialization
     void buttonCallBack(Button buttonClicked)
     {
@@ -91,6 +142,7 @@ public class OptionsManager : MonoBehaviour
                 itemValue.GetComponent<Text>().text = "OFF";
             }
         }
+
         if (buttonClicked == TGButton)
         {
             targetCanvasGroup.interactable = true;
@@ -99,7 +151,7 @@ public class OptionsManager : MonoBehaviour
             decisionMakingCanvasGroup.interactable = false;
             differenziazioneCanvasGroup.interactable = false;
 
-            balltextureManager.setDefaultTextureIndex(); // DEFAULT
+            balltextureManager.setShutdownTextureIndex(); // DEFAULT
             balltextureManager.setMapIndex(BallTextureManager.MAP_INDEX_COLORI);
 
         }
@@ -125,6 +177,7 @@ public class OptionsManager : MonoBehaviour
 
             balltextureManager.setDefaultTextureIndex(); // DEFAULT
             balltextureManager.setMapIndex(BallTextureManager.MAP_INDEX_SIMBOLI);
+
         }
         if (buttonClicked == DIFFButton)
         {
@@ -157,11 +210,6 @@ public class OptionsManager : MonoBehaviour
         MSButton.onClick.AddListener(() => buttonCallBack(MSButton));
         DIFFButton.onClick.AddListener(() => buttonCallBack(DIFFButton));
         DMButton.onClick.AddListener(() => buttonCallBack(DMButton));
-    }
-
-    void OnDisable()
-    {
-
     }
 
 }

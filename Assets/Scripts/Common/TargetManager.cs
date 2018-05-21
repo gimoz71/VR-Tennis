@@ -51,21 +51,6 @@ public class TargetManager {
     // aggiungo le voci nella hashtable allo start
     public void Start()
     {
-
     }
 
-    
-
-
-
-    // (DEBUG) estraggo e visualizzo la lista dei valori
-   /* public void stampaMappa()
-    {
-        List<int> keys = new List<int>(MappSimboloPalla.Keys);
-        foreach (int key in keys)
-        {
-            Debug.Log("Chiave: " + key + " | Valore: " + maxTextureIndex);
-        }
-        Debug.Log("------------------------------------------");
-    }*/
 }

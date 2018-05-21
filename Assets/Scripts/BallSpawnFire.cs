@@ -8,8 +8,13 @@ public class BallSpawnFire : MonoBehaviour {
     private BallTextureManager balltextureManager;
     private TargetManager targetManager;
     private ColorManager colorManager;
+    private DMDrawManager dmDrawManager;
 
     public Animator AvatarAnim;
+
+    [Header("Pulsanti Start e Stop")]
+    public GameObject startButton;
+    public GameObject stopButton;
 
     [Header("Colore Palla (Prefab)")]
     public Texture BaseTexture;
@@ -25,12 +30,40 @@ public class BallSpawnFire : MonoBehaviour {
     public Texture DTexture;
     public Texture ETexture;
 
+    [Header("Marker Decision Making (Gameobject)")]
+    public GameObject dmTargetDX;
+    public GameObject dmTargetSX;
+    public GameObject dmDistrattoreDX;
+    public GameObject dmDistrattoreSX;
+
+    [Header("Sprite per pannello di supporto utente")]
+    // per opzione target
+    public Sprite checkUI;
+    public Sprite disabledUI;
+
+    // per opzioni MultiX
+    public Sprite defaultUI;//0
+
+    // per opzione MultiColore
+    public Sprite redUI;//1
+    public Sprite fucsiaUI;//2
+    public Sprite orangeUI;//3
+    public Sprite blueUI;//4
+
+    // per opzione MultiSimbolo
+    
+    public Sprite aUI;
+    public Sprite bUI;
+    public Sprite cUI;
+    public Sprite dUI;
+
+    [Header("Aree per opzione Target (Toggle)")]
     public Toggle TGAreaPosterioreDX;
     public Toggle TGAreaAnterioreDX;
     public Toggle TGAreaPosterioreSX;
     public Toggle TGAreaAnterioreSX;
 
-    [Header("Assegnazione Aree/Colori (DropDown)")]
+    [Header("Aree per opzioni Colori e Simboli (DropDown)")]
     public Dropdown MCAreaPosterioreDX;
     public Dropdown MCAreaAnterioreDX;
     public Dropdown MCAreaPosterioreSX;
@@ -41,11 +74,13 @@ public class BallSpawnFire : MonoBehaviour {
     public Dropdown MSAreaPosterioreSX;
     public Dropdown MSAreaAnterioreSX;
 
+    // variabili per associazione aree opzioni MultiX (colori/simboli)
     private int mx_ap_dx;
     private int mx_aa_dx;
     private int mx_ap_sx;
     private int mx_aa_sx;
 
+    // variabili per associazioni aree opzione Target
     private bool tg_ap_dx;
     private bool tg_aa_dx;
     private bool tg_ap_sx;
@@ -59,6 +94,7 @@ public class BallSpawnFire : MonoBehaviour {
     private CanvasGroup multiSimboloCanvasGroup;
     private CanvasGroup differenziazioneCanvasGroup;
     private CanvasGroup decisionMakingCanvasGroup;
+
 
     private Text protocolloAttivo;
 
@@ -91,25 +127,62 @@ public class BallSpawnFire : MonoBehaviour {
     [Header("Aggancio difficoltà (trigger ActiveToggle)")]
     public ToggleDifficulty _ToggleDifficultyScript;
 
-    private float interval = 4;
+    /*private float interval = 4;
     private float quantity = 10;
-    private float delay = 4;
+    private float delay = 4;*/
 
-    private CanvasGroup CanvasSwitch;
+    private CanvasGroup canvasProtocolsSwitch; // pannello operatore
+    private CanvasGroup canvasOptionsSwitch; // pannello operatore
+    private CanvasGroup canvasCommonOptionsSwitch; // pannello operatore
 
-    
+
+    private GameObject refYard; // pannello utente
+    private GameObject countDownPanel; // pannello countdown
+    private Image area1;
+    private Image area2;
+    private Image area3;
+    private Image area4;
+
+    // materiale e posizione del marker per i multix (forse obsoleto)
+    private Renderer mxMarkerTexture; 
+    private Transform mxMarkerTransform;
+
+    Coroutine startRitardoLancio;
+    private bool isRunning;
+    public Text countDown;
+    private float duration;
 
     private void Start()
     {
+        Time.timeScale = 1;
         balltextureManager = BallTextureManager.Instance;
         targetManager = TargetManager.Instance;
+        dmDrawManager = DMDrawManager.Instance;
 
-        AvatarAnim = GameObject.Find("AvatarAvversario").GetComponent<Animator>();
-        CanvasSwitch = GameObject.Find("[MENU ISTRUTTORE (UI)]").GetComponent<CanvasGroup>();
+        AvatarAnim = GameObject.Find("AvatarAvversario").GetComponent<Animator>(); // mi serve per attivare l'animazione dell'avversario al lancio
+        canvasProtocolsSwitch = GameObject.Find("Sezione").GetComponent<CanvasGroup>(); // i serve per disabilitare l'interfaccia operatore quando la sessione di lancio palle è attiva
+        canvasOptionsSwitch = GameObject.Find("Cruscotto Sezione").GetComponent<CanvasGroup>(); // i serve per disabilitare l'interfaccia operatore quando la sessione di lancio palle è attiva
+        canvasCommonOptionsSwitch = GameObject.Find("Cruscotto elementi comuni").GetComponent<CanvasGroup>(); // i serve per disabilitare l'interfaccia operatore quando la sessione di lancio palle è attiva
+
+        // gestione dell'interfaccia di ausilio utente e la setto su disabilitata all'avvio (appare soltanto durante la sessione)
+        refYard = GameObject.Find("[PLAYER INFO]");
+        countDownPanel = GameObject.Find("[COUNTDOWN]");
+        refYard.SetActive(false);
+
+        startButton.SetActive(true);
+        stopButton.SetActive(false);
+
+        isRunning = false;
 
 
+        // setto le proprietà per il settaggio del marker MultiX (forse obsoleto)
+        mxMarkerTexture = mxMarker.GetComponent<Renderer>();
+        mxMarkerTransform = mxMarker.GetComponent<Transform>();
+
+        // aggancio al titolo del protocollo 
         protocolloAttivo = GameObject.Find("Protocollo Attivo").GetComponent<Text>();
 
+        // aggancio i pannelli delle opzioni (quando sono attivi)
         targetCanvasGroup = GameObject.Find("PanelTG").GetComponent<CanvasGroup>();
 
         if (protocolloAttivo.text != "Protocollo Base")
@@ -120,6 +193,8 @@ public class BallSpawnFire : MonoBehaviour {
             decisionMakingCanvasGroup = GameObject.Find("PanelDM").GetComponent<CanvasGroup>();
         }
 
+
+        
         balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_A, BaseTexture);
         balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_B, RedTexture);
         balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_C, FucsiaTexture);
@@ -136,81 +211,202 @@ public class BallSpawnFire : MonoBehaviour {
 
     }
 
+    // Condizioni per i tipo di prite Colore
+    private Sprite getSpriteMCFromIndex(int index) {
+        switch (index) {
+            case 1:
+                return redUI;
+            case 2:
+                return fucsiaUI;
+            case 3:
+                return orangeUI;
+            case 4:
+                return blueUI;
+            default:
+                return defaultUI;
+        }
+    }
+
+    // Condizioni per i tipo di prite Simbolo
+    private Sprite getSpriteMSFromIndex(int index)
+    {
+        switch (index)
+        {
+            case 1:
+                return aUI;
+            case 2:
+                return bUI;
+            case 3:
+                return cUI;
+            case 4:
+                return dUI;
+            default:
+                return defaultUI;
+        }
+    }
+
+
     // Lancio palle come da parametri settati negli sliders
     public void SerialFire()
     {
-        if (targetCanvasGroup.interactable == true)
-        {
-            tg_aa_dx = TGAreaAnterioreDX.GetComponent<Toggle>().isOn;
-            tg_ap_dx = TGAreaPosterioreDX.GetComponent<Toggle>().isOn;
-            tg_aa_sx = TGAreaAnterioreSX.GetComponent<Toggle>().isOn;
-            tg_ap_sx = TGAreaPosterioreSX.GetComponent<Toggle>().isOn;
 
-            Dictionary<string, bool> associazioneTargetArea = new Dictionary<string, bool>();
-
-            associazioneTargetArea.Add("AreaAnterioreDX", tg_aa_dx);
-            associazioneTargetArea.Add("AreaPosterioreDX", tg_ap_dx);
-            associazioneTargetArea.Add("AreaAnterioreSX", tg_aa_sx);
-            associazioneTargetArea.Add("AreaPosterioreSX", tg_ap_sx);
-
-            targetManager.setAssociazioneTargetArea(associazioneTargetArea);
-        }
-        else
+        if (!isRunning)
         {
 
-            if (multiColoreCanvasGroup.interactable == true)
+
+            if (targetCanvasGroup.interactable)
+            { 
+                refYard.SetActive(true);
+
+                area1 = GameObject.Find("Area1").GetComponent<Image>();
+                area2 = GameObject.Find("Area2").GetComponent<Image>();
+                area3 = GameObject.Find("Area3").GetComponent<Image>();
+                area4 = GameObject.Find("Area4").GetComponent<Image>();
+
+                tg_aa_dx = TGAreaAnterioreDX.GetComponent<Toggle>().isOn;
+                tg_ap_dx = TGAreaPosterioreDX.GetComponent<Toggle>().isOn;
+                tg_aa_sx = TGAreaAnterioreSX.GetComponent<Toggle>().isOn;
+                tg_ap_sx = TGAreaPosterioreSX.GetComponent<Toggle>().isOn;
+
+                Debug.Log(tg_aa_dx + " " + tg_aa_sx + " " + tg_ap_dx + " " + tg_ap_sx);
+                Dictionary<string, bool> associazioneTargetArea = new Dictionary<string, bool>();
+
+                associazioneTargetArea.Add("AreaAnterioreDX", tg_aa_dx);
+                associazioneTargetArea.Add("AreaPosterioreDX", tg_ap_dx);
+                associazioneTargetArea.Add("AreaAnterioreSX", tg_aa_sx);
+                associazioneTargetArea.Add("AreaPosterioreSX", tg_ap_sx);
+
+                targetManager.setAssociazioneTargetArea(associazioneTargetArea);
+
+                area1.sprite = (tg_ap_dx ? checkUI : disabledUI);
+                area2.sprite = (tg_aa_dx ? checkUI : disabledUI);
+                area3.sprite = (tg_aa_sx ? checkUI : disabledUI);
+                area4.sprite = (tg_ap_sx ? checkUI : disabledUI);
+
+            }
+            else if (multiColoreCanvasGroup.interactable)
             {
+                refYard.SetActive(true);
+                int[,] matrice;
+
+                area1 = GameObject.Find("Area1").GetComponent<Image>();
+                area2 = GameObject.Find("Area2").GetComponent<Image>();
+                area3 = GameObject.Find("Area3").GetComponent<Image>();
+                area4 = GameObject.Find("Area4").GetComponent<Image>();
+
+                SelectMX selMc = GameObject.Find("PanelMC").GetComponent<SelectMX>();
+                matrice = selMc.getMatrice();
                 mx_aa_dx = MCAreaAnterioreDX.GetComponent<Dropdown>().value;
                 mx_ap_dx = MCAreaPosterioreDX.GetComponent<Dropdown>().value;
                 mx_aa_sx = MCAreaAnterioreSX.GetComponent<Dropdown>().value;
                 mx_ap_sx = MCAreaPosterioreSX.GetComponent<Dropdown>().value;
+
+                area1.sprite = getSpriteMCFromIndex(mx_ap_dx);
+                area2.sprite = getSpriteMCFromIndex(mx_aa_dx);
+                area3.sprite = getSpriteMCFromIndex(mx_aa_sx);
+                area4.sprite = getSpriteMCFromIndex(mx_ap_sx);
+
+                Debug.Log(mx_ap_dx + " " + mx_aa_dx + " " + mx_ap_sx + " " + mx_aa_sx);
+
+                Dictionary<string, int> associazioneTextureArea = new Dictionary<string, int>();
+
+                associazioneTextureArea.Add("AreaAnterioreDX", mx_aa_dx);
+                associazioneTextureArea.Add("AreaPosterioreDX", mx_ap_dx);
+                associazioneTextureArea.Add("AreaAnterioreSX", mx_aa_sx);
+                associazioneTextureArea.Add("AreaPosterioreSX", mx_ap_sx);
+                balltextureManager.setAssociazioneTextureArea(associazioneTextureArea);
+
             }
-            else if (multiSimboloCanvasGroup.interactable == true)
+            else if (multiSimboloCanvasGroup.interactable)
             {
+                refYard.SetActive(true);
+                int[,] matrice;
+
+                area1 = GameObject.Find("Area1").GetComponent<Image>();
+                area2 = GameObject.Find("Area2").GetComponent<Image>();
+                area3 = GameObject.Find("Area3").GetComponent<Image>();
+                area4 = GameObject.Find("Area4").GetComponent<Image>();
+
+                SelectMX selMs = GameObject.Find("PanelMS").GetComponent<SelectMX>();
+                matrice = selMs.getMatrice();
                 mx_aa_dx = MSAreaAnterioreDX.GetComponent<Dropdown>().value;
                 mx_ap_dx = MSAreaPosterioreDX.GetComponent<Dropdown>().value;
                 mx_aa_sx = MSAreaAnterioreSX.GetComponent<Dropdown>().value;
                 mx_ap_sx = MSAreaPosterioreSX.GetComponent<Dropdown>().value;
+
+                area1.sprite = getSpriteMSFromIndex(mx_ap_dx);
+                area2.sprite = getSpriteMSFromIndex(mx_aa_dx);
+                area3.sprite = getSpriteMSFromIndex(mx_aa_sx);
+                area4.sprite = getSpriteMSFromIndex(mx_ap_sx);
+
+                Debug.Log(mx_ap_dx + " " + mx_aa_dx + " " + mx_ap_sx + " " + mx_aa_sx);
+
+                Dictionary<string, int> associazioneTextureArea = new Dictionary<string, int>();
+
+                associazioneTextureArea.Add("AreaAnterioreDX", mx_aa_dx);
+                associazioneTextureArea.Add("AreaPosterioreDX", mx_ap_dx);
+                associazioneTextureArea.Add("AreaAnterioreSX", mx_aa_sx);
+                associazioneTextureArea.Add("AreaPosterioreSX", mx_ap_sx);
+                balltextureManager.setAssociazioneTextureArea(associazioneTextureArea);
             }
-            Debug.Log(mx_ap_dx + " " + mx_aa_dx + " " + mx_ap_sx + " " + mx_aa_sx);
+            else if (decisionMakingCanvasGroup.interactable)
+            {
 
-            Dictionary<string, int> associazioneTextureArea = new Dictionary<string, int>();
+                countDownPanel.SetActive(true);
+                Dictionary<string, int[]> associazioneMarkersArea = new Dictionary<string, int[]>();
 
-            associazioneTextureArea.Add("AreaAnterioreDX", mx_aa_dx);
-            associazioneTextureArea.Add("AreaPosterioreDX", mx_ap_dx);
-            associazioneTextureArea.Add("AreaAnterioreSX", mx_aa_sx);
-            associazioneTextureArea.Add("AreaPosterioreSX", mx_ap_sx);
-            balltextureManager.setAssociazioneTextureArea(associazioneTextureArea);
+                associazioneMarkersArea.Add("AreaAnterioreDX", new int[] { 0, 1 });
+                associazioneMarkersArea.Add("AreaPosterioreDX", new int[] { 0, 0 });
+                associazioneMarkersArea.Add("AreaAnterioreSX", new int[] { 1, 1 });
+                associazioneMarkersArea.Add("AreaPosterioreSX", new int[] { 1, 0 });
+
+                dmDrawManager.setAssociazioneDMArea(associazioneMarkersArea);
+            }
+
+
+            float interval = IntervalSlider.GetComponent<Slider>().value;
+            float quantity = QuantitySlider.GetComponent<Slider>().value;
+            float delay = DelaySlider.GetComponent<Slider>().value;
+
+            // avvio la routine di ritardo (che lancia la sequenza lancio)
+            startRitardoLancio = StartCoroutine(ritardoLancio(delay, quantity, interval));
         }
-
-        
-
-        
-
-
-        float interval = IntervalSlider.GetComponent<Slider>().value;
-        float quantity = QuantitySlider.GetComponent<Slider>().value;
-        float delay = DelaySlider.GetComponent<Slider>().value;
-
-        // avvio la routine di ritardo (che lancia la sequenza lancio)
-        StartCoroutine(ritardoLancio(delay, quantity, interval));
     }
 
     // Funzione parametro di ritardo per il loop base del lancio
     public IEnumerator ritardoLancio(float myDelay, float myQuantity, float myInterval)
     {
-        //yield return new WaitForSeconds(3);
-        yield return new WaitForSeconds(myDelay);
+        countDownPanel.SetActive(true);
+        isRunning = true;
+
+        canvasProtocolsSwitch.interactable = false;
+        canvasOptionsSwitch.interactable = false;
+        canvasCommonOptionsSwitch.interactable = false;
+
+        startButton.SetActive(false);
+        stopButton.SetActive(true);
+
+        duration = myDelay;
+
+        countDown.text = "" + duration;
+        while (duration > 0)
+        {
+            yield return new WaitForSeconds(1);
+            duration--;
+            countDown.text = "" + duration;
+        }
+        //yield return new WaitForSeconds(myDelay);
         yield return StartCoroutine(sequenzaLancio(myQuantity, myInterval));
     }
 
 	// loop base del lancio
 	public IEnumerator sequenzaLancio(float count, float separation) {
 
-        
-        CanvasSwitch.interactable = false;
+        yield return StartCoroutine(CloseCountDown());
+
         for (int i = 0; i < count; i++) {
             _ToggleDifficultyScript.ActiveToggle();
+            
             // toggle avatar animation
             yield return new WaitForSeconds(0.5f);
             AvatarAnim.SetBool("Start", true);
@@ -218,19 +414,35 @@ public class BallSpawnFire : MonoBehaviour {
             fire();
             yield return new WaitForSeconds(2);
             AvatarAnim.SetBool("Start", false);
+
             yield return new WaitForSeconds (separation);
             if(i == count-1)
             {
                 //Debug.Log("FINE LOOP----------------");
-                CanvasSwitch.interactable = true;
+                canvasProtocolsSwitch.interactable = true;
+                canvasOptionsSwitch.interactable = true;
+                canvasCommonOptionsSwitch.interactable = true;
+                refYard.SetActive(false);
+                startButton.SetActive(true);
+                stopButton.SetActive(false);
+                isRunning = false;
+                cleanMarkers();
             }
+
+            
         }
-	}
+        
+    }
 
     // Funziona base lancio palle
     public void fire()
     {
-
+        if (decisionMakingCanvasGroup.interactable) { 
+            drawMarkers();
+        } else
+        {
+            cleanMarkers();
+        }
         // Creo L'istanza del prefab della pallina
         GameObject tennisBall = Instantiate(ballPrefab, playerTransform.position, Quaternion.identity) as GameObject;
            
@@ -241,13 +453,65 @@ public class BallSpawnFire : MonoBehaviour {
         // trovo la mesh della pallina (child della pallina)) e gli assegno una texture random tra quelle definite in textureManager.cs
         GameObject palla = tennisBall.transform.Find("TennisBall/ball").gameObject;
         Renderer pallaPrefab = palla.GetComponent<Renderer>();
-        Renderer mxMarkerTexture = mxMarker.GetComponent<Renderer>();
         pallaPrefab.material.mainTexture = balltextureManager.RandomTexture();
-        Debug.Log("TEXTURE: "+pallaPrefab.material.mainTexture);
-        mxMarkerTexture.material.mainTexture = balltextureManager.RandomTexture();
+        //Debug.Log("TEXTURE: "+pallaPrefab.material.mainTexture);
+        //mxMarkerTexture.material.mainTexture = balltextureManager.RandomTexture();
 
         // Distruggo la pallina dopo N secondi
         Destroy(tennisBall, 15);
+    }
+
+    
+    public void stopLancio()
+    {
+        StopAllCoroutines();
+        canvasProtocolsSwitch.interactable = true;
+        canvasOptionsSwitch.interactable = true;
+        canvasCommonOptionsSwitch.interactable = true;
+        refYard.SetActive(false);
+        startButton.SetActive(true);
+        stopButton.SetActive(false);
+        isRunning = false;
+        cleanMarkers();
+        countDownPanel.SetActive(false);
+    }
+
+    private void drawMarkers() {
+        //1 recupero la matrice dal DMDrawManager
+        int[,] matrice = dmDrawManager.getMarkersMatrix();
+        
+        //2 abilitare/disabilitare gli oggetti corretti in base alla matrice
+        cleanMarkers();
+        if (dmDrawManager.getLivello() < 3)
+        {
+            //marker a cerchietto
+            dmTargetSX.SetActive(matrice[0,1] == DMDrawManager.VALORE_MATRICE_TARGET);
+            dmDistrattoreSX.SetActive(matrice[0, 1] == DMDrawManager.VALORE_MATRICE_DISTRATTORE);
+            dmTargetDX.SetActive(matrice[1, 1] == DMDrawManager.VALORE_MATRICE_TARGET);
+            dmDistrattoreDX.SetActive(matrice[1, 1] == DMDrawManager.VALORE_MATRICE_DISTRATTORE);
+        }
+        else {
+            //marker a sagome
+            //TOGLIERE QUESTA VERSIONE ATTUALE
+            dmTargetSX.SetActive(matrice[0, 1] == DMDrawManager.VALORE_MATRICE_TARGET);
+            dmDistrattoreSX.SetActive(matrice[0, 1] == DMDrawManager.VALORE_MATRICE_DISTRATTORE);
+            dmTargetDX.SetActive(matrice[1, 1] == DMDrawManager.VALORE_MATRICE_TARGET);
+            dmDistrattoreDX.SetActive(matrice[1, 1] == DMDrawManager.VALORE_MATRICE_DISTRATTORE);
+        }
+
+    }
+
+    private void cleanMarkers() {
+        dmTargetSX.SetActive(false);
+        dmDistrattoreSX.SetActive(false);
+        dmTargetDX.SetActive(false);
+        dmDistrattoreDX.SetActive(false);
+    }
+
+    public IEnumerator CloseCountDown()
+    {
+        yield return new WaitForSeconds(1);
+        countDownPanel.SetActive(false);
     }
 }
 
