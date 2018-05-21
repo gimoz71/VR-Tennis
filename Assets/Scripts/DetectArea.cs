@@ -169,6 +169,8 @@ public class DetectArea : MonoBehaviour
                 string key = BatCapsuleFollower.GetSpeedKey(speed);
                 ballSpeed = key;
 
+                dmDrawManager.generateNextMatrix();
+
                 Debug.Log("PULSE!!!!!");
                 Pulse();
                 PlaySound(racketHit);
@@ -368,18 +370,18 @@ public class DetectArea : MonoBehaviour
                 string zone = other.gameObject.name;
                 if (!dmDrawManager.checkCombination(zone)) // se colpisco due volte di seguito lo stesso settore riporto l'errore
                 {
-                    //ZONA COLPITA E/O VELOCITA' PALLINA NON SONO OK
+                    
                     Debug.Log("ERRORE TARGET");
                     if (GameObject.Find("[DEBUGGER TEXT]") != null)
                     {
-                        errori.text = "Colpita area fuori target";
+                        errori.text = "Fuori target: " + other.gameObject.name;
                     }
                     //PlaySound(errorAreaClip);
                     errorSource.PlayOneShot(errorAreaClip, 1f);
                 }
                 else //corretto
                 {
-                    //LA ZONA COLPITA E LA VELOCITA' DELLA PALLINA SONO OK
+                   
 
                     // Aggiorno il conteggio dei colpi corretti
                     AreasManager.Instance.counter += 1;
@@ -391,6 +393,7 @@ public class DetectArea : MonoBehaviour
                     correttiPanel.text = "Corretti: " + AreasManager.Instance.counter;
 
                     playerState.counter = AreasManager.Instance.counter;
+
                 }
             }
 

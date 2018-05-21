@@ -355,12 +355,20 @@ public class BallSpawnFire : MonoBehaviour {
                 countDownPanel.SetActive(true);
                 Dictionary<string, int[]> associazioneMarkersArea = new Dictionary<string, int[]>();
 
+                //condidero la rete a destra
                 associazioneMarkersArea.Add("AreaAnterioreDX", new int[] { 0, 1 });
                 associazioneMarkersArea.Add("AreaPosterioreDX", new int[] { 0, 0 });
                 associazioneMarkersArea.Add("AreaAnterioreSX", new int[] { 1, 1 });
                 associazioneMarkersArea.Add("AreaPosterioreSX", new int[] { 1, 0 });
 
+                //considero la rete in basso
+                //associazioneMarkersArea.Add("AreaAnterioreDX", new int[] { 1, 1 });
+                //associazioneMarkersArea.Add("AreaPosterioreDX", new int[] { 0, 1 });
+                //associazioneMarkersArea.Add("AreaAnterioreSX", new int[] { 1, 0 });
+                //associazioneMarkersArea.Add("AreaPosterioreSX", new int[] { 0, 0 });
+
                 dmDrawManager.setAssociazioneDMArea(associazioneMarkersArea);
+                dmDrawManager.setFirst();
             }
 
 
@@ -485,18 +493,18 @@ public class BallSpawnFire : MonoBehaviour {
         if (dmDrawManager.getLivello() < 3)
         {
             //marker a cerchietto
-            dmTargetSX.SetActive(matrice[0,1] == DMDrawManager.VALORE_MATRICE_TARGET);
-            dmDistrattoreSX.SetActive(matrice[0, 1] == DMDrawManager.VALORE_MATRICE_DISTRATTORE);
-            dmTargetDX.SetActive(matrice[1, 1] == DMDrawManager.VALORE_MATRICE_TARGET);
-            dmDistrattoreDX.SetActive(matrice[1, 1] == DMDrawManager.VALORE_MATRICE_DISTRATTORE);
+            dmTargetSX.SetActive(matrice[1,1] == DMDrawManager.VALORE_MATRICE_TARGET);
+            dmDistrattoreSX.SetActive(matrice[1, 1] == DMDrawManager.VALORE_MATRICE_DISTRATTORE);
+            dmTargetDX.SetActive(matrice[0, 1] == DMDrawManager.VALORE_MATRICE_TARGET);
+            dmDistrattoreDX.SetActive(matrice[0,1] == DMDrawManager.VALORE_MATRICE_DISTRATTORE);
         }
         else {
             //marker a sagome
             //TOGLIERE QUESTA VERSIONE ATTUALE
-            dmTargetSX.SetActive(matrice[0, 1] == DMDrawManager.VALORE_MATRICE_TARGET);
-            dmDistrattoreSX.SetActive(matrice[0, 1] == DMDrawManager.VALORE_MATRICE_DISTRATTORE);
-            dmTargetDX.SetActive(matrice[1, 1] == DMDrawManager.VALORE_MATRICE_TARGET);
-            dmDistrattoreDX.SetActive(matrice[1, 1] == DMDrawManager.VALORE_MATRICE_DISTRATTORE);
+            dmTargetSX.SetActive(matrice[1, 1] == DMDrawManager.VALORE_MATRICE_TARGET);
+            dmDistrattoreSX.SetActive(matrice[1, 1] == DMDrawManager.VALORE_MATRICE_DISTRATTORE);
+            dmTargetDX.SetActive(matrice[0, 1] == DMDrawManager.VALORE_MATRICE_TARGET);
+            dmDistrattoreDX.SetActive(matrice[0, 1] == DMDrawManager.VALORE_MATRICE_DISTRATTORE);
         }
 
     }
@@ -512,6 +520,13 @@ public class BallSpawnFire : MonoBehaviour {
     {
         yield return new WaitForSeconds(1);
         countDownPanel.SetActive(false);
+    }
+
+    private void printMatrix(int[,] matrice) {
+        Debug.Log(matrice[0,0] + " | " + matrice[0,1]);
+        Debug.Log("---------------------");
+        Debug.Log(matrice[1, 0] + " | " + matrice[1, 1]);
+        Debug.Log("*********************");
     }
 }
 

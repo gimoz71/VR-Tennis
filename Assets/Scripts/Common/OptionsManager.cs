@@ -78,7 +78,7 @@ public class OptionsManager : MonoBehaviour
 
     void Update()
     {
-        if(targetCanvasGroup.interactable == false)
+        if(!targetCanvasGroup.interactable)
         {
             TGText.GetComponent<Text>().text = "OFF";
         } else
@@ -86,7 +86,7 @@ public class OptionsManager : MonoBehaviour
             TGText.GetComponent<Text>().text = "ON";
         }
 
-        if (multiColoreCanvasGroup.interactable == false)
+        if (!multiColoreCanvasGroup.interactable)
         {
             MCText.GetComponent<Text>().text = "OFF";
         }
@@ -95,7 +95,7 @@ public class OptionsManager : MonoBehaviour
             MCText.GetComponent<Text>().text = "ON";
         }
 
-        if (multiSimboloCanvasGroup.interactable == false)
+        if (!multiSimboloCanvasGroup.interactable)
         {
             MSText.GetComponent<Text>().text = "OFF";
         }
@@ -104,7 +104,7 @@ public class OptionsManager : MonoBehaviour
             MSText.GetComponent<Text>().text = "ON";
         }
 
-        if (differenziazioneCanvasGroup.interactable == false)
+        if (!differenziazioneCanvasGroup.interactable)
         {
             DIFFText.GetComponent<Text>().text = "OFF";
         }
@@ -113,7 +113,7 @@ public class OptionsManager : MonoBehaviour
             DIFFText.GetComponent<Text>().text = "ON";
         }
 
-        if (decisionMakingCanvasGroup.interactable == false)
+        if (!decisionMakingCanvasGroup.interactable)
         {
             DMText.GetComponent<Text>().text = "OFF";
         }
