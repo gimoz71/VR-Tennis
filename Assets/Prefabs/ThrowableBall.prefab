@@ -462,7 +462,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 82464792226385680}
-  errorAreaClip: {fileID: 8300000, guid: 919292cf8384acd4dad7d4fe8c223e2f, type: 3}
+  errorAreaHit: {fileID: 8300000, guid: 919292cf8384acd4dad7d4fe8c223e2f, type: 3}
+  successAreaHit: {fileID: 8300000, guid: 33b4ce9abbd98294caa2b3f28ef849df, type: 3}
   racketHit: {fileID: 8300000, guid: 008462312c8aa9b4b8f5f608253fd5c1, type: 3}
   groundHit: {fileID: 8300000, guid: 08beff5c58e3e6648a5b71010a58aba1, type: 3}
 --- !u!114 &114722349882896068

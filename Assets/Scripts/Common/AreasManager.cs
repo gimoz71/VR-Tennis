@@ -49,6 +49,11 @@ public class AreasManager {
         listaAreeErrate.Add("TribunaDX");
         listaAreeErrate.Add("TribunaAvversario");
         listaAreeErrate.Add("TribunaUtente");
+        listaAreeErrate.Add("AreaInterna");
+        listaAreeErrate.Add("FuoriCampoSX");
+        listaAreeErrate.Add("FuoriCampoDX");
+        listaAreeErrate.Add("FuoriCampoAvversario");
+        listaAreeErrate.Add("FuoriCampoPlayer");
     }
 
     // Estraggo i valori delle aree corrette
