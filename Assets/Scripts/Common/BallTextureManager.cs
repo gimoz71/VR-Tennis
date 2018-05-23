@@ -7,11 +7,11 @@ using UnityEngine.UI;
 // SINGLETON delle texture (centralizzato)
 public class BallTextureManager {
 
-    public static int TEXTURE_A = 0;
-    public static int TEXTURE_B = 1;
-    public static int TEXTURE_C = 2;
-    public static int TEXTURE_D = 3;
-    public static int TEXTURE_E = 4;
+    public static int TEXTURE_BASE = 0;
+    public static int TEXTURE_A = 1;
+    public static int TEXTURE_B = 2;
+    public static int TEXTURE_C = 3;
+    public static int TEXTURE_D = 4;
 
     public static int MAP_INDEX_COLORI = 0;
     public static int MAP_INDEX_SIMBOLI = 1;

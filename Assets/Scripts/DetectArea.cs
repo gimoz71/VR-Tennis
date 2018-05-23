@@ -231,25 +231,28 @@ public class DetectArea : MonoBehaviour
 
                 int ballTexture = ballTextureManager.current;
                 string zone = other.gameObject.name;
-
-                if (ballTextureManager.associazioneTextureArea[zone] == ballTexture) // Corretto
-                {
-                    AreasManager.Instance.counter += 1;
-                    correttiPanel.text = "Corretti: " + AreasManager.Instance.counter;
-                    if (GameObject.Find("[DEBUGGER TEXT]") != null)
+                if (!(ballTexture == BallTextureManager.TEXTURE_BASE)) {
+                    if (ballTextureManager.associazioneTextureArea[zone] == ballTexture) // Corretto
                     {
-                        corretti.text = "Corretti: " + AreasManager.Instance.counter;
-                        errori.text = "OK COLORE";
+                        AreasManager.Instance.counter += 1;
+                        correttiPanel.text = "Corretti: " + AreasManager.Instance.counter;
+                        if (GameObject.Find("[DEBUGGER TEXT]") != null)
+                        {
+                            corretti.text = "Corretti: " + AreasManager.Instance.counter;
+                            errori.text = "OK COLORE";
+                        }
+                        areaHitSource.PlayOneShot(successAreaHit, 1f);
                     }
-                    areaHitSource.PlayOneShot(successAreaHit, 1f);
-                }
-                else // Sbagliato
-                {
-                    if (GameObject.Find("[DEBUGGER TEXT]") != null){
-                        errori.text = "Area Sbagliata";
+                    else // Sbagliato
+                    {
+                        if (GameObject.Find("[DEBUGGER TEXT]") != null)
+                        {
+                            errori.text = "Area Sbagliata";
+                        }
+                        areaHitSource.PlayOneShot(errorAreaHit, 1f);
                     }
-                    areaHitSource.PlayOneShot(errorAreaHit, 1f);
                 }
+                
             }
 
             //MULTISIMBOLO
@@ -265,27 +268,30 @@ public class DetectArea : MonoBehaviour
 
                 int ballTexture = ballTextureManager.current;
                 string zone = other.gameObject.name;
-
-                if (ballTextureManager.associazioneTextureArea[zone] == ballTexture) // Corretto
+                if (!(ballTexture == BallTextureManager.TEXTURE_BASE))
                 {
-                    AreasManager.Instance.counter += 1;
-                    correttiPanel.text = "Corretti: " + AreasManager.Instance.counter;
-                    Debug.Log("OK SIMBOLO!!");
-                    if (GameObject.Find("[DEBUGGER TEXT]") != null)
+                    if (ballTextureManager.associazioneTextureArea[zone] == ballTexture) // Corretto
                     {
-                        corretti.text = "Corretti: " + AreasManager.Instance.counter;
-                        errori.text = "OK SIMBOLO";
+                        AreasManager.Instance.counter += 1;
+                        correttiPanel.text = "Corretti: " + AreasManager.Instance.counter;
+                        Debug.Log("OK SIMBOLO!!");
+                        if (GameObject.Find("[DEBUGGER TEXT]") != null)
+                        {
+                            corretti.text = "Corretti: " + AreasManager.Instance.counter;
+                            errori.text = "OK SIMBOLO";
+                        }
+                        areaHitSource.PlayOneShot(successAreaHit, 1f);
                     }
-                    areaHitSource.PlayOneShot(successAreaHit, 1f);
-                }
-                else // Sbagliato
-                {
-                    if (GameObject.Find("[DEBUGGER TEXT]") != null)
+                    else // Sbagliato
                     {
-                        errori.text = "Area Sbagliata";
+                        if (GameObject.Find("[DEBUGGER TEXT]") != null)
+                        {
+                            errori.text = "Area Sbagliata";
+                        }
+                        areaHitSource.PlayOneShot(errorAreaHit, 1f);
                     }
-                    areaHitSource.PlayOneShot(errorAreaHit, 1f);
                 }
+                
             }
 
             //DIFFERENZIAZIONE

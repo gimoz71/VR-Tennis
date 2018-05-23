@@ -5,7 +5,7 @@ using UnityEngine;
 public class ClampVel : MonoBehaviour
 {
 
-    public float maxSpeed = 15f;
+    public float maxSpeed = 13.5f;
 
     private Rigidbody _rigidbody;
 

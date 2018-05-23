@@ -195,17 +195,17 @@ public class BallSpawnFire : MonoBehaviour {
 
 
         
-        balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_A, BaseTexture);
-        balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_B, RedTexture);
-        balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_C, FucsiaTexture);
-        balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_D, OrangeTexture);
-        balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_E, BlueTexture);
+        balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_BASE, BaseTexture);
+        balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_A, RedTexture);
+        balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_B, FucsiaTexture);
+        balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_C, OrangeTexture);
+        balltextureManager.MappColorePalla.Add(BallTextureManager.TEXTURE_D, BlueTexture);
 
-        balltextureManager.MappSimboloPalla.Add(BallTextureManager.TEXTURE_A, ATexture);
-        balltextureManager.MappSimboloPalla.Add(BallTextureManager.TEXTURE_B, BTexture);
-        balltextureManager.MappSimboloPalla.Add(BallTextureManager.TEXTURE_C, CTexture);
-        balltextureManager.MappSimboloPalla.Add(BallTextureManager.TEXTURE_D, DTexture);
-        balltextureManager.MappSimboloPalla.Add(BallTextureManager.TEXTURE_E, ETexture);
+        balltextureManager.MappSimboloPalla.Add(BallTextureManager.TEXTURE_BASE, ATexture);
+        balltextureManager.MappSimboloPalla.Add(BallTextureManager.TEXTURE_A, BTexture);
+        balltextureManager.MappSimboloPalla.Add(BallTextureManager.TEXTURE_B, CTexture);
+        balltextureManager.MappSimboloPalla.Add(BallTextureManager.TEXTURE_C, DTexture);
+        balltextureManager.MappSimboloPalla.Add(BallTextureManager.TEXTURE_D, ETexture);
 
        
 
@@ -459,9 +459,36 @@ public class BallSpawnFire : MonoBehaviour {
         //tennisBall.GetComponent<Rigidbody>().AddTorque(0,0,-0.2f);
 
         // trovo la mesh della pallina (child della pallina)) e gli assegno una texture random tra quelle definite in textureManager.cs
-        GameObject palla = tennisBall.transform.Find("TennisBall/ball").gameObject;
-        Renderer pallaPrefab = palla.GetComponent<Renderer>();
-        pallaPrefab.material.mainTexture = balltextureManager.RandomTexture();
+        if (multiSimboloCanvasGroup.interactable)
+        {
+            GameObject palla = tennisBall.transform.Find("TennisBall/ball").gameObject;
+            GameObject billBoard = tennisBall.transform.Find("BillBoardOrigin/BillBoard").gameObject;
+            GameObject trail = tennisBall.transform.Find("TrailRender").gameObject;
+
+            Renderer pallaRenderer = palla.GetComponent<Renderer>();
+            pallaRenderer.enabled = false;
+
+            Renderer trailRenderer = trail.GetComponent<Renderer>();
+           // trailRenderer.enabled = false;
+
+            Renderer billBoardRenderer = billBoard.GetComponent<Renderer>();
+
+            billBoardRenderer.enabled = true;
+
+            billBoardRenderer.material.mainTexture = balltextureManager.RandomTexture();
+        } else
+        {
+            GameObject palla = tennisBall.transform.Find("TennisBall/ball").gameObject;
+            GameObject billBoard = tennisBall.transform.Find("BillBoardOrigin/BillBoard").gameObject;
+
+            Renderer billBoardRenderer = billBoard.GetComponent<Renderer>();
+            billBoardRenderer.enabled = false;
+
+            Renderer pallaRenderer = palla.GetComponent<Renderer>();
+
+            pallaRenderer.material.mainTexture = balltextureManager.RandomTexture();
+        }
+        
         //Debug.Log("TEXTURE: "+pallaPrefab.material.mainTexture);
         //mxMarkerTexture.material.mainTexture = balltextureManager.RandomTexture();
 
