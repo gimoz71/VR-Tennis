@@ -6,5 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scene/ProtocolloBase.unity
+    path: Assets/Scene/Intro.unity
+    guid: 3a04d5b48c80f1348be2c533bac36513
+  - enabled: 1
+    path: Assets/Scene/Tennis.unity
     guid: 20ec5643d3a9fb04fb7502c9f1e91bff

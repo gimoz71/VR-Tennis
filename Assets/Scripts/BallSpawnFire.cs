@@ -131,9 +131,10 @@ public class BallSpawnFire : MonoBehaviour {
     private float quantity = 10;
     private float delay = 4;*/
 
-    private CanvasGroup canvasProtocolsSwitch; // pannello operatore
-    private CanvasGroup canvasOptionsSwitch; // pannello operatore
-    private CanvasGroup canvasCommonOptionsSwitch; // pannello operatore
+    private CanvasGroup canvasProtocolsSwitch; // pannello operatore Protocolli
+    private CanvasGroup canvasOptionsSwitch; // pannello operatore Opzioni
+    private CanvasGroup canvasCommonOptionsSwitch; // pannello operatore Variabili
+    private CanvasGroup canvasUserdataSwitch; // pannello operatore dati
 
 
     private GameObject refYard; // pannello utente
@@ -163,6 +164,7 @@ public class BallSpawnFire : MonoBehaviour {
         canvasProtocolsSwitch = GameObject.Find("Sezione").GetComponent<CanvasGroup>(); // i serve per disabilitare l'interfaccia operatore quando la sessione di lancio palle è attiva
         canvasOptionsSwitch = GameObject.Find("Cruscotto Sezione").GetComponent<CanvasGroup>(); // i serve per disabilitare l'interfaccia operatore quando la sessione di lancio palle è attiva
         canvasCommonOptionsSwitch = GameObject.Find("Cruscotto elementi comuni").GetComponent<CanvasGroup>(); // i serve per disabilitare l'interfaccia operatore quando la sessione di lancio palle è attiva
+        canvasUserdataSwitch = GameObject.Find("Punteggi").GetComponent<CanvasGroup>(); // i serve per disabilitare l'interfaccia operatore quando la sessione di lancio palle è attiva
 
         // gestione dell'interfaccia di ausilio utente e la setto su disabilitata all'avvio (appare soltanto durante la sessione)
         refYard = GameObject.Find("[PLAYER INFO]");
@@ -390,7 +392,7 @@ public class BallSpawnFire : MonoBehaviour {
         canvasProtocolsSwitch.interactable = false;
         canvasOptionsSwitch.interactable = false;
         canvasCommonOptionsSwitch.interactable = false;
-
+        canvasUserdataSwitch.interactable = false;
         startButton.SetActive(false);
         stopButton.SetActive(true);
 
@@ -430,6 +432,7 @@ public class BallSpawnFire : MonoBehaviour {
                 canvasProtocolsSwitch.interactable = true;
                 canvasOptionsSwitch.interactable = true;
                 canvasCommonOptionsSwitch.interactable = true;
+                canvasUserdataSwitch.interactable = true;
                 refYard.SetActive(false);
                 startButton.SetActive(true);
                 stopButton.SetActive(false);
@@ -503,6 +506,7 @@ public class BallSpawnFire : MonoBehaviour {
         canvasProtocolsSwitch.interactable = true;
         canvasOptionsSwitch.interactable = true;
         canvasCommonOptionsSwitch.interactable = true;
+        canvasUserdataSwitch.interactable = true;
         refYard.SetActive(false);
         startButton.SetActive(true);
         stopButton.SetActive(false);
