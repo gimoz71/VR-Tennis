@@ -68,7 +68,7 @@ public class DMDrawManager {
         {
             case 0:
                 random = rand.Next(0, 2);
-                if (random == 0)
+                if (random.Equals(0))
                 {
                     randomMatrix[0, 0] = VALORE_MATRICE_TARGET;
                     randomMatrix[0, 1] = VALORE_MATRICE_TARGET;
@@ -85,7 +85,7 @@ public class DMDrawManager {
                 break;
             case 1:
                 random = rand.Next(0, 2);
-                if (random == 0)
+                if (random.Equals(0))
                 {
                     randomMatrix[0, 0] = VALORE_MATRICE_TARGET;
                     randomMatrix[0, 1] = VALORE_MATRICE_TARGET;
@@ -102,28 +102,28 @@ public class DMDrawManager {
                 break;
             case 2:
                 random = rand.Next(0, 4);
-                if (random == 0)
+                if (random.Equals(0))
                 {
                     randomMatrix[0, 0] = VALORE_MATRICE_TARGET;
                     randomMatrix[0, 1] = VALORE_MATRICE_TARGET;
                     randomMatrix[1, 0] = VALORE_MATRICE_VUOTO;
                     randomMatrix[1, 1] = VALORE_MATRICE_VUOTO;
                 }
-                else if (random == 1)
+                else if (random.Equals(1))
                 {
                     randomMatrix[0, 0] = VALORE_MATRICE_DISTRATTORE;
                     randomMatrix[0, 1] = VALORE_MATRICE_DISTRATTORE;
                     randomMatrix[1, 0] = VALORE_MATRICE_VUOTO;
                     randomMatrix[1, 1] = VALORE_MATRICE_VUOTO;
                 }
-                else if (random == 2)
+                else if (random.Equals(2))
                 {
                     randomMatrix[0, 0] = VALORE_MATRICE_VUOTO;
                     randomMatrix[0, 1] = VALORE_MATRICE_VUOTO;
                     randomMatrix[1, 0] = VALORE_MATRICE_TARGET;
                     randomMatrix[1, 1] = VALORE_MATRICE_TARGET;
                 }
-                else if (random == 3)
+                else if (random.Equals(3))
                 {
                     randomMatrix[0, 0] = VALORE_MATRICE_VUOTO;
                     randomMatrix[0, 1] = VALORE_MATRICE_VUOTO;
@@ -133,28 +133,28 @@ public class DMDrawManager {
                 break;
             case 3:
                 random = rand.Next(0, 4);
-                if (random == 0)
+                if (random.Equals(0))
                 {
                     randomMatrix[0, 0] = VALORE_MATRICE_TARGET;
                     randomMatrix[0, 1] = VALORE_MATRICE_TARGET;
                     randomMatrix[1, 0] = VALORE_MATRICE_VUOTO;
                     randomMatrix[1, 1] = VALORE_MATRICE_VUOTO;
                 }
-                else if (random == 1)
+                else if (random.Equals(1))
                 {
                     randomMatrix[0, 0] = VALORE_MATRICE_DISTRATTORE;
                     randomMatrix[0, 1] = VALORE_MATRICE_DISTRATTORE;
                     randomMatrix[1, 0] = VALORE_MATRICE_VUOTO;
                     randomMatrix[1, 1] = VALORE_MATRICE_VUOTO;
                 }
-                else if (random == 2)
+                else if (random.Equals(2))
                 {
                     randomMatrix[0, 0] = VALORE_MATRICE_VUOTO;
                     randomMatrix[0, 1] = VALORE_MATRICE_VUOTO;
                     randomMatrix[1, 0] = VALORE_MATRICE_TARGET;
                     randomMatrix[1, 1] = VALORE_MATRICE_TARGET;
                 }
-                else if (random == 3)
+                else if (random.Equals(3))
                 {
                     randomMatrix[0, 0] = VALORE_MATRICE_VUOTO;
                     randomMatrix[0, 1] = VALORE_MATRICE_VUOTO;
@@ -164,7 +164,7 @@ public class DMDrawManager {
                 break;
             default:
                 random = rand.Next(0, 2);
-                if (random == 0)
+                if (random.Equals(0))
                 {
                     randomMatrix[0, 0] = VALORE_MATRICE_TARGET;
                     randomMatrix[0, 1] = VALORE_MATRICE_TARGET;
@@ -198,6 +198,7 @@ public class DMDrawManager {
         else {
             matrice = nextMatrice;
         }
+        generateNextMatrix();
         Debug.Log("matrice_getMarkersMatrix: " + matrice);
         Debug.Log("--------------------------------------");
         return matrice;

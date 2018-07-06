@@ -52,6 +52,7 @@ public class ProtocolsManager : MonoBehaviour
     private HeadEyeMovementScaler hemObject;
 
     private StroboManager stroboManager;
+    private ScoreManager scoreManager;
 
 
     //setto la posizione e la visibilità dei giocatori in base al protocollo
@@ -80,7 +81,8 @@ public class ProtocolsManager : MonoBehaviour
 
     void Start()
     {
-        
+        scoreManager = ScoreManager.Instance;
+
         playerPosition = GameObject.Find("Player");
         avversarioPosition = GameObject.Find("AvversarioOrigine");
 
@@ -128,6 +130,7 @@ public class ProtocolsManager : MonoBehaviour
         visioniconBG.GetComponent<Image>().color = inactiveColor;
         servizioiconBG.GetComponent<Image>().color = inactiveColor;
 
+        scoreManager.PartitaTemporanea.Protocollo = m_Text.text;
     }
 
 
@@ -150,11 +153,15 @@ public class ProtocolsManager : MonoBehaviour
                 itemValue.GetComponent<Image>().color = inactiveColor;
             }
         }
+
+        
+
         if (buttonClicked == baseButton)
         {
 
             Debug.Log("BASE");
             m_Text.text = "Protocollo Base";
+            
 
             avversarioPosition.transform.position = avversarioPositionDefault.transform.position;
             playerPosition.transform.position = playerPositionDefault.transform.position;
@@ -210,9 +217,6 @@ public class ProtocolsManager : MonoBehaviour
             decisionMakingCanvasGroup.interactable = false;
             differenziazioneCanvasGroup.interactable = false;
 
-           
-
-
         }
         if (buttonClicked == visionButton)
         {
@@ -232,6 +236,7 @@ public class ProtocolsManager : MonoBehaviour
             decisionMaking.gameObject.SetActive(false);
             differenziazione.gameObject.SetActive(true);
             strobo.gameObject.SetActive(true);
+            stroboManager.Init();
             headEyeMovement.gameObject.SetActive(true);
 
             hemObject.enableHEM();
@@ -263,6 +268,7 @@ public class ProtocolsManager : MonoBehaviour
             decisionMaking.gameObject.SetActive(true);
             differenziazione.gameObject.SetActive(false);
             strobo.gameObject.SetActive(true);
+            stroboManager.Init();
             headEyeMovement.gameObject.SetActive(true);
 
             hemObject.enableHEM();
@@ -277,6 +283,8 @@ public class ProtocolsManager : MonoBehaviour
             differenziazioneCanvasGroup.interactable = false;
 
         }
+
+        scoreManager.PartitaTemporanea.Protocollo = m_Text.text;
     }
 
     void OnEnable()

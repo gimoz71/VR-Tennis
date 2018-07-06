@@ -29,12 +29,24 @@ public class AreasManager {
     }
     
     // inizializzo i contatori incrementali usati in DetectArea.cs (DA CENTRALIZZARE!!!)
-    public int counter;
-    public int totalcounter;
+    public int counter;//corretti
+    public int wrongCounter;//colpi sbagliati
+    public int outCounter;//colpi fuori campo
+    public int totalcounter;//totali
+
+    public int racketHitCounter;
+    public float distanceCounter;
 
     // aggiungo le voci nella hashtable allo start
     public void Start()
     {
+        counter = 0;
+        wrongCounter = 0;
+        outCounter = 0;
+        totalcounter = 0;
+        racketHitCounter = 0;
+        distanceCounter = 0f;
+
         // Aree corrette
         listaAreeCorrette.Add("AreaAnterioreDX");
         listaAreeCorrette.Add("AreaPosterioreDX");
@@ -54,6 +66,16 @@ public class AreasManager {
         listaAreeErrate.Add("FuoriCampoDX");
         listaAreeErrate.Add("FuoriCampoAvversario");
         listaAreeErrate.Add("FuoriCampoPlayer");
+        listaAreeErrate.Add("FuoriCampoPlayerSottorete");
+    }
+
+    public void resetCounters() {
+        counter = 0;
+        wrongCounter = 0;
+        outCounter = 0;
+        totalcounter = 0;
+        racketHitCounter = 0;
+        distanceCounter = 0f;
     }
 
     // Estraggo i valori delle aree corrette
@@ -67,4 +89,6 @@ public class AreasManager {
     {
         return listaAreeErrate.Contains(obj);
     }
+
+
 }

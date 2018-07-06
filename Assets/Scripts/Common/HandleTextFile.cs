@@ -1,34 +1,46 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.IO;
 
 public class HandleTextFile : MonoBehaviour
 {
     
     public InputField fieldNome;
     public GameObject alert;
-    private string nome;
+    public GameObject summaryPanel;
 
-    private PlayerState playerState;
+    private string nome;
+    private ScoreManager scoreManager;
+    
 
     void Start()
     {
-        playerState = PlayerState.Instance;
+        scoreManager = ScoreManager.Instance;
     }
 
     public void saveData()
     {
-        playerState.playerName = fieldNome.text;
-        if (playerState.playerName == "")
+        
+
+        if (fieldNome.text == "")
         {
             alert.active = true;
         }
         else
         {
+            scoreManager.setUtente(fieldNome.text, "05/07/2018");
+            scoreManager.creaNuovaSessione();
             alert.active = false;
-            File.WriteAllText("e:/"+ playerState.playerName + ".json", PlayerState.Instance.SaveToString());
+            CloseSommario();
         }
-        
+    }
+
+    public void testSession() {
+        scoreManager.annullaSessione();
+    }
+
+    public void CloseSommario()
+    {
+        summaryPanel.active = false;
     }
 
 }

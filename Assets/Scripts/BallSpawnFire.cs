@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.Scripts.modelli;
 
 public class BallSpawnFire : MonoBehaviour {
 
@@ -9,6 +11,8 @@ public class BallSpawnFire : MonoBehaviour {
     private TargetManager targetManager;
     private ColorManager colorManager;
     private DMDrawManager dmDrawManager;
+    private ScoreManager scoreManager;
+    private StroboManager stroboManager;
 
     public Animator AvatarAnim;
 
@@ -35,6 +39,16 @@ public class BallSpawnFire : MonoBehaviour {
     public GameObject dmTargetSX;
     public GameObject dmDistrattoreDX;
     public GameObject dmDistrattoreSX;
+
+    [Header("Marker Decision Making L4 (Gameobject)")]
+    public GameObject dmTargetAvatarADX;
+    public GameObject dmTargetAvatarASX;
+    public GameObject dmDistrattoreAvatarADX;
+    public GameObject dmDistrattoreAvatarASX;
+    public GameObject dmTargetAvatarPDX;
+    public GameObject dmTargetAvatarPSX;
+    public GameObject dmDistrattoreAvatarPDX;
+    public GameObject dmDistrattoreAvatarPSX;
 
     [Header("Sprite per pannello di supporto utente")]
     // per opzione target
@@ -153,12 +167,16 @@ public class BallSpawnFire : MonoBehaviour {
     public Text countDown;
     private float duration;
 
+    private Partita partita;
+
     private void Start()
     {
         Time.timeScale = 1;
         balltextureManager = BallTextureManager.Instance;
         targetManager = TargetManager.Instance;
         dmDrawManager = DMDrawManager.Instance;
+        scoreManager = ScoreManager.Instance;
+        stroboManager = StroboManager.Instance;
 
         AvatarAnim = GameObject.Find("AvatarAvversario").GetComponent<Animator>(); // mi serve per attivare l'animazione dell'avversario al lancio
         canvasProtocolsSwitch = GameObject.Find("Sezione").GetComponent<CanvasGroup>(); // i serve per disabilitare l'interfaccia operatore quando la sessione di lancio palle è attiva
@@ -251,10 +269,13 @@ public class BallSpawnFire : MonoBehaviour {
     // Lancio palle come da parametri settati negli sliders
     public void SerialFire()
     {
+        AreasManager.Instance.resetCounters();
 
-        if (!isRunning)
+        if (!isRunning) // per evitatare il doppio avvio
         {
 
+            DateTime currentDate = DateTime.Now;
+            scoreManager.PartitaTemporanea.Data = currentDate.ToString("dd/MM/yyyy HH:mm:ss");
 
             if (targetCanvasGroup.interactable)
             { 
@@ -378,6 +399,22 @@ public class BallSpawnFire : MonoBehaviour {
             float quantity = QuantitySlider.GetComponent<Slider>().value;
             float delay = DelaySlider.GetComponent<Slider>().value;
 
+            scoreManager.PartitaTemporanea.NumeroPalle = (int) quantity;
+            scoreManager.PartitaTemporanea.TempoTraLePalle = (int)interval;
+
+            //setto parametri strobo
+            scoreManager.PartitaTemporanea.FrequenzaStrobo = stroboManager.getFrequenzaStrobo();
+            scoreManager.PartitaTemporanea.PercentualeBuioStrobo = stroboManager.getPercentualeBuio();
+            scoreManager.PartitaTemporanea.LenteChiusa = stroboManager.getLenteChiusa();
+            scoreManager.PartitaTemporanea.Alternanza = stroboManager.getAlternanzaLenti();
+
+            Debug.Log("stroboManager.getFrequenzaStrobo(): " + stroboManager.getFrequenzaStrobo() 
+                + "stroboManager.getPercentualeBuio(): " + stroboManager.getPercentualeBuio() 
+                + "stroboManager.getLenteChiusa(): " + stroboManager.getLenteChiusa() 
+                + "stroboManager.getAlternanzaLenti(): " + stroboManager.getAlternanzaLenti());
+
+            
+
             // avvio la routine di ritardo (che lancia la sequenza lancio)
             startRitardoLancio = StartCoroutine(ritardoLancio(delay, quantity, interval));
         }
@@ -442,7 +479,17 @@ public class BallSpawnFire : MonoBehaviour {
 
             
         }
-        
+
+        //salvataggio partita
+
+        scoreManager.PartitaTemporanea.ColpiCorretti = AreasManager.Instance.counter;
+        scoreManager.PartitaTemporanea.ColpiSbagliati = AreasManager.Instance.wrongCounter;
+        scoreManager.PartitaTemporanea.ColpiFuori = AreasManager.Instance.outCounter;
+
+        scoreManager.PartitaTemporanea.MediaDalCentroRacchetta = AreasManager.Instance.distanceCounter / AreasManager.Instance.racketHitCounter;
+        scoreManager.PartitaTemporanea.Accuratezza = ((float)((float)AreasManager.Instance.counter / (float)AreasManager.Instance.totalcounter) * 100) + "%";
+
+        scoreManager.salvaPartita();
     }
 
     // Funziona base lancio palle
@@ -532,10 +579,24 @@ public class BallSpawnFire : MonoBehaviour {
         else {
             //marker a sagome
             //TOGLIERE QUESTA VERSIONE ATTUALE
-            dmTargetSX.SetActive(matrice[1, 1] == DMDrawManager.VALORE_MATRICE_TARGET);
-            dmDistrattoreSX.SetActive(matrice[1, 1] == DMDrawManager.VALORE_MATRICE_DISTRATTORE);
-            dmTargetDX.SetActive(matrice[0, 1] == DMDrawManager.VALORE_MATRICE_TARGET);
-            dmDistrattoreDX.SetActive(matrice[0, 1] == DMDrawManager.VALORE_MATRICE_DISTRATTORE);
+            System.Random rand = new System.Random();
+            int current = rand.Next(0, 2);
+
+            if (current.Equals(0))
+            {
+                dmTargetAvatarASX.SetActive(matrice[1, 1] == DMDrawManager.VALORE_MATRICE_TARGET);
+                dmDistrattoreAvatarASX.SetActive(matrice[1, 1] == DMDrawManager.VALORE_MATRICE_DISTRATTORE);
+                dmTargetAvatarADX.SetActive(matrice[0, 1] == DMDrawManager.VALORE_MATRICE_TARGET);
+                dmDistrattoreAvatarADX.SetActive(matrice[0, 1] == DMDrawManager.VALORE_MATRICE_DISTRATTORE);
+            }
+            else {
+                dmTargetAvatarPSX.SetActive(matrice[1, 1] == DMDrawManager.VALORE_MATRICE_TARGET);
+                dmDistrattoreAvatarPSX.SetActive(matrice[1, 1] == DMDrawManager.VALORE_MATRICE_DISTRATTORE);
+                dmTargetAvatarPDX.SetActive(matrice[0, 1] == DMDrawManager.VALORE_MATRICE_TARGET);
+                dmDistrattoreAvatarPDX.SetActive(matrice[0, 1] == DMDrawManager.VALORE_MATRICE_DISTRATTORE);
+            }
+
+            Debug.Log("CURRENT RANDOM NUMBER: " + current);
         }
 
     }
@@ -545,6 +606,15 @@ public class BallSpawnFire : MonoBehaviour {
         dmDistrattoreSX.SetActive(false);
         dmTargetDX.SetActive(false);
         dmDistrattoreDX.SetActive(false);
+
+        dmTargetAvatarASX.SetActive(false);
+        dmDistrattoreAvatarASX.SetActive(false);
+        dmTargetAvatarADX.SetActive(false);
+        dmDistrattoreAvatarADX.SetActive(false);
+        dmTargetAvatarPSX.SetActive(false);
+        dmDistrattoreAvatarPSX.SetActive(false);
+        dmTargetAvatarPDX.SetActive(false);
+        dmDistrattoreAvatarPDX.SetActive(false);
     }
 
     public IEnumerator CloseCountDown()
