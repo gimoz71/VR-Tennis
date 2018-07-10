@@ -5,46 +5,87 @@ using UnityEngine.UI;
 
 public class HeadEyeMovementScaler : MonoBehaviour {
 
-    private Slider sliderScaler;
-    private Renderer rendererLeft;
-    private Renderer rendererRight;
-    private Vector3 originalScaleLeft;
-    private Vector3 originalScaleRight;
+	public Slider sliderScaler;
+	public Renderer rendererLeft;
+	public Renderer rendererRight;
+	public Vector3 originalScaleLeft;
+	public Vector3 originalScaleRight;
+
+	private ScoreManager scoreManager;
+
+	private static HeadEyeMovementScaler instance;
+
+	public bool startedHEM;
+
+	private HeadEyeMovementScaler() { }
+
+	public static HeadEyeMovementScaler Instance
+	{
+		get
+		{
+			if (instance == null)
+			{
+				instance = new HeadEyeMovementScaler();
+			}
+
+			return instance;
+		}
+	}
 
     // Use this for initialization
-    void Start () {
-        sliderScaler = GameObject.Find("SliderChiusura").GetComponent<Slider>();
-        rendererLeft = GameObject.Find("MaskEyeLeft").GetComponent<Renderer>();
-        rendererRight = GameObject.Find("MaskEyeRight").GetComponent<Renderer>();
-        originalScaleLeft = rendererRight.transform.localScale;
-        originalScaleRight = rendererRight.transform.localScale;
+
+	public void Start() {
+		instance.startedHEM = false;
+	}
+
+    public void Init () {
+		instance.startedHEM = true;
+		instance.sliderScaler = GameObject.Find("SliderChiusura").GetComponent<Slider>();
+        //rendererLeft = GameObject.Find("MaskEyeLeft").GetComponent<Renderer>();
+        //rendererRight = GameObject.Find("MaskEyeRight").GetComponent<Renderer>();
+		//instance.originalScaleLeft = rendererRight.transform.localScale;
+		//instance.originalScaleRight = rendererRight.transform.localScale;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        rendererLeft.transform.localScale = originalScaleLeft - new Vector3(sliderScaler.value, sliderScaler.value, sliderScaler.value) / 270;
-        rendererRight.transform.localScale = originalScaleRight - new Vector3(sliderScaler.value, sliderScaler.value, sliderScaler.value) / 270;
+		if (instance.startedHEM) {
+			//rendererLeft.transform.localScale = originalScaleLeft - new Vector3 (sliderScaler.value, sliderScaler.value, sliderScaler.value) / 270;
+			//rendererRight.transform.localScale = originalScaleRight - new Vector3 (sliderScaler.value, sliderScaler.value, sliderScaler.value) / 270;
+		}
     }
 
     public void enableHEM()
     {
-        resetHEM();
-        rendererLeft.enabled = true;
-        rendererRight.enabled = true;
+		if (instance.startedHEM) {
+			instance.resetHEM ();
+			//rendererLeft.enabled = true;
+			//rendererRight.enabled = true;
+		}
     }
 
     public void disableHEM()
     {
-        resetHEM();
-        rendererLeft.enabled = false;
-        rendererRight.enabled = false;
+		if (instance.startedHEM) {
+			instance.resetHEM ();
+			//rendererLeft.enabled = false;
+			//rendererRight.enabled = false;
+		}
     }
 
     public void resetHEM()
     {
         if (sliderScaler)
         {
-            sliderScaler.value = 0;
+			instance.sliderScaler.value = 0;
         }
     }
+
+	public int getSliderScaler() {
+		if (instance.startedHEM) {
+			return (int)instance.sliderScaler.value;
+		} else {
+			return (int)instance.sliderScaler.value;
+		}
+	}
 }

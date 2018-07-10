@@ -13,6 +13,7 @@ public class BallSpawnFire : MonoBehaviour {
     private DMDrawManager dmDrawManager;
     private ScoreManager scoreManager;
     private StroboManager stroboManager;
+	private HeadEyeMovementScaler headEyeMovementScaler;
 
     public Animator AvatarAnim;
 
@@ -176,7 +177,9 @@ public class BallSpawnFire : MonoBehaviour {
         targetManager = TargetManager.Instance;
         dmDrawManager = DMDrawManager.Instance;
         scoreManager = ScoreManager.Instance;
-        stroboManager = StroboManager.Instance;
+		stroboManager = StroboManager.Instance;
+		stroboManager = StroboManager.Instance;
+		headEyeMovementScaler = HeadEyeMovementScaler.Instance;
 
         AvatarAnim = GameObject.Find("AvatarAvversario").GetComponent<Animator>(); // mi serve per attivare l'animazione dell'avversario al lancio
         canvasProtocolsSwitch = GameObject.Find("Sezione").GetComponent<CanvasGroup>(); // i serve per disabilitare l'interfaccia operatore quando la sessione di lancio palle è attiva
@@ -407,6 +410,7 @@ public class BallSpawnFire : MonoBehaviour {
             scoreManager.PartitaTemporanea.PercentualeBuioStrobo = stroboManager.getPercentualeBuio();
             scoreManager.PartitaTemporanea.LenteChiusa = stroboManager.getLenteChiusa();
             scoreManager.PartitaTemporanea.Alternanza = stroboManager.getAlternanzaLenti();
+			scoreManager.PartitaTemporanea.PercentualeHeadEyeMovement = headEyeMovementScaler.getSliderScaler() + "";
 
             Debug.Log("stroboManager.getFrequenzaStrobo(): " + stroboManager.getFrequenzaStrobo() 
                 + "stroboManager.getPercentualeBuio(): " + stroboManager.getPercentualeBuio() 

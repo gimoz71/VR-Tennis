@@ -49,10 +49,10 @@ public class ProtocolsManager : MonoBehaviour
     // inizializzo le variabili dei manager 
     private BallTextureManager balltextureManager;
     private AreasManager areasManager;
-    private HeadEyeMovementScaler hemObject;
 
     private StroboManager stroboManager;
-    private ScoreManager scoreManager;
+	private ScoreManager scoreManager;
+	private HeadEyeMovementScaler headEyeMovementScaler;
 
 
     //setto la posizione e la visibilità dei giocatori in base al protocollo
@@ -82,6 +82,7 @@ public class ProtocolsManager : MonoBehaviour
     void Start()
     {
         scoreManager = ScoreManager.Instance;
+		headEyeMovementScaler = HeadEyeMovementScaler.Instance;
 
         playerPosition = GameObject.Find("Player");
         avversarioPosition = GameObject.Find("AvversarioOrigine");
@@ -95,7 +96,7 @@ public class ProtocolsManager : MonoBehaviour
         avversarioPosition.transform.position = avversarioPositionDefault.transform.position;
         playerPosition.transform.position = playerPositionDefault.transform.position;
 
-        hemObject = GameObject.Find("SliderChiusura").GetComponent<HeadEyeMovementScaler>();
+        //hemObject = GameObject.Find("SliderChiusura").GetComponent<HeadEyeMovementScaler>();
         balltextureManager = BallTextureManager.Instance;
         areasManager = AreasManager.Instance;
 
@@ -118,7 +119,7 @@ public class ProtocolsManager : MonoBehaviour
         headEyeMovement.gameObject.SetActive(false);
         differenziazione.gameObject.SetActive(false);
 
-        hemObject.disableHEM();
+        //hemObject.disableHEM();
 
         pairButtonIcon();
         //inactiveColor = iconBG.GetComponent<Image>().color;
@@ -178,8 +179,8 @@ public class ProtocolsManager : MonoBehaviour
             strobo.gameObject.SetActive(false);
             stroboManager.StopStrobo();
             headEyeMovement.gameObject.SetActive(false);
-
-            hemObject.disableHEM();
+			headEyeMovementScaler.disableHEM ();
+            //hemObject.disableHEM();
 
             //settaggi di partenza
             targetCanvasGroup.interactable = true;
@@ -207,7 +208,9 @@ public class ProtocolsManager : MonoBehaviour
             stroboManager.StopStrobo();
             headEyeMovement.gameObject.SetActive(true);
 
-            hemObject.enableHEM();
+			headEyeMovementScaler.Init();
+			headEyeMovementScaler.enableHEM ();
+            //hemObject.enableHEM();
             
 
             //settaggi di partenza
@@ -239,7 +242,9 @@ public class ProtocolsManager : MonoBehaviour
             stroboManager.Init();
             headEyeMovement.gameObject.SetActive(true);
 
-            hemObject.enableHEM();
+			headEyeMovementScaler.Init();
+			headEyeMovementScaler.enableHEM ();
+            //hemObject.enableHEM();
             
 
             //settaggi di partenza
@@ -271,7 +276,9 @@ public class ProtocolsManager : MonoBehaviour
             stroboManager.Init();
             headEyeMovement.gameObject.SetActive(true);
 
-            hemObject.enableHEM();
+			headEyeMovementScaler.Init();
+			headEyeMovementScaler.enableHEM ();
+            //hemObject.enableHEM();
 
             
 

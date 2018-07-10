@@ -59,7 +59,7 @@ public class ScoreManager {
     public static int COLUMN_INDEX_ALTERNANZA_LENTI = 20;
     public static int COLUMN_INDEX_PERCENTUALE_HEAD_EYE_MOVEMENT = 21;
 
-    public static string FILE_PATH = "e:/";
+    public static string FILE_PATH = "D:/";
     
     private string fileName = "";
 
