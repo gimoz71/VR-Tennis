@@ -3,7 +3,8 @@ using UnityEngine.UI;
 
 public class HandleTextFile : MonoBehaviour
 {
-    
+
+    public InputField fieldPath;
     public InputField fieldNome;
     public GameObject alert;
     public GameObject summaryPanel;
@@ -21,13 +22,13 @@ public class HandleTextFile : MonoBehaviour
     {
         
 
-        if (fieldNome.text == "")
+        if (fieldNome.text == "" || fieldPath.text == "")
         {
             alert.active = true;
         }
         else
         {
-            scoreManager.setUtente(fieldNome.text, "05/07/2018");
+            scoreManager.setUtente(fieldPath.text, fieldNome.text, "05/07/2018");
             scoreManager.creaNuovaSessione();
             alert.active = false;
             CloseSommario();

@@ -41,17 +41,17 @@ public class HeadEyeMovementScaler : MonoBehaviour {
     public void Init () {
 		instance.startedHEM = true;
 		instance.sliderScaler = GameObject.Find("SliderChiusura").GetComponent<Slider>();
-        //rendererLeft = GameObject.Find("MaskEyeLeft").GetComponent<Renderer>();
-        //rendererRight = GameObject.Find("MaskEyeRight").GetComponent<Renderer>();
-		//instance.originalScaleLeft = rendererRight.transform.localScale;
-		//instance.originalScaleRight = rendererRight.transform.localScale;
+        instance.rendererLeft = GameObject.Find("MaskEyeLeft").GetComponent<Renderer>();
+        instance.rendererRight = GameObject.Find("MaskEyeRight").GetComponent<Renderer>();
+		instance.originalScaleLeft = rendererRight.transform.localScale;
+		instance.originalScaleRight = rendererRight.transform.localScale;
     }
 	
 	// Update is called once per frame
 	void Update () {
 		if (instance.startedHEM) {
-			//rendererLeft.transform.localScale = originalScaleLeft - new Vector3 (sliderScaler.value, sliderScaler.value, sliderScaler.value) / 270;
-			//rendererRight.transform.localScale = originalScaleRight - new Vector3 (sliderScaler.value, sliderScaler.value, sliderScaler.value) / 270;
+            instance.rendererLeft.transform.localScale = instance.originalScaleLeft - new Vector3 (instance.sliderScaler.value, instance.sliderScaler.value, instance.sliderScaler.value) / 270;
+            instance.rendererRight.transform.localScale = instance.originalScaleRight - new Vector3 (instance.sliderScaler.value, instance.sliderScaler.value, instance.sliderScaler.value) / 270;
 		}
     }
 
@@ -59,8 +59,8 @@ public class HeadEyeMovementScaler : MonoBehaviour {
     {
 		if (instance.startedHEM) {
 			instance.resetHEM ();
-			//rendererLeft.enabled = true;
-			//rendererRight.enabled = true;
+			rendererLeft.enabled = true;
+			rendererRight.enabled = true;
 		}
     }
 
@@ -68,8 +68,8 @@ public class HeadEyeMovementScaler : MonoBehaviour {
     {
 		if (instance.startedHEM) {
 			instance.resetHEM ();
-			//rendererLeft.enabled = false;
-			//rendererRight.enabled = false;
+			rendererLeft.enabled = false;
+			rendererRight.enabled = false;
 		}
     }
 

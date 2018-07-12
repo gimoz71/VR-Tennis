@@ -59,8 +59,9 @@ public class ScoreManager {
     public static int COLUMN_INDEX_ALTERNANZA_LENTI = 20;
     public static int COLUMN_INDEX_PERCENTUALE_HEAD_EYE_MOVEMENT = 21;
 
-    public static string FILE_PATH = "D:/";
-    
+    //public static string FILE_PATH = "D:/";
+
+    private string filePath = "";
     private string fileName = "";
 
     private Sessione Sessione { get; set; }
@@ -87,7 +88,9 @@ public class ScoreManager {
         PartitaTemporanea = new Partita();
     }
     
-    public void setUtente(string nome, string dataDiNascita) {
+    public void setUtente(string path, string nome, string dataDiNascita)
+    {
+        filePath = path.ToLower().Replace(" ", "_");
         fileName = nome.ToLower().Replace(" ", "_");
         Sessione = new Sessione();
         Sessione.NomeUtente = nome;
@@ -126,7 +129,7 @@ public class ScoreManager {
 
     public void scriviRigaSuFile(string riga) {
         //il file esiste?
-        string fileCompleteName = ScoreManager.FILE_PATH + fileName + ".csv";
+        string fileCompleteName = filePath + ":/" + fileName + ".csv";
         if (!File.Exists(fileCompleteName)) {
             //se non esiste lo creo
             StreamWriter outStreamHead = System.IO.File.CreateText(fileCompleteName);
