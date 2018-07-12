@@ -462,8 +462,26 @@ public class BallSpawnFire : MonoBehaviour {
             yield return new WaitForSeconds(0.5f);
             AvatarAnim.SetBool("Start", true);
             yield return new WaitForSeconds(0.75f);
+            
             fire();
-            yield return new WaitForSeconds(2);
+            if (decisionMakingCanvasGroup.interactable)
+            {
+                if (dmDrawManager.getLivello() < 3)
+                {
+
+                    
+                    drawMarkers();
+                }
+                else
+                {
+                    yield return new WaitForSeconds(1f);
+                    drawMarkers();
+                }
+            }
+            else {
+                cleanMarkers();
+            }
+            yield return new WaitForSeconds(0);
             AvatarAnim.SetBool("Start", false);
 
             yield return new WaitForSeconds (separation);
@@ -499,12 +517,7 @@ public class BallSpawnFire : MonoBehaviour {
     // Funziona base lancio palle
     public void fire()
     {
-        if (decisionMakingCanvasGroup.interactable) { 
-            drawMarkers();
-        } else
-        {
-            cleanMarkers();
-        }
+        
         // Creo L'istanza del prefab della pallina
         GameObject tennisBall = Instantiate(ballPrefab, playerTransform.position, Quaternion.identity) as GameObject;
            

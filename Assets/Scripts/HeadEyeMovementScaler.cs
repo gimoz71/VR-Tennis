@@ -59,8 +59,8 @@ public class HeadEyeMovementScaler : MonoBehaviour {
     {
 		if (instance.startedHEM) {
 			instance.resetHEM ();
-			rendererLeft.enabled = true;
-			rendererRight.enabled = true;
+            instance.rendererLeft.enabled = true;
+            instance.rendererRight.enabled = true;
 		}
     }
 
@@ -68,8 +68,8 @@ public class HeadEyeMovementScaler : MonoBehaviour {
     {
 		if (instance.startedHEM) {
 			instance.resetHEM ();
-			rendererLeft.enabled = false;
-			rendererRight.enabled = false;
+            instance.rendererLeft.enabled = false;
+            instance.rendererRight.enabled = false;
 		}
     }
 
@@ -85,7 +85,7 @@ public class HeadEyeMovementScaler : MonoBehaviour {
 		if (instance.startedHEM) {
 			return (int)instance.sliderScaler.value;
 		} else {
-			return (int)instance.sliderScaler.value;
+			return 0;
 		}
 	}
 }

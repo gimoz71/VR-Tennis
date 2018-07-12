@@ -11,6 +11,9 @@ public class AreasManager {
     // genero l'hashtable delle aree errate
     public List<string> listaAreeErrate = new List<string>();
 
+    // genero l'hashtable delle aree errate esterne
+    public List<string> listaAreeErrateEsterne = new List<string>();
+
     private static AreasManager instance;
     private AreasManager() { }
 
@@ -62,11 +65,13 @@ public class AreasManager {
         listaAreeErrate.Add("TribunaAvversario");
         listaAreeErrate.Add("TribunaUtente");
         listaAreeErrate.Add("AreaInterna");
-        listaAreeErrate.Add("FuoriCampoSX");
-        listaAreeErrate.Add("FuoriCampoDX");
-        listaAreeErrate.Add("FuoriCampoAvversario");
-        listaAreeErrate.Add("FuoriCampoPlayer");
-        listaAreeErrate.Add("FuoriCampoPlayerSottorete");
+
+        // Aree Errate Esterne
+        listaAreeErrateEsterne.Add("FuoriCampoSX");
+        listaAreeErrateEsterne.Add("FuoriCampoDX");
+        listaAreeErrateEsterne.Add("FuoriCampoAvversario");
+        //listaAreeErrateEsterne.Add("FuoriCampoPlayer");
+        listaAreeErrateEsterne.Add("FuoriCampoPlayerSottorete");
     }
 
     public void resetCounters() {
@@ -90,5 +95,9 @@ public class AreasManager {
         return listaAreeErrate.Contains(obj);
     }
 
+    public bool CheckHitErrorOuter(string obj)
+    {
+        return listaAreeErrateEsterne.Contains(obj);
+    }
 
 }

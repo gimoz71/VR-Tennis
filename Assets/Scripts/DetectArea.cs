@@ -421,7 +421,7 @@ public class DetectArea : MonoBehaviour
         {
             // aggiorno conteggi totali
             AreasManager.Instance.totalcounter += 1;
-            AreasManager.Instance.outCounter += 1;
+            //AreasManager.Instance.outCounter += 1;
 
             if (GameObject.Find("[DEBUGGER TEXT]") != null)
             {
@@ -436,9 +436,14 @@ public class DetectArea : MonoBehaviour
             // Disabilito il collisore dell'instanza della palla dopo la prima collisione
             (gameObject.GetComponent(typeof(SphereCollider)) as Collider).enabled = false;
         }
-        else {
+        else if (areasManager.CheckHitErrorOuter(other.gameObject.name))
+        {
             AreasManager.Instance.totalcounter += 1;
             AreasManager.Instance.outCounter += 1;
+            areaHitSource.PlayOneShot(errorAreaHit, 1f);
+
+            // Disabilito il collisore dell'instanza della palla dopo la prima collisione
+            (gameObject.GetComponent(typeof(SphereCollider)) as Collider).enabled = false;  
         }
 
        

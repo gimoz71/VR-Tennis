@@ -48,6 +48,9 @@ public class StroboManager : MonoBehaviour {
     public void Start() {
         instance.switchButton = false;
         instance.started = false;
+
+
+        scoreManager = ScoreManager.Instance;
     }
 
     public void Init()
@@ -68,8 +71,6 @@ public class StroboManager : MonoBehaviour {
         instance.ToggleLenteDX = GameObject.Find("LenteDX").GetComponent<Toggle>();
 
         instance.ToggleAlternanzaLenti = GameObject.Find("AltLenti").GetComponent<Toggle>();
-
-        scoreManager = ScoreManager.Instance;
     }
 
     public void Update() {
