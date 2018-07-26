@@ -1,8 +1,11 @@
 // Credit to damien_oconnell from http://forum.unity3d.com/threads/39513-Click-drag-camera-movement
 // for using the mouse displacement for calculating the amount of camera movement and panning code.
 
+using System;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
 public class MoveCamera : MonoBehaviour
 {
@@ -43,28 +46,48 @@ public class MoveCamera : MonoBehaviour
         if (toggleCamera)
         {
             cam.enabled = true;
+
+
             // Get the left mouse button
             if (Input.GetMouseButtonDown(0))
             {
-                // Get mouse origin
-                mouseOrigin = Input.mousePosition;
-                isRotating = true;
+				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+				RaycastHit hit;
+				if (Physics.Raycast (ray, out hit)) {
+					if (!IsPointerOverUIObject ()) {
+						// Get mouse origin
+						mouseOrigin = Input.mousePosition;
+						isRotating = true;
+					}
+				}
             }
 
             // Get the right mouse button
             if (Input.GetMouseButtonDown(1))
             {
-                // Get mouse origin
-                mouseOrigin = Input.mousePosition;
-                isPanning = true;
+				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+				RaycastHit hit;
+				if (Physics.Raycast (ray, out hit)) {
+					if (!IsPointerOverUIObject ()) {
+						// Get mouse origin
+						mouseOrigin = Input.mousePosition;
+						isPanning = true;
+					}
+				}
             }
 
             // Get the middle mouse button
             if (Input.GetMouseButtonDown(2))
             {
-                // Get mouse origin
-                mouseOrigin = Input.mousePosition;
-                isZooming = true;
+				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+				RaycastHit hit;
+				if (Physics.Raycast (ray, out hit)) {
+					if (!IsPointerOverUIObject ()) {
+						// Get mouse origin
+						mouseOrigin = Input.mousePosition;
+						isZooming = true;
+					}
+				}
             }
 
             // Disable movements on button release
@@ -103,4 +126,13 @@ public class MoveCamera : MonoBehaviour
             cam.enabled = false;
         }
     }
+
+	private bool IsPointerOverUIObject()
+	{
+		PointerEventData eventDataCurrentPosition = new PointerEventData (EventSystem.current);
+		eventDataCurrentPosition.position = new Vector2 (Input.mousePosition.x, Input.mousePosition.y);
+		List<RaycastResult> results = new List<RaycastResult> ();
+		EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+		return results.Count > 0;   
+	}
 }
