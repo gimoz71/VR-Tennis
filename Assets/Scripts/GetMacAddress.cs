@@ -19,7 +19,7 @@ public class GetMacAddress : MonoBehaviour {
 			).FirstOrDefault();
 		
 
-		if (macAddr.Equals( "0023AE83B346")) {
+		if (macAddr.Equals("0023AE83B346") || macAddr.Equals("0649EC638AE3")) {
 			Debug.Log ("--------------------OK---------------> " + macAddr);
 			mac.text = "";
 			startButton.interactable = true;
