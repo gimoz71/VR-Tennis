@@ -474,8 +474,11 @@ public class BallSpawnFire : MonoBehaviour {
                 }
                 else
                 {
-                    yield return new WaitForSeconds(1f);
+                    yield return new WaitForSeconds(0.8f);
                     drawMarkers();
+
+                    yield return new WaitForSeconds(2f);
+                    cleanMarkers();
                 }
             }
             else {
