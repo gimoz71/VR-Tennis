@@ -441,6 +441,8 @@ public class DetectArea : MonoBehaviour
             AreasManager.Instance.totalcounter += 1;
             AreasManager.Instance.outCounter += 1;
             areaHitSource.PlayOneShot(errorAreaHit, 1f);
+            totaliPanel.text = "Totali: " + AreasManager.Instance.totalcounter;
+            playerState.totalcounter = AreasManager.Instance.totalcounter;
 
             // Disabilito il collisore dell'instanza della palla dopo la prima collisione
             (gameObject.GetComponent(typeof(SphereCollider)) as Collider).enabled = false;  

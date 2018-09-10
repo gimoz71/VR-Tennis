@@ -66,11 +66,11 @@ public class AreasManager {
         listaAreeErrate.Add("TribunaUtente");
         listaAreeErrate.Add("AreaInterna");
 
-        // Aree Errate Esterne
+        // Aree Errate Esterne (ma del campo)
         listaAreeErrateEsterne.Add("FuoriCampoSX");
         listaAreeErrateEsterne.Add("FuoriCampoDX");
         listaAreeErrateEsterne.Add("FuoriCampoAvversario");
-        //listaAreeErrateEsterne.Add("FuoriCampoPlayer");
+        listaAreeErrateEsterne.Add("FuoriCampoPlayer");
         listaAreeErrateEsterne.Add("FuoriCampoPlayerSottorete");
     }
 
