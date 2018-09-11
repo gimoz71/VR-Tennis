@@ -14,16 +14,19 @@ public class BatCapsuleFollower : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
     }
-
+    private void Update()
+    {
+        
+    }
     private void FixedUpdate()
     {
         Vector3 destination = _batFollower.transform.position;
-        _rigidbody.transform.rotation = _batFollower.transform.rotation;
+        _rigidbody.rotation = _batFollower.transform.rotation;
 
         _velocity = (destination - _rigidbody.transform.position) * _sensitivity;
 
         _rigidbody.velocity = _velocity;
-        transform.rotation = _batFollower.transform.rotation;
+       
 
         // registro nella variabile speed il valore della velocità
         _speed = _velocity.magnitude * 10;
