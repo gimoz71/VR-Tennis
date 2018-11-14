@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4689517866058452}
   - component: {fileID: 33460869346718038}
   - component: {fileID: 23162999503431618}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 135510386015469330}
   - component: {fileID: 114457184731541396}
   - component: {fileID: 82464792226385680}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: TennisBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4966417179356240}
   - component: {fileID: 114749430983138928}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: BillBoardOrigin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4461624053560820}
   - component: {fileID: 96884749325805446}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: TrailRender
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 4390484758544504}
   - component: {fileID: 33433845521280014}
   - component: {fileID: 23590619226469676}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: BillBoard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +111,8 @@ GameObject:
   - component: {fileID: 114994151184398062}
   - component: {fileID: 114354536204825476}
   - component: {fileID: 114216416807603396}
-  m_Layer: 0
+  - component: {fileID: 114648263950421482}
+  m_Layer: 13
   m_Name: ThrowableBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -568,6 +569,22 @@ MonoBehaviour:
   successAreaHit: {fileID: 8300000, guid: 33b4ce9abbd98294caa2b3f28ef849df, type: 3}
   racketHit: {fileID: 8300000, guid: 008462312c8aa9b4b8f5f608253fd5c1, type: 3}
   groundHit: {fileID: 8300000, guid: 08beff5c58e3e6648a5b71010a58aba1, type: 3}
+--- !u!114 &114648263950421482
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1980853003164028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08f83453816e7374a996d1953fe6236a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sendTriggerMessage: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4294959103
+  skinWidth: 0.1
 --- !u!114 &114722349882896068
 MonoBehaviour:
   m_ObjectHideFlags: 1
