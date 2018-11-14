@@ -10,7 +10,8 @@ public class SliderWithValue : MonoBehaviour
     public Text text;
     public string feature;
     public string unit;
-    public float decimals = 0;
+    public float decimals;
+    public bool quantita;
 
 
     void OnEnable()
@@ -25,7 +26,12 @@ public class SliderWithValue : MonoBehaviour
 
     void ChangeValue(float value)
     {
-        text.text = value.ToString(feature + ": " + decimals) + " " + unit;
+        if(quantita) {
+            text.text = value.ToString(feature + ": " + decimals) + " " + unit;
+        } else
+        {
+            text.text = value.ToString(feature + ": #." + decimals) + " " + unit;
+        }
     }
 
 

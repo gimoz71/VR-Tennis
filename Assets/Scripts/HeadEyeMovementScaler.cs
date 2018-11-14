@@ -39,7 +39,8 @@ public class HeadEyeMovementScaler : MonoBehaviour {
 	}
 
     public void Init () {
-		instance.startedHEM = true;
+        instance.startedHEM = true;
+        instance.resetHEM();
 		instance.sliderScaler = GameObject.Find("SliderChiusura").GetComponent<Slider>();
         instance.rendererLeft = GameObject.Find("MaskEyeLeft").GetComponent<Renderer>();
         instance.rendererRight = GameObject.Find("MaskEyeRight").GetComponent<Renderer>();
@@ -70,7 +71,9 @@ public class HeadEyeMovementScaler : MonoBehaviour {
 			instance.resetHEM ();
             instance.rendererLeft.enabled = false;
             instance.rendererRight.enabled = false;
-		}
+            instance.rendererLeft.transform.localScale = instance.originalScaleLeft - new Vector3(instance.sliderScaler.value, instance.sliderScaler.value, instance.sliderScaler.value) / 270;
+            instance.rendererRight.transform.localScale = instance.originalScaleRight - new Vector3(instance.sliderScaler.value, instance.sliderScaler.value, instance.sliderScaler.value) / 270;
+        }
     }
 
     public void resetHEM()
@@ -78,6 +81,8 @@ public class HeadEyeMovementScaler : MonoBehaviour {
         if (sliderScaler)
         {
 			instance.sliderScaler.value = 0;
+            instance.rendererLeft.transform.localScale = instance.originalScaleLeft - new Vector3(instance.sliderScaler.value, instance.sliderScaler.value, instance.sliderScaler.value) / 270;
+            instance.rendererRight.transform.localScale = instance.originalScaleRight - new Vector3(instance.sliderScaler.value, instance.sliderScaler.value, instance.sliderScaler.value) / 270;
         }
     }
 
