@@ -47,7 +47,7 @@ public class DetectArea : MonoBehaviour
     private Text protocolloAttivo;
 
     public AudioSource audioSource;
-    private AudioSource areaHitSource;
+    public AudioSource areaHitSource;
     public AudioClip errorAreaHit;
     public AudioClip successAreaHit;
     public AudioClip racketHit;
@@ -77,6 +77,7 @@ public class DetectArea : MonoBehaviour
         dmDrawManager = DMDrawManager.Instance;
 
         areaHitSource = GameObject.Find("Stadium").GetComponent<AudioSource>();
+
         Debug.Log("AUDIOSOURCE: " + areaHitSource);
 
         // Assegno in Runtime i gameobject relativi
@@ -172,7 +173,7 @@ public class DetectArea : MonoBehaviour
 
                 Debug.Log("PULSE!!!!!");
                 Pulse();
-                areaHitSource.PlayOneShot(racketHit, 1f);
+                audioSource.PlayOneShot(racketHit, 1f);
             }
         }
         else if (areasManager.CheckHitCorrect(other.gameObject.name)) // se colpisco aree della hashtable corretta, una delle 4 del campo avversario

@@ -13,7 +13,7 @@ public class DetectAngleRacket : MonoBehaviour {
 	}
 
     // Update is called once per frame
-    void Update() {
+    void FixedUpdate() {
         //Debug.Log(collisoreRacket.rotationOffset);
         if (racketController.transform.rotation.eulerAngles.y <= 270 && racketController.transform.rotation.eulerAngles.y >= 90)
         {
