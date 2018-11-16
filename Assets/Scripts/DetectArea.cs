@@ -173,7 +173,7 @@ public class DetectArea : MonoBehaviour
 
                 Debug.Log("PULSE!!!!!");
                 Pulse();
-                audioSource.PlayOneShot(racketHit, 1f);
+                areaHitSource.PlayOneShot(racketHit, 1f);
             }
         }
         else if (areasManager.CheckHitCorrect(other.gameObject.name)) // se colpisco aree della hashtable corretta, una delle 4 del campo avversario
