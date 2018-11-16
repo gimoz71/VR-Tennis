@@ -538,7 +538,7 @@ public class BallSpawnFire : MonoBehaviour {
             Renderer pallaRenderer = palla.GetComponent<Renderer>();
             pallaRenderer.enabled = false;
 
-            Renderer trailRenderer = trail.GetComponent<Renderer>();
+            //Renderer trailRenderer = trail.GetComponent<Renderer>();
            // trailRenderer.enabled = false;
 
             Renderer billBoardRenderer = billBoard.GetComponent<Renderer>();
