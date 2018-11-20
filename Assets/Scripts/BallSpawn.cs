@@ -59,12 +59,8 @@ public class BallSpawn : MonoBehaviour {
 
             targetManager.setAssociazioneTargetArea(associazioneTargetArea);
         }
-        if ( hand.GetStandardInteractionButtonDown() || ( ( hand.controller != null ) && hand.controller.GetPressDown( Valve.VR.EVRButtonId.k_EButton_Grip ) ) )
-		{
-			GameObject tennisBall=Instantiate(Prefab, ballSpawnPoint.position, Quaternion.identity) as GameObject;
-			Destroy (tennisBall, 15);
-		}
-	}
+       
+    }
 }
 
 

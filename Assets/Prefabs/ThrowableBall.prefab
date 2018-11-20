@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 135510386015469330}
   - component: {fileID: 114457184731541396}
   - component: {fileID: 82464792226385680}
+  - component: {fileID: 167021259586410068}
   m_Layer: 0
   m_Name: TennisBall
   m_TagString: Untagged
@@ -308,11 +309,12 @@ AudioSource:
   m_GameObject: {fileID: 1494239019080536}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243532002274893038, guid: 97aa8fb972632ac40a7fca47428bbdea,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1.47
+  m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 1
@@ -595,10 +597,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 82464792226385680}
-  areaHitSource: {fileID: 0}
   errorAreaHit: {fileID: 8300000, guid: 919292cf8384acd4dad7d4fe8c223e2f, type: 3}
   successAreaHit: {fileID: 8300000, guid: 33b4ce9abbd98294caa2b3f28ef849df, type: 3}
-  racketHit: {fileID: 8300000, guid: 008462312c8aa9b4b8f5f608253fd5c1, type: 3}
+  racketHit: {fileID: 8300000, guid: 33dcc23092553fe4488750a13f9600f2, type: 3}
   groundHit: {fileID: 8300000, guid: 08beff5c58e3e6648a5b71010a58aba1, type: 3}
 --- !u!114 &114722349882896068
 MonoBehaviour:
@@ -703,3 +704,26 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.04
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!167 &167021259586410068
+AudioReverbZone:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1494239019080536}
+  m_Enabled: 1
+  m_MinDistance: 10
+  m_MaxDistance: 15
+  m_ReverbPreset: 10
+  m_Room: -1000
+  m_RoomHF: -698
+  m_DecayTime: 7.24
+  m_DecayHFRatio: 0.33
+  m_Reflections: -1166
+  m_ReflectionsDelay: 0.02
+  m_Reverb: 16
+  m_ReverbDelay: 0.03
+  m_HFReference: 5000
+  m_Diffusion: 100
+  m_Density: 100
+  m_LFReference: 250
+  m_RoomLF: 0
