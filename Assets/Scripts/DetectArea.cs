@@ -225,7 +225,7 @@ public class DetectArea : MonoBehaviour
             }
 
             //MULTICOLORE
-            if (protocolloAttivo.text != "Protocollo Base" && multiColoreCanvasGroup.interactable == true)
+            if ((protocolloAttivo.text.Equals("Vision Training") || protocolloAttivo.text.Equals("Protocollo Cognitivo") || protocolloAttivo.text.Equals("Risposta al Servizio")) && multiColoreCanvasGroup.interactable == true)
             {
 
                 if (GameObject.Find("[DEBUGGER TEXT]") != null)
@@ -264,7 +264,7 @@ public class DetectArea : MonoBehaviour
             }
 
             //MULTISIMBOLO
-            if (protocolloAttivo.text != "Protocollo Base" && multiSimboloCanvasGroup.interactable == true)
+            if (protocolloAttivo.text.Equals("Protocollo Cognitivo") && multiSimboloCanvasGroup.interactable == true)
             {
 
                 if (GameObject.Find("[DEBUGGER TEXT]") != null)
@@ -304,7 +304,7 @@ public class DetectArea : MonoBehaviour
             }
 
             //DIFFERENZIAZIONE
-            else if (protocolloAttivo.text == "Vision Training" || protocolloAttivo.text == "Protocollo Cognitivo" && differenziazioneCanvasGroup.interactable == true)
+            else if ((protocolloAttivo.text.Equals("Vision Training") || protocolloAttivo.text.Equals("Protocollo Cognitivo")) && differenziazioneCanvasGroup.interactable == true)
             {
 
                 if (GameObject.Find("[DEBUGGER TEXT]") != null)
@@ -365,7 +365,7 @@ public class DetectArea : MonoBehaviour
             }
 
             //DECISION MAKING
-            else if (protocolloAttivo.text == "Risposta al Servizio" || protocolloAttivo.text == "Protocollo Cognitivo" && decisionMakingCanvasGroup.interactable == true)
+            else if ((protocolloAttivo.text.Equals("Risposta al Servizio") || protocolloAttivo.text.Equals("Protocollo Cognitivo")) && decisionMakingCanvasGroup.interactable == true)
             {
                 if (ballSpeed.Equals(""))
                 {

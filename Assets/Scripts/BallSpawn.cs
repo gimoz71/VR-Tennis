@@ -9,6 +9,9 @@ using Valve.VR.InteractionSystem;
 
 public class BallSpawn : MonoBehaviour {
 
+
+    // Script per far apparire la pallina nel secondo controller (non attivato nella release finale)
+
     [Header("Palla (Prefab)")]
     public GameObject Prefab;
 
