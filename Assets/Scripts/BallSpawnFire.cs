@@ -332,7 +332,8 @@ public class BallSpawnFire : MonoBehaviour {
                 area3.sprite = getSpriteMCFromIndex(mx_aa_sx);
                 area4.sprite = getSpriteMCFromIndex(mx_ap_sx);
 
-                Debug.Log(mx_ap_dx + " " + mx_aa_dx + " " + mx_ap_sx + " " + mx_aa_sx);
+                Debug.Log("MULTICOLORE:");
+                Debug.Log("mx_ap_dx:" + mx_ap_dx + " | mx_aa_dx:" + mx_aa_dx + " | mx_ap_sx:" + mx_ap_sx + " | mx_aa_sx:" + mx_aa_sx);
 
                 Dictionary<string, int> associazioneTextureArea = new Dictionary<string, int>();
 
@@ -365,7 +366,8 @@ public class BallSpawnFire : MonoBehaviour {
                 area3.sprite = getSpriteMSFromIndex(mx_aa_sx);
                 area4.sprite = getSpriteMSFromIndex(mx_ap_sx);
 
-                Debug.Log(mx_ap_dx + " " + mx_aa_dx + " " + mx_ap_sx + " " + mx_aa_sx);
+                Debug.Log("MULTISIMBOLO:");
+                Debug.Log("mx_ap_dx:" + mx_ap_dx + " | mx_aa_dx:" + mx_aa_dx + " | mx_ap_sx:" + mx_ap_sx + " | mx_aa_sx:" + mx_aa_sx);
 
                 Dictionary<string, int> associazioneTextureArea = new Dictionary<string, int>();
 

@@ -236,7 +236,7 @@ public class ToggleDifficulty : MonoBehaviour {
         origineLancio.transform.localRotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 15.0f);
         pos = new Vector3(x, y, z);
         avversario.transform.localPosition = pos;
-        Debug.Log("RELOCATE!");
+        //Debug.Log("RELOCATE!");
 	}
 
 	public void OnSubmit () {

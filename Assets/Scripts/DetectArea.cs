@@ -78,7 +78,7 @@ public class DetectArea : MonoBehaviour
 
         areaHitSource = GameObject.Find("Stadium").GetComponent<AudioSource>();
 
-        Debug.Log("AUDIOSOURCE: " + areaHitSource);
+        //Debug.Log("AUDIOSOURCE: " + areaHitSource);
 
         // Assegno in Runtime i gameobject relativi
         if (GameObject.Find("[DEBUGGER TEXT]") != null)
@@ -171,7 +171,7 @@ public class DetectArea : MonoBehaviour
 
                 //dmDrawManager.generateNextMatrix();
 
-                Debug.Log("PULSE!!!!!");
+                //Debug.Log("PULSE!!!!!");
                 Pulse();
                 audioSource.PlayOneShot(racketHit, 1f);
             }
