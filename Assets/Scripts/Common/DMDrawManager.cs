@@ -24,7 +24,7 @@ public class DMDrawManager {
     //MAPPA DEGLI SPRITE PER DISTRATTORI/TARGET
     // #TODO
 
-    private int[,] matrice = new int[2,2];
+    private int[,] matrice = new int[2, 2];
     private int[,] nextMatrice = new int[2, 2];
 
     private static DMDrawManager instance;
@@ -47,7 +47,7 @@ public class DMDrawManager {
     private void init() {
         resetMatrix();
         aree = new Dictionary<string, int[]>();
-        
+
         isFirst = true;
         Debug.Log("++++++++++ inizializzato il valore di isFirst a : " + isFirst);
     }
@@ -62,7 +62,7 @@ public class DMDrawManager {
     public int[,] generateRandomMatrix() {
         int[,] randomMatrix = new int[2, 2];
         System.Random rand = new System.Random();
-        
+
         int random = 0;
         switch (livello)
         {
@@ -184,12 +184,12 @@ public class DMDrawManager {
 
         return randomMatrix;
     }
-    
+
 
     public int[,] getMarkersMatrix() {
         Debug.Log("--------------------------------------");
         Debug.Log("isFirst: " + isFirst);
-        
+
         if (isFirst)
         {
             isFirst = false;
@@ -207,7 +207,7 @@ public class DMDrawManager {
     public void generateNextMatrix() {
         nextMatrice = generateRandomMatrix();
     }
-    
+
     public void setLivello(int level) {
         livello = level;
     }
@@ -224,10 +224,19 @@ public class DMDrawManager {
         aree = dic;
     }
 
-    public bool checkCombination(string zone) {
+    public int [,] getCurrentMatrix()
+    {
+        return matrice;
+    }
+
+    public bool checkCombination(string zone, int[,] matriceAttuale) {
 
         int[] coordinate = aree[zone];
-        int valoreArea = matrice[coordinate[0], coordinate[1]];
+        /*Debug.LogError("zone: " + zone);
+        Debug.LogError("aree: " + aree);
+        Debug.LogError("coordinate: " + coordinate);
+        Debug.LogError("matriceAttuale: " + matriceAttuale);*/
+        int valoreArea = matriceAttuale[coordinate[0], coordinate[1]];
 
         Debug.Log("****************************");
         Debug.Log("zona_colpita: " + zone);
@@ -253,7 +262,7 @@ public class DMDrawManager {
                     // IMPORTANTE!!!! CAMBIO SOLO LA PRIMA COORDINATA IN QUANTO I VALORI SONO UGUALI A COPPIA. 
                     // SE VIENE IMPLEMENTATO IL VALORE PER OGNI SINGOLA AREA QUESTO NON VALE PIU'!!!!
                     int coordinataScambiata = (coordinate[0].Equals(0) ? 1 : 0);
-                    int valoreAreaOpposta = matrice[coordinataScambiata, coordinate[1]];
+                    int valoreAreaOpposta = matriceAttuale[coordinataScambiata, coordinate[1]];
                     return (valoreAreaOpposta.Equals(VALORE_MATRICE_DISTRATTORE));
                 }
             case 3:
@@ -268,7 +277,7 @@ public class DMDrawManager {
                 else {
                     //scambio le coordinate e ottengo il valore dell'area opposta
                     int coordinataScambiata = (coordinate[0].Equals(0) ? 1 : 0);
-                    int valoreAreaOpposta = matrice[coordinataScambiata, coordinate[1]];
+                    int valoreAreaOpposta = matriceAttuale[coordinataScambiata, coordinate[1]];
                     return (valoreAreaOpposta.Equals(VALORE_MATRICE_DISTRATTORE));
                 }
             default:

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GameGround
   - cameraInspector
+  - racchetta
   layers:
   - Default
   - TransparentFX

@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class OpenCloseSummary : MonoBehaviour {
 
-    public GameObject summaryPanel;
+    public GameObject sommarioUI;
 
 	// Use this for initialization
 	void Start () {
-        //summaryPanel = GameObject.Find("Sommario");
-        summaryPanel.active = false;
+        // summaryPanel = GameObject.Find("Sommario");
+        // sommarioUI.active = false;
     }
 	
     public void OpenSommario()
     {
-        summaryPanel.active = true;
+        sommarioUI.active = true;
     }
 
     public void CloseSommario()
     {
-        summaryPanel.active = false;
+        sommarioUI.active = false;
     }
 }

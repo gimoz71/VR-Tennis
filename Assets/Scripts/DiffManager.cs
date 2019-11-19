@@ -78,7 +78,11 @@ public class DiffManager {
         return livelloPrecedente;
     }
 
-    public bool checkCombination(string speed, string zone) {
+    public bool checkCombination(string speed, string zone, int type) {
+
+        //0 zona
+        //1 potenza
+        //2 zona+potenza
 
         /* Debug.Log("************** INIZIO ******************");
          stampaCombinazioni();
@@ -141,13 +145,32 @@ public class DiffManager {
             //siamo nel primo colpo 
             return true;
         }
-        
-        if (indiceVelocita.Equals(indiceVelocitaPrecedente) || indiceZona.Equals(indiceZonaPrecedente))
-        {
-            //ho colpito nella stessa riga o nella stessa colonna della matrice rispetto al colpo precedente
-            return false;
-        }
 
+        if (type == 0)//zona
+        {
+            if (indiceZona.Equals(indiceZonaPrecedente))
+            {
+                //ho colpito nella stessa riga o nella stessa colonna della matrice rispetto al colpo precedente
+                return false;
+            }
+        }
+        else if (type == 1)//potenza
+        {
+            if (indiceVelocita.Equals(indiceVelocitaPrecedente))
+            {
+                //ho colpito nella stessa riga o nella stessa colonna della matrice rispetto al colpo precedente
+                return false;
+            }
+        }
+        else//zona+potenza
+        {
+            if (indiceVelocita.Equals(indiceVelocitaPrecedente) || indiceZona.Equals(indiceZonaPrecedente))
+            {
+                //ho colpito nella stessa riga o nella stessa colonna della matrice rispetto al colpo precedente
+                return false;
+            }
+        }
+        
         return true;
     }
 

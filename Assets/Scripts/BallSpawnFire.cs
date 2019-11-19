@@ -471,7 +471,6 @@ public class BallSpawnFire : MonoBehaviour {
                 if (dmDrawManager.getLivello() < 3)
                 {
 
-                    
                     drawMarkers();
                 }
                 else

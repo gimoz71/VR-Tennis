@@ -9,6 +9,8 @@ public class HandleTextFile : MonoBehaviour
     public GameObject alert;
     public GameObject summaryPanel;
 
+    public Text nomeAtleta;
+
     private string nome;
     private ScoreManager scoreManager;
     
@@ -28,8 +30,9 @@ public class HandleTextFile : MonoBehaviour
         }
         else
         {
-            scoreManager.setUtente(fieldPath.text, fieldNome.text, "05/07/2018");
+            scoreManager.setUtente(fieldPath.text, fieldNome.text, System.DateTime.Now.ToString("dd/MM/YY"));
             scoreManager.creaNuovaSessione();
+            nomeAtleta.text = fieldNome.text;
             alert.active = false;
             CloseSommario();
         }
@@ -37,6 +40,7 @@ public class HandleTextFile : MonoBehaviour
 
     public void testSession() {
         scoreManager.annullaSessione();
+        CloseSommario();
     }
 
     public void CloseSommario()

@@ -13,6 +13,10 @@ public class GetMacAddress : MonoBehaviour
 
     public static string MAC_ADDRESS_SVILUPPO = "C86000CC99C2";
     public static string MAC_ADDRESS_CLIENTE = "0C5415DB124E";
+    public static string MAC_ADDRESS_CLIENTE_2a = "04EA57B78B35";
+    public static string MAC_ADDRESS_CLIENTE_2b = "06EA56B78B35";
+    public static string MAC_ADDRESS_CLIENTE_2c = "04EA56B78B36";
+    public static string MAC_ADDRESS_CLIENTE_2d = "04D4C46EEB96";
 
     // Use this for initialization
     void Start()
@@ -23,7 +27,7 @@ public class GetMacAddress : MonoBehaviour
                 select nic.GetPhysicalAddress().ToString()
             ).ToList();
 
-        if (addresses.IndexOf(MAC_ADDRESS_CLIENTE) != -1 || addresses.IndexOf(MAC_ADDRESS_SVILUPPO) != -1)
+        if (addresses.IndexOf(MAC_ADDRESS_CLIENTE) != -1 || addresses.IndexOf(MAC_ADDRESS_SVILUPPO) != -1 || addresses.IndexOf(MAC_ADDRESS_CLIENTE_2a) != -1 || addresses.IndexOf(MAC_ADDRESS_CLIENTE_2b) != -1 || addresses.IndexOf(MAC_ADDRESS_CLIENTE_2c) != -1 || addresses.IndexOf(MAC_ADDRESS_CLIENTE_2d) != -1)
         {
             
             //trovato

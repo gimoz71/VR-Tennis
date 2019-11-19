@@ -24,6 +24,8 @@ public class MoveCamera : MonoBehaviour
     private bool isRotating;    // Is the camera being rotated?
     private bool isZooming;     // Is the camera zooming?
 
+    public GameObject sommarioUI;
+
     private bool toggleCamera;
 
 
@@ -38,10 +40,12 @@ public class MoveCamera : MonoBehaviour
 
     void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (!sommarioUI.activeSelf)
         {
-            toggleCamera = !toggleCamera;
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                toggleCamera = !toggleCamera;
+            }
         }
         if (toggleCamera)
         {
