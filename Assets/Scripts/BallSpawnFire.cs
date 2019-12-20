@@ -471,6 +471,7 @@ public class BallSpawnFire : MonoBehaviour {
                 if (dmDrawManager.getLivello() < 3)
                 {
 
+                    yield return new WaitForSeconds(0.8f);
                     drawMarkers();
                 }
                 else
@@ -478,8 +479,8 @@ public class BallSpawnFire : MonoBehaviour {
                     yield return new WaitForSeconds(0.8f);
                     drawMarkers();
 
-                    yield return new WaitForSeconds(2f);
-                    cleanMarkers();
+                    yield return new WaitForSeconds(0f);
+                    //cleanMarkers();
                 }
             }
             else {

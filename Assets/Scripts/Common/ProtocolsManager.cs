@@ -204,8 +204,9 @@ public class ProtocolsManager : MonoBehaviour
             multiSimbolo.gameObject.SetActive(true);
             decisionMaking.gameObject.SetActive(true);
             differenziazione.gameObject.SetActive(true);
-            strobo.gameObject.SetActive(false);
-            stroboManager.StopStrobo();
+            strobo.gameObject.SetActive(true);
+            //stroboManager.StopStrobo();
+            stroboManager.Init();
             headEyeMovement.gameObject.SetActive(true);
 
 			headEyeMovementScaler.Init();
