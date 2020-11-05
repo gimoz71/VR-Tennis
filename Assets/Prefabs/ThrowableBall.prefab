@@ -510,7 +510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edaf749ff55926241bbbdfa29462102b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectScale: 2
+  objectScale: 1
   ballSizeTarget: {fileID: 0}
 --- !u!114 &114173304344140982
 MonoBehaviour:
